@@ -1,0 +1,54 @@
+{% extends "blog/base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<!-- ===== LINHA 1: POSTS (Largura Total) ===== -->
+<div class="row">
+  <div class="col-12"> <!-- Mudei de col-md-8 para col-12 para ocupar a tela toda -->
+    <div class="row">
+      {% for post in page_obj %}
+        <div class="col-md-4 mb-4"> <!-- Mudei para 4 para ficarem 3 posts por linha (como na sua 1ª foto) -->
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ post.title }}</h5>
+              <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+              <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Read more</a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p>No posts yet.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Paginação -->
+    <nav>
+      <ul class="pagination mt-3">
+        {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+        {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</div> <!-- Fim da linha dos posts -->
+
+<!-- ===== LINHA 2: CATEGORIAS (Embaixo dos posts) ===== -->
+<div class="row mt-5"> <!-- mt-5 dá um espaço entre os posts e as categorias -->
+  <div class="col-12">
+    <h5>Categories</h5>
+    <!-- Coloquei um estilo de "tags" (etiquetas) para ficar bonito na horizontal -->
+    <div class="d-flex flex-wrap gap-3 mt-3">
+      {% for category in categories %}
+        <div class="border rounded p-2 bg-light">
+          {{ category.name }} ({{ category.posts.count }})
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
