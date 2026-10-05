@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings          # <--- ADICIONADO
+from django.conf.urls.static import static # <--- ADICIONADO
 from blog import views as blog_views 
 import debug_toolbar
 
@@ -25,3 +27,7 @@ urlpatterns = [
     path("blog/", include("blog.urls")),
     path("__debug__/", include(debug_toolbar.urls)),
 ]
+
+# --- ADICIONADO CONFORME A IMAGEM ---
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

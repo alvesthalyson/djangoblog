@@ -9,7 +9,8 @@
     <div class="alert alert-danger">{{ form.non_field_errors }}</div>
 {% endif %}
 
-<form method="post">
+<!-- ALTERADO: Adicionado enctype="multipart/form-data" -->
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% for field in form %}
         <div class="mb-3">

@@ -16,7 +16,7 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
-    StatusChoices = [('draft', 'Draft'),     ('published', 'Published'), ]
+    StatusChoices = [('draft', 'Draft'), ('published', 'Published'), ]
 
     tags = models.ManyToManyField(Tag, blank=True, related_name="posts")
 
@@ -27,10 +27,16 @@ class Post(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts"
     )
+    
+    # --- ADICIONADO CONFORME A IMAGEM ANTERIOR ---
+    cover_image = models.ImageField(upload_to="post_covers/", blank=True, null=True)
+    # ---------------------------------------------
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def save    (self, *args, **kwargs):
+    # --- CORRIGIDO: Removido o espaço extra entre 'save' e '(self...)' ---
+    def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)           

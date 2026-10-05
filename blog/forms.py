@@ -4,7 +4,9 @@ from .models import Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["title", "content", "category", "tags", "status"]
+        # --- ALTERADO CONFORME A IMAGEM ---
+        fields = ["title", "content", "category", "tags", "status", "cover_image"]
+        
         widgets = {
             "content": forms.Textarea(attrs={"rows": 8, "class": "form-control"}),
             "title": forms.TextInput(attrs={"class": "form-control"}),
@@ -18,7 +20,6 @@ class PostForm(forms.ModelForm):
             raise forms.ValidationError("Title must be at least 5 characters long.")
         return title
 
-    # --- Adicionado conforme a imagem ---
     def clean(self):
         cleaned_data = super().clean()
         title = cleaned_data.get("title")

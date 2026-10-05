@@ -4,11 +4,17 @@
 
 <!-- ===== LINHA 1: POSTS (Largura Total) ===== -->
 <div class="row">
-  <div class="col-12"> <!-- Mudei de col-md-8 para col-12 para ocupar a tela toda -->
+  <div class="col-12">
     <div class="row">
       {% for post in page_obj %}
-        <div class="col-md-4 mb-4"> <!-- Mudei para 4 para ficarem 3 posts por linha (como na sua 1ª foto) -->
+        <div class="col-md-4 mb-4">
           <div class="card h-100">
+            
+            <!-- ADICIONADO CONFORME A IMAGEM: Imagem de capa no topo do card -->
+            {% if post.cover_image %}
+              <img src="{{ post.cover_image.url }}" class="card-img-top" alt="{{ post.title }}">
+            {% endif %}
+            
             <div class="card-body">
               <h5 class="card-title">{{ post.title }}</h5>
               <p class="card-text">{{ post.content|truncatewords:20 }}</p>
@@ -37,10 +43,9 @@
 </div> <!-- Fim da linha dos posts -->
 
 <!-- ===== LINHA 2: CATEGORIAS (Embaixo dos posts) ===== -->
-<div class="row mt-5"> <!-- mt-5 dá um espaço entre os posts e as categorias -->
+<div class="row mt-5">
   <div class="col-12">
     <h5>Categories</h5>
-    <!-- Coloquei um estilo de "tags" (etiquetas) para ficar bonito na horizontal -->
     <div class="d-flex flex-wrap gap-3 mt-3">
       {% for category in categories %}
         <div class="border rounded p-2 bg-light">
