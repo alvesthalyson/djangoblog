@@ -27,3 +27,17 @@ class PostForm(forms.ModelForm):
         if title and content and title.lower() in content.lower()[:50]:
             raise forms.ValidationError("Don't repeat the title verbatim at the start of the content.")
         return cleaned_data
+
+    # --- ADICIONADO CONFORME A IMAGEM ---
+    def clean_cover_image(self):
+        image = self.cleaned_data.get("cover_image")
+        if image:
+            # Verifica o tamanho (máximo 5 MB)
+            if image.size > 5 * 1024 * 1024:
+                raise forms.ValidationError("Image file too large (max 5MB).")
+            
+            # Verifica a extensão do arquivo
+            valid_extensions = [".jpg", ".jpeg", ".png", ".webp"]
+            if not any(image.name.lower().endswith(ext) for ext in valid_extensions):
+                raise forms.ValidationError("Unsupported file type. Use JPG, PNG, or WEBP.")
+        return image
