@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
-from PIL import Image  # <--- ADICIONADO CONFORME A IMAGEM
+from django.conf import settings  # <--- ADICIONADO CONFORME A IMAGEM
+from PIL import Image
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -29,13 +31,20 @@ class Post(models.Model):
         Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts"
     )
     
+    # --- ADICIONADO CONFORME A IMAGEM: Campo de Autor ---
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        related_name="posts"
+    )
+    # ----------------------------------------------------
+    
     # Campo de imagem de capa
     cover_image = models.ImageField(upload_to="post_covers/", blank=True, null=True)
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # --- MÉTODO SAVE ATUALIZADO CONFORME A IMAGEM ---
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)

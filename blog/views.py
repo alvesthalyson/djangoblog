@@ -2,65 +2,103 @@ from django.shortcuts import render
 from .models import Post, Category, Tag
 
 # --- IMPORTS ADICIONADOS ---
-from .forms import PostForm  # Importa o formulário personalizado que criamos
+from .forms import PostForm, RegisterForm
+from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
 
 # Imports necessários para as Classes
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.db import models  # <--- ADICIONADO para usar models.Q
 
 # --- Views Baseadas em Classes ---
 
 class PostListView(ListView):
     model = Post
     template_name = "blog/post_list.html"
-    context_object_name = "page_obj" 
     paginate_by = 6
 
     def get_queryset(self):
-        # Filtra apenas posts publicados e ordena do mais recente
         return Post.objects.filter(status="published").order_by("-created_at")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Adiciona categorias e tags ao contexto
         context["categories"] = Category.objects.all()
         context["tags"] = Tag.objects.all()
         return context
 
+# --- PostDetailView ATUALIZADA CONFORME A IMAGEM ---
 class PostDetailView(DetailView):
     model = Post
     template_name = "blog/post_detail.html"
     context_object_name = "post"
 
     def get_queryset(self):
-        # Garante que apenas posts publicados sejam acessíveis
-        return Post.objects.filter(status="published")
+        post = Post.objects.filter(status="published")
+        if self.request.user.is_authenticated:
+            post = Post.objects.filter(
+                models.Q(status="published") | models.Q(author=self.request.user)
+            )
+        return post
+# ----------------------------------------------------
 
-# --- Classes Atualizadas para usar o PostForm ---
-
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    form_class = PostForm  # <--- ALTERADO: substitui 'fields = [...]'
+    form_class = PostForm
     template_name = "blog/post_form.html"
+    login_url = "login"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        messages.success(self.request, "Post published successfully!")
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy("post_detail", kwargs={"slug": self.object.slug})
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    form_class = PostForm  # <--- ALTERADO: substitui 'fields = [...]'
-    template_name = "blog/post_form.html" 
+    form_class = PostForm
+    template_name = "blog/post_form.html"
+    login_url = "login"
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
 
     def get_success_url(self):
         return reverse_lazy("post_detail", kwargs={"slug": self.object.slug})
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = "blog/post_confirm_delete.html"
-    success_url = reverse_lazy("home") 
+    login_url = "login"
+    success_url = reverse_lazy("home")
 
-# --- Views Baseadas em Funções (Mantidas para about e contact) ---
+    def test_func(self):
+        return self.get_object().author == self.request.user
+
+class MyPostsView(LoginRequiredMixin, ListView):
+    model = Post
+    template_name = "blog/my_posts.html"
+    paginate_by = 6
+    login_url = "login"
+
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user).order_by("-created_at")
+
+class RegisterView(CreateView):
+    form_class = RegisterForm
+    template_name = "blog/register.html"
+    success_url = "/"
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        login(self.request, self.object)
+        return response
+
+# --- Views Baseadas em Funções ---
 
 def home(request):
     categories = Category.objects.all()
@@ -72,3 +110,7 @@ def about(request):
 
 def contact(request):
     return render(request, "blog/contact.html", {"content": "DjangoBlog Team"})
+
+# --- HANDLER CUSTOMIZADO ---
+def custom_403(request, exception=None):
+    return render(request, "blog/403.html", status=403)

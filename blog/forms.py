@@ -1,12 +1,22 @@
 from django import forms
 from .models import Post
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+
+class RegisterForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ["username", "email", "password1", "password2"]
+
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        # --- ALTERADO CONFORME A IMAGEM ---
         fields = ["title", "content", "category", "tags", "status", "cover_image"]
-        
+
         widgets = {
             "content": forms.Textarea(attrs={"rows": 8, "class": "form-control"}),
             "title": forms.TextInput(attrs={"class": "form-control"}),
@@ -28,15 +38,11 @@ class PostForm(forms.ModelForm):
             raise forms.ValidationError("Don't repeat the title verbatim at the start of the content.")
         return cleaned_data
 
-    # --- ADICIONADO CONFORME A IMAGEM ---
     def clean_cover_image(self):
         image = self.cleaned_data.get("cover_image")
         if image:
-            # Verifica o tamanho (máximo 5 MB)
             if image.size > 5 * 1024 * 1024:
                 raise forms.ValidationError("Image file too large (max 5MB).")
-            
-            # Verifica a extensão do arquivo
             valid_extensions = [".jpg", ".jpeg", ".png", ".webp"]
             if not any(image.name.lower().endswith(ext) for ext in valid_extensions):
                 raise forms.ValidationError("Unsupported file type. Use JPG, PNG, or WEBP.")

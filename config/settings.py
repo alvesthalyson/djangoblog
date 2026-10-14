@@ -120,11 +120,24 @@ STATICFILES_DIRS = [
     BASE_DIR / "blog" / "static",
 ]
 
-# --- ADICIONADO CONFORME A IMAGEM ---
 # Media files (User-uploaded files like images)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# --- ADICIONADO CONFORME A IMAGEM ---
+# Configurações de Autenticação (redirecionamento após login/logout)
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
+
+# Configuração de Email (exibe no console em vez de enviar)
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # ------------------------------------
+
+# --- ADICIONADO CONFORME A IMAGEM (mensagens) ---
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {messages.ERROR: "danger"}
+# ------------------------------------------------
 
 
 # Default primary key field type
