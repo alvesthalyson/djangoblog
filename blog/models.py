@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-from django.conf import settings  # <--- ADICIONADO CONFORME A IMAGEM
+from django.conf import settings
 from PIL import Image
 
 
@@ -30,27 +30,33 @@ class Post(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts"
     )
-    
-    # --- ADICIONADO CONFORME A IMAGEM: Campo de Autor ---
+
     author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, 
-        on_delete=models.CASCADE, 
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
         related_name="posts"
     )
-    # ----------------------------------------------------
-    
-    # Campo de imagem de capa
+
+    # Cover image field
     cover_image = models.ImageField(upload_to="post_covers/", blank=True, null=True)
-    
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
+        # Generate a unique slug (only when the post has none yet)
         if not self.slug:
-            self.slug = slugify(self.title)
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+            while Post.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+
         super().save(*args, **kwargs)
-        
-        # Redimensiona a imagem se for maior que 800x800
+
+        # Resize the image if it is larger than 800x800
         if self.cover_image:
             img_path = self.cover_image.path
             img = Image.open(img_path)
@@ -58,5 +64,5 @@ class Post(models.Model):
                 img.thumbnail((800, 800))
                 img.save(img_path)
 
-    def __str__(self):  
+    def __str__(self):
         return self.title
