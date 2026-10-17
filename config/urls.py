@@ -8,7 +8,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from blog import views as blog_views
-import debug_toolbar
 
 
 # --- HANDLERS DE ERRO PERSONALIZADOS ---
@@ -71,22 +70,17 @@ urlpatterns = [
         name="password_reset_complete",
     ),
 
-    # Rota temporária para visualizar a página 500
-    path(
-        "test-500/",
-        blog_views.custom_500,
-        name="test_500",
-    ),
-
     # Rotas do blog
     path("", include("blog.urls")),
-
-    # Django Debug Toolbar
-    path("__debug__/", include(debug_toolbar.urls)),
 ]
 
 
 if settings.DEBUG:
+    # Django Debug Toolbar (só em desenvolvimento)
+    import debug_toolbar
+
+    urlpatterns += [path("__debug__/", include(debug_toolbar.urls))]
+
     # Exibe as imagens enviadas durante o desenvolvimento
     urlpatterns += static(
         settings.MEDIA_URL,

@@ -1,6 +1,26 @@
 {% extends "blog/base.html" %}
 {% block title %}About{% endblock %}
 {% block content %}
-    <h1>About {{ team }}</h1>
-    <p>This is a Django template. Variables use double curly braces.</p>
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <h1 class="mb-3">About DjangoBlog</h1>
+    <p class="lead">
+      DjangoBlog is a multi-user blogging platform built with Django, PostgreSQL and Bootstrap 5.
+    </p>
+
+    <h2 class="h4 mt-4">What you can do</h2>
+    <ul>
+      <li>Create an account and sign in or out securely.</li>
+      <li>Write, edit and delete your own posts, with an optional cover image.</li>
+      <li>Save posts as drafts that only you can see, then publish them when ready.</li>
+      <li>Organize content with categories and tags.</li>
+      <li>Reset your password by e-mail.</li>
+    </ul>
+
+    <h2 class="h4 mt-4">Built with</h2>
+    <p class="mb-0">
+      Django 5 · PostgreSQL · Bootstrap 5 · Pillow · WhiteNoise
+    </p>
+  </div>
+</div>
 {% endblock %}
