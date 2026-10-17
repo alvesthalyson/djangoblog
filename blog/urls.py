@@ -1,5 +1,4 @@
 from django.urls import path
-# Importe todas as views necessárias de uma vez
 from .views import (
     PostListView, 
     PostDetailView, 
@@ -7,7 +6,7 @@ from .views import (
     PostUpdateView, 
     PostDeleteView, 
     RegisterView, 
-    MyPostsView,  # <--- ADICIONADO CONFORME A IMAGEM
+    MyPostsView,
     about, 
     contact
 )
@@ -17,7 +16,7 @@ urlpatterns = [
     path("", PostListView.as_view(), name="home"),
     
     # Rota "Meus Posts" (apenas posts do usuário logado)
-    path("my-posts/", MyPostsView.as_view(), name="my_posts"),  # <--- ADICIONADO
+    path("my-posts/", MyPostsView.as_view(), name="my_posts"),
     
     # Rota de Registro de Usuário
     path("register/", RegisterView.as_view(), name="register"),

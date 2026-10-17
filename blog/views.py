@@ -1,17 +1,15 @@
 from django.shortcuts import render
 from .models import Post, Category, Tag
 
-# --- IMPORTS ADICIONADOS ---
 from .forms import PostForm, RegisterForm
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 
-# Imports necessários para as Classes
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from django.db import models  # <--- ADICIONADO para usar models.Q
+from django.db import models
 
 # --- Views Baseadas em Classes ---
 
@@ -29,20 +27,19 @@ class PostListView(ListView):
         context["tags"] = Tag.objects.all()
         return context
 
-# --- PostDetailView ATUALIZADA CONFORME A IMAGEM ---
 class PostDetailView(DetailView):
     model = Post
     template_name = "blog/post_detail.html"
     context_object_name = "post"
 
     def get_queryset(self):
-        post = Post.objects.filter(status="published")
+        # Posts publicados são públicos; rascunhos só aparecem para o autor.
+        queryset = Post.objects.filter(status="published")
         if self.request.user.is_authenticated:
-            post = Post.objects.filter(
+            queryset = Post.objects.filter(
                 models.Q(status="published") | models.Q(author=self.request.user)
             )
-        return post
-# ----------------------------------------------------
+        return queryset
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -100,23 +97,18 @@ class RegisterView(CreateView):
 
 # --- Views Baseadas em Funções ---
 
-def home(request):
-    categories = Category.objects.all()
-    tags = Tag.objects.all()
-    return render(request, "blog/home.html", {"categories": categories, "tags": tags})
-
 def about(request):
-    return render(request, "blog/about.html", {"team": "DjangoBlog Team"})
+    return render(request, "blog/about.html", {})
 
 def contact(request):
-    return render(request, "blog/contact.html", {"content": "DjangoBlog Team"})
+    return render(request, "blog/contact.html", {})
 
-# --- HANDLER CUSTOMIZADO ---
+# --- Handlers de erro personalizados ---
 def custom_403(request, exception=None):
     return render(request, "blog/403.html", status=403)
 
 def custom_404(request, exception=None):
-    return render(request, "404.html", status=404) 
+    return render(request, "404.html", status=404)
 
 def custom_500(request):
-    return render(request, "500.html", status=500)     
+    return render(request, "500.html", status=500)

@@ -15,7 +15,7 @@
             Publicado em: {{ post.created_at|date:"d/m/Y" }}
         </p>
         
-        <!-- ADICIONADO CONFORME A IMAGEM: Informação do Autor -->
+        <!-- Informação do autor -->
         <p class="text-muted">By {{ post.author.username }} on {{ post.created_at|date:"M d, Y" }}</p>
         
         <hr>
@@ -34,7 +34,7 @@
         <div class="mt-3">
             <a href="{% url 'home' %}" class="btn btn-secondary">← Voltar para a lista</a>
             
-            <!-- ADICIONADO CONFORME A IMAGEM: Bloco condicional -->
+            <!-- Ações do autor -->
             {% if post.author == request.user %}
                 <a href="{% url 'post_edit' post.slug %}" class="btn btn-sm btn-outline-secondary">Edit</a>
                 <a href="{% url 'post_delete' post.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>

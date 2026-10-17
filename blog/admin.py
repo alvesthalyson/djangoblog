@@ -3,8 +3,8 @@ from .models import Post, Category, Tag
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("title", "status", "created_at")
-    list_filter = ("status",)
+    list_display = ("title", "author", "status", "category", "created_at")
+    list_filter = ("status", "category")
     search_fields = ("title", "content")
     prepopulated_fields = {"slug": ("title",)}
 
@@ -14,4 +14,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = ("name",)    
+    list_display = ("name",)

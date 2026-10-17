@@ -6,6 +6,7 @@ Django settings for config project.
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,13 +14,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Carrega as variáveis do arquivo .env
 load_dotenv()
 
-# Quick-start development settings - unsuitable for production
-SECRET_KEY = os.getenv("SECRET_KEY")
-
 # SECURITY WARNING: don't run with debug turned on in production!
 # Lê do .env. Se DEBUG não estiver definido, fica False (seguro por padrão).
-DEBUG = os.getenv("DEBUG", "False") == "True"
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+
+# A SECRET_KEY é obrigatória: sem ela a aplicação não deve subir.
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    raise ImproperlyConfigured(
+        "Defina a variável SECRET_KEY no arquivo .env (veja o .env.example)."
+    )
+
+ALLOWED_HOSTS = [h.strip() for h in os.getenv("ALLOWED_HOSTS", "").split(",") if h.strip()]
 
 # Application definition
 
@@ -31,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -43,10 +48,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-INTERNAL_IPS = ["127.0.0.1"]
+# Django Debug Toolbar: apenas em desenvolvimento
+if DEBUG:
+    INSTALLED_APPS += ['debug_toolbar']
+    MIDDLEWARE.insert(
+        MIDDLEWARE.index('django.middleware.clickjacking.XFrameOptionsMiddleware') + 1,
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+    INTERNAL_IPS = ["127.0.0.1"]
 
 ROOT_URLCONF = 'config.urls'
 
@@ -138,20 +149,23 @@ STORAGES = {
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# --- ADICIONADO CONFORME A IMAGEM ---
 # Configurações de Autenticação (redirecionamento após login/logout)
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
 # Configuração de Email (exibe no console em vez de enviar)
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-# ------------------------------------
 
-# --- ADICIONADO CONFORME A IMAGEM (mensagens) ---
+# Mensagens: o Bootstrap usa "danger" no lugar de "error"
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {messages.ERROR: "danger"}
-# ------------------------------------------------
+
+# Segurança extra quando DEBUG=False
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
 
 
 # Default primary key field type
