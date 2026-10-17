@@ -17,9 +17,9 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# Lê do .env. Se DEBUG não estiver definido, fica False (seguro por padrão).
+DEBUG = os.getenv("DEBUG", "False") == "True"
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 
 # Application definition
 
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # logo após o SecurityMiddleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -119,6 +120,19 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "blog" / "static",
 ]
+# Pasta de destino do `collectstatic` (o WhiteNoise serve os arquivos daqui)
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Armazenamento de arquivos (Django 4.2+ / 5.x).
+# "default" = uploads de mídia; "staticfiles" = estáticos com compressão + hash no nome.
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # Media files (User-uploaded files like images)
 MEDIA_URL = "/media/"
