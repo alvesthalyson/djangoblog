@@ -2,32 +2,30 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-<!-- ===== LINHA 1: POSTS ===== -->
-<div class="row">
-  {% for post in page_obj %}
-    {% include "blog/partials/_post_card.html" %}
-  {% empty %}
-    <div class="col-12">
-      <p class="text-center text-muted py-5">No posts yet — <a href="{% url 'post_create' %}">write the first one!</a></p>
-    </div>
-  {% endfor %}
-</div>
+<!-- ===== POSTS ===== -->
+{% if page_obj %}
+  <div class="post-grid">
+    {% for post in page_obj %}
+      {% include "blog/partials/_post_card.html" %}
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="empty-state">No posts yet — <a href="{% url 'post_create' %}">write the first one!</a></p>
+{% endif %}
 
 <!-- ===== PAGINAÇÃO (usando partial) ===== -->
 {% include "blog/partials/_pagination.html" %}
 
-<!-- ===== LINHA 2: CATEGORIAS ===== -->
-<div class="row mt-5">
-  <div class="col-12">
-    <h5>Categories</h5>
-    <div class="d-flex flex-wrap gap-3 mt-3">
-      {% for category in categories %}
-        <div class="border rounded p-2 bg-light">
-          {{ category.name }} ({{ category.posts.count }})
-        </div>
-      {% endfor %}
-    </div>
+<!-- ===== CATEGORIAS ===== -->
+<section class="categories">
+  <h2 class="categories__title">Categories</h2>
+  <div class="categories__list">
+    {% for category in categories %}
+      <div class="category-chip">
+        {{ category.name }} ({{ category.posts.count }})
+      </div>
+    {% endfor %}
   </div>
-</div>
+</section>
 
 {% endblock %}

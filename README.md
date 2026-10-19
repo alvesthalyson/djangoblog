@@ -17,7 +17,8 @@ Usuários criam conta, escrevem posts com imagem de capa, salvam rascunhos e ger
 - **Paginação** na lista de posts e em "My Posts"
 - **Categorias e tags** gerenciadas pelo painel administrativo
 - **Páginas de erro** 403, 404 e 500 personalizadas
-- **Interface responsiva** com Bootstrap 5
+- **Interface responsiva** com Bootstrap 5, em tema bege e marrom com tipografia Garamond (Cormorant e EB Garamond)
+- **Faixa de redes sociais** no topo (Instagram, Facebook, TikTok e LinkedIn), com os links configurados pelo `.env`
 
 ## Tecnologias
 
@@ -68,6 +69,7 @@ Acesse `http://127.0.0.1:8000/` (site) e `http://127.0.0.1:8000/admin/` (painel 
 | `DEBUG` | `True` em desenvolvimento; qualquer outro valor desativa |
 | `ALLOWED_HOSTS` | Hosts permitidos, separados por vírgula |
 | `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT` | Conexão com o PostgreSQL |
+| `SOCIAL_INSTAGRAM_URL`, `SOCIAL_FACEBOOK_URL`, `SOCIAL_TIKTOK_URL`, `SOCIAL_LINKEDIN_URL` | Links das redes sociais na faixa do topo (opcionais; vazio deixa o link como `#`) |
 
 Para gerar uma `SECRET_KEY`:
 
@@ -96,6 +98,7 @@ djangoblog/
 │   ├── forms.py       # PostForm e RegisterForm com validações
 │   ├── signals.py     # Remove a imagem de capa ao excluir o post
 │   ├── admin.py       # Configuração do painel administrativo
+│   ├── context_processors.py  # Links das redes sociais disponíveis em todos os templates
 │   ├── tests.py       # Testes automatizados
 │   ├── templates/     # Templates e partials reutilizáveis
 │   └── static/        # CSS

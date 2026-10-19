@@ -1,12 +1,571 @@
+/* ==========================================================================
+   DjangoBlog — tema bege e marrom
+   Títulos: Cormorant Garamond · Texto: EB Garamond
+   ========================================================================== */
+
+/* ---------- Paleta e variáveis ---------- */
+:root {
+    --paper: #F4EEE4;        /* fundo da página */
+    --surface: #FAF6EF;      /* cartões e campos */
+    --sand: #E8DDCC;         /* faixa superior e capas vazias */
+    --line: #D9CCB9;         /* linhas e bordas */
+    --line-soft: #E0D4C1;    /* bordas dos cartões */
+    --ink: #3F342B;          /* texto principal */
+    --ink-soft: #4A3E34;     /* texto corrido */
+    --muted: #6B5E52;        /* texto secundário */
+    --brown: #5E4A3B;        /* links e botões */
+    --brown-line: #A8927B;   /* sublinhados discretos */
+    --danger: #7A4A44;       /* ações de excluir */
+
+    --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-body: 'EB Garamond', Georgia, 'Times New Roman', serif;
+
+    /* Variáveis do Bootstrap 5.3 */
+    --bs-body-bg: var(--paper);
+    --bs-body-color: var(--ink);
+    --bs-body-font-family: var(--font-body);
+    --bs-body-font-size: 1.0625rem;
+    --bs-link-color: var(--brown);
+    --bs-link-hover-color: var(--ink);
+    --bs-border-color: var(--line);
+    --bs-secondary-color: var(--muted);
+}
+
+/* ---------- Base ---------- */
 body {
-    background-color: #f8f9fa;
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.15;
+}
+
+h1 { font-size: 2.75rem; margin-bottom: 1.25rem; }
+
+a {
+    color: var(--brown);
+    text-decoration: none;
+}
+
+a:hover { color: var(--ink); }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+}
+
+hr {
+    border-color: var(--line);
+    opacity: 1;
+}
+
+.text-muted { color: var(--muted) !important; }
+
+.wrap {
+    max-width: 1120px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+/* ---------- Faixa de redes sociais ---------- */
+.social-bar {
+    background: var(--sand);
+    padding: 12px 0;
+}
+
+.social-bar__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 24px;
+}
+
+.social-bar__name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.375rem;
+    color: var(--ink);
+}
+
+.social-bar__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.social-bar__links a {
+    display: inline-block;
+    color: var(--brown);
+    border-bottom: 1px solid var(--brown-line);
+    padding: 6px 0 2px;
+}
+
+.social-bar__links a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+}
+
+/* ---------- Navegação ---------- */
+.site-nav {
+    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
+}
+
+.site-nav .navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
 .navbar-brand {
-    font-weight: bold;
-    letter-spacing: 0.5px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 2.125rem;
+    letter-spacing: 0.2px;
+    color: var(--ink);
+    margin-right: 40px;
 }
+
+.navbar-brand:hover { color: var(--ink); }
+
+.navbar-toggler {
+    border-color: var(--brown-line);
+    border-radius: 2px;
+}
+
+.navbar-toggler:focus { box-shadow: 0 0 0 2px var(--brown-line); }
+
+.navbar-nav { gap: 0 28px; }
+
+.site-nav .nav-link {
+    color: var(--brown);
+    padding: 4px 0;
+    border-bottom: 1px solid transparent;
+}
+
+.site-nav .nav-link:hover { color: var(--ink); }
+
+.site-nav .nav-link.active {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+}
+
+.nav-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 26px;
+    margin-top: 12px;
+}
+
+@media (min-width: 992px) {
+    .nav-actions { margin-top: 0; }
+}
+
+.nav-greeting {
+    color: var(--muted);
+    font-style: italic;
+}
+
+/* Botão discreto em forma de link (Logout, Register) */
+.link-button {
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--brown-line);
+    border-radius: 0;
+    padding: 0 0 2px;
+    font: inherit;
+    color: var(--brown);
+    cursor: pointer;
+}
+
+.link-button:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+}
+
+/* ---------- Conteúdo ---------- */
+.site-main {
+    padding-top: 48px;
+    padding-bottom: 40px;
+    min-height: 50vh;
+}
+
+.site-messages { margin-bottom: 28px; }
+
+.site-footer {
+    border-top: 1px solid var(--line);
+    padding: 28px 24px;
+    margin-top: 24px;
+    text-align: center;
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+/* ---------- Botões (Bootstrap reestilizado, versão minimalista) ---------- */
+.btn {
+    --bs-btn-font-family: var(--font-body);
+    --bs-btn-font-size: 1rem;
+    --bs-btn-font-weight: 500;
+    --bs-btn-padding-x: 1.25rem;
+    --bs-btn-padding-y: 0.5rem;
+    --bs-btn-border-radius: 2px;
+    --bs-btn-box-shadow: none;
+    --bs-btn-focus-box-shadow: 0 0 0 2px var(--brown-line);
+    box-shadow: none;
+}
+
+.btn-sm {
+    --bs-btn-padding-x: 1.1rem;
+    --bs-btn-padding-y: 0.4rem;
+    --bs-btn-font-size: 1rem;
+}
+
+/* Ação principal: contorno fino */
+.btn-primary,
+.btn-success {
+    --bs-btn-color: var(--ink);
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: var(--brown);
+    --bs-btn-hover-color: var(--paper);
+    --bs-btn-hover-bg: var(--brown);
+    --bs-btn-hover-border-color: var(--brown);
+    --bs-btn-active-color: var(--paper);
+    --bs-btn-active-bg: var(--ink);
+    --bs-btn-active-border-color: var(--ink);
+}
+
+/* Ação secundária: borda suave */
+.btn-secondary,
+.btn-outline-secondary {
+    --bs-btn-color: var(--muted);
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: var(--line);
+    --bs-btn-hover-color: var(--ink);
+    --bs-btn-hover-bg: transparent;
+    --bs-btn-hover-border-color: var(--brown);
+    --bs-btn-active-color: var(--ink);
+    --bs-btn-active-bg: var(--sand);
+    --bs-btn-active-border-color: var(--brown);
+}
+
+/* Ação destrutiva */
+.btn-danger,
+.btn-outline-danger {
+    --bs-btn-color: var(--danger);
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: #C9ABA6;
+    --bs-btn-hover-color: var(--paper);
+    --bs-btn-hover-bg: var(--danger);
+    --bs-btn-hover-border-color: var(--danger);
+    --bs-btn-active-color: var(--paper);
+    --bs-btn-active-bg: #5E3631;
+    --bs-btn-active-border-color: #5E3631;
+}
+
+/* ---------- Links de texto (cartões e paginação) ---------- */
+.text-link {
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+}
+
+.text-link:hover {
+    color: var(--brown);
+    border-bottom-color: var(--brown);
+}
+
+.text-link--quiet {
+    color: var(--muted);
+    border-bottom-color: transparent;
+}
+
+.text-link--quiet:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+}
+
+.text-link--danger {
+    color: var(--danger);
+    border-bottom-color: transparent;
+}
+
+.text-link--danger:hover {
+    color: #5E3631;
+    border-bottom-color: #5E3631;
+}
+
+/* ---------- Lista de posts ---------- */
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 32px;
+}
+
+.post-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.post-card__media {
+    position: relative;
+    height: 190px;
+    background: var(--sand);
+}
+
+/* Moldura fina por dentro da capa, como um selo */
+.post-card__media::after {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(250, 246, 239, 0.6);
+    pointer-events: none;
+}
+
+.post-card__media--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #DCD5CA;
+}
+
+.post-card__media--empty::after { border-color: rgba(94, 74, 59, 0.28); }
+
+.post-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.post-card__placeholder {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.375rem;
+    color: var(--muted);
+}
+
+.post-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    padding: 24px 24px 22px;
+}
+
+.post-card__title {
+    margin: 0;
+    font-size: 1.8rem;
+    line-height: 1.15;
+}
+
+.post-card__meta {
+    margin: 0;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--muted);
+}
+
+.post-card__excerpt {
+    margin: 4px 0 0;
+    color: var(--ink-soft);
+    line-height: 1.55;
+}
+
+.post-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 22px;
+    margin-top: auto;
+    padding-top: 14px;
+    font-size: 1rem;
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--muted);
+    font-style: italic;
+    padding: 48px 0;
+}
+
+/* ---------- Paginação ---------- */
+.pager {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px 32px;
+    margin-top: 44px;
+}
+
+.pager__status {
+    color: var(--muted);
+    font-style: italic;
+}
+
+/* ---------- Categorias ---------- */
+.categories { margin-top: 64px; }
+
+.categories__title {
+    font-size: 1.75rem;
+    margin-bottom: 16px;
+}
+
+.categories__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.category-chip {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 8px 18px;
+    color: var(--ink-soft);
+}
+
+/* ---------- Cartões do Bootstrap (My Posts) ---------- */
+.card {
+    --bs-card-bg: var(--surface);
+    --bs-card-border-color: var(--line-soft);
+    --bs-card-border-radius: 3px;
+    --bs-card-inner-border-radius: 2px;
+    --bs-card-cap-bg: var(--sand);
+    box-shadow: none !important;
+}
+
 .card-img-top {
-    height: 200px;
+    height: 190px;
     object-fit: cover;
 }
+
+.card-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+.badge {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    border-radius: 2px;
+    border: 1px solid var(--line);
+    background-color: var(--sand) !important;
+    color: var(--muted) !important;
+    vertical-align: middle;
+}
+
+/* ---------- Alertas ---------- */
+.alert {
+    --bs-alert-bg: var(--surface);
+    --bs-alert-color: var(--ink);
+    --bs-alert-border-color: var(--line);
+    --bs-alert-border-radius: 2px;
+}
+
+.alert-success {
+    --bs-alert-bg: #E9EADB;
+    --bs-alert-color: #424B2F;
+    --bs-alert-border-color: #CFD3B8;
+}
+
+.alert-danger {
+    --bs-alert-bg: #F2E4E0;
+    --bs-alert-color: #6B3A34;
+    --bs-alert-border-color: #DCC0BA;
+}
+
+/* ---------- Formulários ---------- */
+main form label {
+    display: block;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 4px;
+}
+
+main form p { margin-bottom: 1.1rem; }
+
+main form input[type="text"],
+main form input[type="email"],
+main form input[type="password"],
+main form input[type="url"],
+main form select,
+main form textarea,
+.form-control,
+.form-select {
+    width: 100%;
+    max-width: 560px;
+    background-color: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 0.55rem 0.8rem;
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    box-shadow: none;
+}
+
+main form input:focus,
+main form select:focus,
+main form textarea:focus,
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--brown);
+    box-shadow: 0 0 0 3px rgba(94, 74, 59, 0.15);
+    outline: none;
+}
+
+main form input[type="file"] {
+    font-family: var(--font-body);
+    color: var(--muted);
+}
+
+main form .helptext {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+main form .helptext ul {
+    margin: 4px 0 0;
+    padding-left: 1.1rem;
+}
+
+.errorlist {
+    list-style: none;
+    margin: 0 0 6px;
+    padding: 0;
+    font-size: 0.95rem;
+    color: var(--danger);
+}
+
+.text-danger { color: var(--danger) !important; }

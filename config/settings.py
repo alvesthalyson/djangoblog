@@ -71,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blog.context_processors.social_links',
             ],
         },
     },
@@ -166,6 +167,15 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
+
+
+# Redes sociais exibidas no topo do site (URLs vindas do .env; vazio vira "#")
+SOCIAL_LINKS = [
+    {"name": "Instagram", "url": os.getenv("SOCIAL_INSTAGRAM_URL") or "#"},
+    {"name": "Facebook", "url": os.getenv("SOCIAL_FACEBOOK_URL") or "#"},
+    {"name": "TikTok", "url": os.getenv("SOCIAL_TIKTOK_URL") or "#"},
+    {"name": "LinkedIn", "url": os.getenv("SOCIAL_LINKEDIN_URL") or "#"},
+]
 
 
 # Default primary key field type

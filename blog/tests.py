@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from .forms import PostForm
@@ -228,3 +228,48 @@ class PostCrudPermissionTests(TestCase):
         response = self.client.get(reverse("my_posts"))
         self.assertContains(response, "Post da alice")
         self.assertNotContains(response, "Post do bob")
+
+
+class LayoutTests(TestCase):
+    def setUp(self):
+        self.user = make_user()
+
+    def test_social_bar_shows_name_and_all_networks(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, "Thalyson")
+        for network in ("Instagram", "Facebook", "TikTok", "LinkedIn"):
+            self.assertContains(response, network)
+
+    @override_settings(
+        SOCIAL_LINKS=[{"name": "Instagram", "url": "https://example.com/meu-perfil"}]
+    )
+    def test_social_links_come_from_settings(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, 'href="https://example.com/meu-perfil"')
+        self.assertNotContains(response, "TikTok")
+        self.assertContains(response, 'target="_blank"')
+
+    @override_settings(SOCIAL_LINKS=[{"name": "Instagram", "url": "#"}])
+    def test_link_without_url_does_not_open_new_tab(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, '<a href="#">Instagram</a>', html=True)
+        self.assertNotContains(response, 'target="_blank"')
+
+    def test_post_without_cover_shows_placeholder(self):
+        make_post(self.user, title="Post sem capa")
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, "No Image")
+
+    def test_categories_section_shows_post_count(self):
+        category = Category.objects.create(name="Django")
+        make_post(self.user, title="Post com categoria", category=category)
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, "Django (1)")
+
+    def test_empty_home_invites_first_post(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, "No posts yet")
+
+    def test_nav_marks_current_page(self):
+        response = self.client.get(reverse("about"))
+        self.assertContains(response, 'class="nav-link active" href="/about/"')
