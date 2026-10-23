@@ -3,6 +3,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from .context_processors import CANDLES, site_theme
 from .forms import PostForm
 from .models import Category, Post, Tag
 
@@ -273,3 +274,84 @@ class LayoutTests(TestCase):
     def test_nav_marks_current_page(self):
         response = self.client.get(reverse("about"))
         self.assertContains(response, 'class="nav-link active" href="/about/"')
+
+
+POST_DATA = {
+    "title": "Post criado pelo teste",
+    "content": "Conteudo bem diferente do titulo informado.",
+    "status": "published",
+}
+
+
+@override_settings(SITE_THEME="magic")
+class MagicThemeTests(TestCase):
+    def setUp(self):
+        self.user = make_user()
+
+    def test_page_declares_the_theme_and_loads_its_assets(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, 'data-theme="magic"')
+        self.assertContains(response, "blog/css/style.css")
+        self.assertContains(response, "blog/css/magic.css")
+        self.assertContains(response, "blog/js/magic.js")
+
+    def test_starts_in_lumos_mode(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, 'data-mode="lumos"')
+
+    def test_ceiling_has_eight_candles(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, 'class="candle-ceiling"')
+        self.assertContains(response, 'class="candle"', count=8)
+
+    def test_candle_variables_use_a_dot_as_decimal_separator(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, "--bd:-1.2s")
+        self.assertNotContains(response, "--bd:-1,2s")
+
+    def test_candles_go_out_right_to_left_and_light_left_to_right(self):
+        go_out = [candle["od"] for candle in CANDLES]
+        light_up = [candle["id"] for candle in CANDLES]
+        self.assertEqual(go_out, sorted(go_out, reverse=True))
+        self.assertEqual(light_up, sorted(light_up))
+
+    def test_mode_and_effects_toggles_are_present(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, 'id="mode-toggle"')
+        self.assertContains(response, 'id="fx-toggle"')
+
+    def test_success_message_arrives_as_a_letter(self):
+        self.client.login(username="alice", password="s3nha-forte-123")
+        response = self.client.post(reverse("post_create"), POST_DATA, follow=True)
+        self.assertContains(response, "letter letter--success")
+        self.assertContains(response, "Post published successfully!")
+        self.assertNotContains(response, "alert alert-success")
+
+
+@override_settings(SITE_THEME="classic")
+class ClassicThemeTests(TestCase):
+    """O tema bege e marrom continua disponível e sem nada do tema pergaminho."""
+
+    def setUp(self):
+        self.user = make_user()
+
+    def test_page_uses_only_the_classic_assets(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, 'data-theme="classic"')
+        self.assertContains(response, "blog/css/style.css")
+        self.assertNotContains(response, "blog/css/magic.css")
+        self.assertNotContains(response, "blog/js/magic.js")
+
+    def test_page_has_no_magic_elements(self):
+        response = self.client.get(reverse("home"))
+        for marker in ("candle-ceiling", "mode-toggle", "fx-toggle", "data-mode="):
+            self.assertNotContains(response, marker)
+
+    def test_success_message_stays_a_regular_alert(self):
+        self.client.login(username="alice", password="s3nha-forte-123")
+        response = self.client.post(reverse("post_create"), POST_DATA, follow=True)
+        self.assertContains(response, "alert alert-success")
+        self.assertNotContains(response, "letter letter--success")
+
+    def test_context_processor_reports_the_active_theme(self):
+        self.assertEqual(site_theme(None)["SITE_THEME"], "classic")

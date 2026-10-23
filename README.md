@@ -17,7 +17,7 @@ Usuários criam conta, escrevem posts com imagem de capa, salvam rascunhos e ger
 - **Paginação** na lista de posts e em "My Posts"
 - **Categorias e tags** gerenciadas pelo painel administrativo
 - **Páginas de erro** 403, 404 e 500 personalizadas
-- **Interface responsiva** com Bootstrap 5, em tema bege e marrom com tipografia Garamond (Cormorant e EB Garamond)
+- **Interface responsiva** com Bootstrap 5 e dois temas visuais à escolha (veja [Temas](#temas))
 - **Faixa de redes sociais** no topo (Instagram, Facebook, TikTok e LinkedIn), com os links configurados pelo `.env`
 
 ## Tecnologias
@@ -70,12 +70,37 @@ Acesse `http://127.0.0.1:8000/` (site) e `http://127.0.0.1:8000/admin/` (painel 
 | `ALLOWED_HOSTS` | Hosts permitidos, separados por vírgula |
 | `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT` | Conexão com o PostgreSQL |
 | `SOCIAL_INSTAGRAM_URL`, `SOCIAL_FACEBOOK_URL`, `SOCIAL_TIKTOK_URL`, `SOCIAL_LINKEDIN_URL` | Links das redes sociais na faixa do topo (opcionais; vazio deixa o link como `#`) |
+| `SITE_THEME` | Tema visual: `magic` (padrão) ou `classic`; veja [Temas](#temas) |
 
 Para gerar uma `SECRET_KEY`:
 
 ```bash
 python -c "from django.core.management.utils import get_random_secret_key as k; print(k())"
 ```
+
+## Temas
+
+O visual é escolhido pela variável `SITE_THEME` no `.env`. Os dois temas convivem no projeto,
+então trocar de um para o outro não apaga nada.
+
+| Valor | Visual |
+| --- | --- |
+| `magic` (padrão) | Pergaminho, bordô e dourado, com tipografia Almendra e EB Garamond, inspirado em Harry Potter |
+| `classic` | Bege e marrom, com tipografia Cormorant Garamond e EB Garamond |
+
+O tema `magic` tem dois modos, trocados pelo botão do menu e lembrados no navegador:
+
+- **Lumos** (claro) e **Nox** (escuro). Ao ir para o Nox, as velas do teto se apagam uma a uma, da direita para a
+  esquerda, deixando uma brasa no pavio; ao voltar para o Lumos, acendem da esquerda para a direita.
+- **Cursor de varinha**, com a ponta acesa sobre links e botões. No Nox, uma aura branca ilumina o entorno
+  quando o mouse está sobre algo clicável.
+- **Rastro de faíscas** atrás do mouse e **cartas**: as mensagens do sistema chegam como correio e as de sucesso
+  somem sozinhas.
+- O botão **Turn effects off**, no rodapé, desliga velas, varinha, aura e faíscas. Quem pede menos animação ao
+  sistema já recebe a página sem movimento.
+
+> Harry Potter é marca e obra protegidas. O tema é "inspirado em": usa cores, fontes livres e desenhos próprios,
+> sem logotipos, brasões, imagens ou textos oficiais. Se for publicar o blog, mantenha assim.
 
 ## Testes
 
@@ -84,7 +109,7 @@ python manage.py test
 ```
 
 A suíte cobre geração de slug, validações do formulário, visibilidade de rascunhos,
-cadastro/login/logout, paginação e as regras de permissão de edição e exclusão.
+cadastro/login/logout, paginação, as regras de permissão de edição e exclusão e os dois temas visuais.
 (O usuário do PostgreSQL precisa de permissão para criar o banco de testes.)
 
 ## Estrutura do projeto
@@ -98,10 +123,10 @@ djangoblog/
 │   ├── forms.py       # PostForm e RegisterForm com validações
 │   ├── signals.py     # Remove a imagem de capa ao excluir o post
 │   ├── admin.py       # Configuração do painel administrativo
-│   ├── context_processors.py  # Links das redes sociais disponíveis em todos os templates
+│   ├── context_processors.py  # Redes sociais, tema ativo e velas, disponíveis em todos os templates
 │   ├── tests.py       # Testes automatizados
 │   ├── templates/     # Templates e partials reutilizáveis
-│   └── static/        # CSS
+│   └── static/blog/   # css/ (style.css = base e tema classic, magic.css = tema magic), js/magic.js, img/ (cursores)
 ├── .env.example
 ├── manage.py
 └── requirements.txt

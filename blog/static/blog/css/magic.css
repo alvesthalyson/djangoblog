@@ -1,0 +1,605 @@
+/* ==========================================================================
+   DjangoBlog — tema "pergaminho e velas" (inspirado em Harry Potter)
+
+   Ativado com SITE_THEME=magic (veja o .env). É carregado depois do
+   style.css e apenas sobrescreve as variáveis de cor e fonte dele e
+   acrescenta os componentes do tema. O tema bege (SITE_THEME=classic)
+   continua inteiro no style.css.
+
+   Dois modos, trocados pelo botão do menu e lembrados no navegador:
+   - Lumos (claro): pergaminho, bordô e dourado
+   - Nox (escuro): azul-noite e dourado, velas apagadas
+
+   Títulos: Almendra · Texto: EB Garamond
+   ========================================================================== */
+
+/* ---------- Lumos (modo claro) ---------- */
+:root[data-theme="magic"] {
+    --font-display: 'Almendra', Georgia, 'Times New Roman', serif;
+    --font-body: 'EB Garamond', Georgia, 'Times New Roman', serif;
+
+    /* Variáveis que o style.css já usa */
+    --paper: #F0E3C2;
+    --surface: #F7EDD3;
+    --sand: #E3D3AC;
+    --line: #CDB887;
+    --line-soft: #D8C497;
+    --ink: #2A1B14;
+    --ink-soft: #44332A;
+    --muted: #6A5646;
+    --brown: #6E1423;          /* links e botões: bordô */
+    --brown-line: #B8913A;     /* fios dourados */
+    --danger: #8E2F3B;
+
+    /* Variáveis do tema */
+    --social-bg: #5B1120;
+    --social-ink: #F1E4C3;
+    --social-gold: #E3C778;
+    --band-a: #232A52;
+    --band-b: #161A38;
+    --seal-1: #9A2236;
+    --seal-2: #6E1423;
+    --seal-ink: #F4E6C4;
+    --blotch-1: rgba(184, 145, 58, 0.20);
+    --blotch-2: rgba(110, 20, 35, 0.07);
+    --spark: #B8913A;
+
+    --glow-bg: radial-gradient(circle, rgba(255, 236, 170, 0.5), transparent 65%);
+    --glow-blend: normal;
+    --glow-z: 0;
+    --glow-size: 360px;
+
+    --cover-1: #B9A27A;
+    --cover-2: #8A9A8C;
+    --cover-3: #A1676B;
+    --cover-4: #7C8BA6;
+    --cover-5: #C7AE7C;
+    --cover-6: #96806A;
+}
+
+/* ---------- Nox (modo escuro) ---------- */
+:root[data-theme="magic"][data-mode="nox"] {
+    --paper: #0E1325;
+    --surface: #161D35;
+    --sand: #1F2848;
+    --line: #34406A;
+    --line-soft: #2A345A;
+    --ink: #EADFC4;
+    --ink-soft: #D6CAAC;
+    --muted: #A9A088;
+    --brown: #E0BB63;
+    --brown-line: #8C7439;
+    --danger: #E59AA2;
+
+    --social-bg: #2D0A13;
+    --social-ink: #EADFC4;
+    --social-gold: #E0BB63;
+    --band-a: #0A0F20;
+    --band-b: #060913;
+    --seal-1: #A32840;
+    --seal-2: #6E1423;
+    --blotch-1: rgba(70, 84, 170, 0.28);
+    --blotch-2: rgba(110, 20, 35, 0.18);
+    --spark: #F6DC9A;
+
+    /* Aura branca: ilumina o que está ao redor da ponta da varinha */
+    --glow-bg: radial-gradient(circle,
+        rgba(255, 255, 255, 0.42) 0%,
+        rgba(255, 255, 255, 0.22) 12%,
+        rgba(215, 225, 255, 0.10) 36%,
+        rgba(180, 195, 255, 0.04) 56%,
+        transparent 72%);
+    --glow-blend: screen;
+    --glow-z: 50;
+    --glow-size: 480px;
+
+    --cover-1: #3B3552;
+    --cover-2: #2C4A45;
+    --cover-3: #5B2A36;
+    --cover-4: #25345A;
+    --cover-5: #5A4A2A;
+    --cover-6: #3D3A33;
+}
+
+/* ---------- Base ---------- */
+[data-theme="magic"] body {
+    background:
+        radial-gradient(1100px 560px at 8% -8%, var(--blotch-1), transparent 62%),
+        radial-gradient(900px 520px at 96% 42%, var(--blotch-2), transparent 62%),
+        var(--paper);
+    background-attachment: fixed;
+}
+
+[data-theme="magic"] h1,
+[data-theme="magic"] h2,
+[data-theme="magic"] h3,
+[data-theme="magic"] h4,
+[data-theme="magic"] h5,
+[data-theme="magic"] h6,
+[data-theme="magic"] .card-title {
+    font-weight: 400;
+}
+
+[data-theme="magic"] h1 { font-size: 2.9rem; }
+
+[data-theme="magic"] a:hover { color: var(--ink); }
+
+/* Tudo que tem fundo próprio fica acima da luz que segue o cursor */
+[data-theme="magic"] .social-bar,
+[data-theme="magic"] .site-nav,
+[data-theme="magic"] .candle-ceiling,
+[data-theme="magic"] .site-main,
+[data-theme="magic"] .site-footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- Faixa de redes sociais ---------- */
+[data-theme="magic"] .social-bar {
+    background: var(--social-bg);
+    border-bottom: 1px solid var(--brown-line);
+    padding: 6px 0;
+}
+
+[data-theme="magic"] .social-bar__name {
+    font-weight: 700;
+    font-size: 1.45rem;
+    color: var(--social-gold);
+}
+
+[data-theme="magic"] .social-bar__links a {
+    color: var(--social-ink);
+    border-bottom-color: var(--social-gold);
+    padding: 12px 0 2px;
+    margin-bottom: 10px;
+}
+
+[data-theme="magic"] .social-bar__links a:hover {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+/* ---------- Navegação ---------- */
+[data-theme="magic"] .site-nav { padding: 16px 0; }
+
+[data-theme="magic"] .navbar-brand {
+    font-weight: 700;
+    font-size: 2.25rem;
+}
+
+[data-theme="magic"] .site-nav .nav-link {
+    padding: 10px 0 5px;
+    color: var(--ink-soft);
+}
+
+[data-theme="magic"] .site-nav .nav-link.active {
+    color: var(--ink);
+    border-bottom: 2px solid var(--brown);
+}
+
+/* Botão principal do menu vira um selo de cera */
+[data-theme="magic"] .site-nav .btn-primary {
+    color: var(--seal-ink);
+    background: radial-gradient(circle at 30% 28%, var(--seal-1), var(--seal-2) 72%);
+    border: 0;
+    border-radius: 999px;
+    padding: 0.65rem 1.5rem;
+    font-weight: 500;
+    box-shadow: inset 0 0 0 2px rgba(227, 199, 120, 0.35), 0 2px 0 rgba(0, 0, 0, 0.28);
+}
+
+[data-theme="magic"] .site-nav .btn-primary:hover,
+[data-theme="magic"] .site-nav .btn-primary:focus-visible {
+    color: var(--seal-ink);
+    box-shadow:
+        inset 0 0 0 2px rgba(227, 199, 120, 0.7),
+        0 0 18px 2px rgba(227, 199, 120, 0.4),
+        0 2px 0 rgba(0, 0, 0, 0.28);
+}
+
+/* Alternador Lumos / Nox */
+.mode-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 6px 14px;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--ink);
+    font: inherit;
+    cursor: pointer;
+}
+
+.mode-toggle svg { fill: var(--brown-line); }
+.mode-toggle:hover { border-color: var(--brown-line); }
+
+/* ---------- Teto com velas ---------- */
+.candle-ceiling {
+    height: 150px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--brown-line);
+    background:
+        radial-gradient(1.5px 1.5px at 6% 22%, rgba(244, 230, 196, 0.9), transparent),
+        radial-gradient(1px 1px at 14% 70%, rgba(244, 230, 196, 0.7), transparent),
+        radial-gradient(1.5px 1.5px at 24% 38%, rgba(244, 230, 196, 0.8), transparent),
+        radial-gradient(1px 1px at 36% 80%, rgba(244, 230, 196, 0.7), transparent),
+        radial-gradient(1.5px 1.5px at 48% 18%, rgba(244, 230, 196, 0.9), transparent),
+        radial-gradient(1px 1px at 61% 62%, rgba(244, 230, 196, 0.7), transparent),
+        radial-gradient(1.5px 1.5px at 73% 30%, rgba(244, 230, 196, 0.8), transparent),
+        radial-gradient(1px 1px at 86% 76%, rgba(244, 230, 196, 0.7), transparent),
+        radial-gradient(1.5px 1.5px at 95% 24%, rgba(244, 230, 196, 0.9), transparent),
+        linear-gradient(180deg, var(--band-a), var(--band-b));
+}
+
+@media (max-width: 575.98px) {
+    .candle-ceiling { height: 120px; }
+    .candle { top: calc(var(--y) * 0.55); }
+}
+
+/* Cada vela recebe sua posição e seus tempos por variáveis inline:
+   --x, --y (posição), --h (altura da cera), --bd/--bt (flutuar),
+   --fd (atraso da chama), --od (apagar) e --id (acender). */
+.candle {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.candle__flame {
+    width: 10px;
+    height: 18px;
+    transform-origin: 50% 100%;
+}
+
+.candle__flame i {
+    display: block;
+    width: 10px;
+    height: 18px;
+    border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+    background: radial-gradient(ellipse at 50% 72%, #FFF3C2 0%, #FFC95C 45%, #F08A24 100%);
+    box-shadow: 0 0 16px 7px rgba(255, 190, 90, 0.5);
+    transform-origin: 50% 100%;
+}
+
+.candle__wick {
+    width: 2px;
+    height: 5px;
+    background: #3A2A22;
+    border-radius: 1px;
+}
+
+.candle__body {
+    width: 14px;
+    height: var(--h, 46px);
+    border-radius: 2px 2px 3px 3px;
+    background: linear-gradient(90deg, #E4D7B8, #F8F0DA 45%, #D5C7A2);
+}
+
+.candle__smoke {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    width: 3px;
+    height: 30px;
+    margin-left: -1px;
+    border-radius: 50%;
+    background: linear-gradient(0deg, rgba(214, 208, 196, 0.85), transparent);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Nox: velas apagadas. Este é o estado "parado", usado quando a página já
+   carrega no modo escuro ou quando o visitante prefere menos movimento. */
+[data-theme="magic"][data-mode="nox"] .candle__flame { opacity: 0; }
+[data-theme="magic"][data-mode="nox"] .candle__body { filter: brightness(0.55); }
+
+/* Efeitos de movimento: só com efeitos ligados e sem preferência por menos movimento */
+@media (prefers-reduced-motion: no-preference) {
+    [data-theme="magic"]:not([data-fx="off"]) .candle {
+        animation: candle-bob var(--bt, 6s) ease-in-out infinite;
+        animation-delay: var(--bd, 0s);
+    }
+
+    [data-theme="magic"]:not([data-fx="off"]) .candle__flame i {
+        animation: candle-flicker 1.8s ease-in-out infinite;
+        animation-delay: var(--fd, 0s);
+    }
+
+    [data-theme="magic"]:not([data-fx="off"]) .candle__body {
+        transition: filter 0.8s ease;
+        transition-delay: var(--id, 0s);
+    }
+
+    /* Ao ir para o Nox: o vento sopra da direita para a esquerda */
+    [data-theme="magic"]:not([data-fx="off"])[data-mode="nox"][data-toggled] .candle__flame {
+        opacity: 1;
+        animation: candle-blowout 1s ease-in both;
+        animation-delay: var(--od, 0s);
+    }
+
+    [data-theme="magic"]:not([data-fx="off"])[data-mode="nox"][data-toggled] .candle__body {
+        transition-delay: calc(var(--od, 0s) + 0.3s);
+    }
+
+    /* A brasa acende no pavio e depois se apaga também */
+    [data-theme="magic"]:not([data-fx="off"])[data-mode="nox"][data-toggled] .candle__wick {
+        animation: candle-ember 3.4s ease-out 1 both;
+        animation-delay: calc(var(--od, 0s) + 0.5s);
+    }
+
+    [data-theme="magic"]:not([data-fx="off"])[data-mode="nox"][data-toggled] .candle__smoke {
+        animation: candle-smoke 2.6s ease-out 1 both;
+        animation-delay: calc(var(--od, 0s) + 0.55s);
+    }
+
+    /* Ao voltar para o Lumos: as chamas acendem da esquerda para a direita */
+    [data-theme="magic"]:not([data-fx="off"])[data-mode="lumos"][data-toggled] .candle__flame {
+        animation: candle-lightup 0.9s ease-out both;
+        animation-delay: var(--id, 0s);
+    }
+}
+
+@keyframes candle-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-9px); }
+}
+
+@keyframes candle-flicker {
+    0%, 100% { transform: scale(1, 1) rotate(-1deg); }
+    25% { transform: scale(0.94, 1.07) rotate(1.5deg); }
+    50% { transform: scale(1.05, 0.95) rotate(-0.5deg); }
+    75% { transform: scale(0.97, 1.04) rotate(1deg); }
+}
+
+@keyframes candle-blowout {
+    0% { transform: none; opacity: 1; }
+    35% { transform: skewX(32deg) scale(1.15, 0.85); opacity: 1; }
+    100% { transform: skewX(48deg) scale(0.1, 0.1); opacity: 0; }
+}
+
+@keyframes candle-lightup {
+    0% { transform: scale(0.1); opacity: 0; }
+    60% { transform: scale(1.2, 1.1); opacity: 1; }
+    100% { transform: none; opacity: 1; }
+}
+
+@keyframes candle-ember {
+    0% { background: #3A2A22; box-shadow: none; }
+    10% { background: #FF8A3A; box-shadow: 0 0 9px 4px rgba(255, 120, 40, 0.75); }
+    35% { background: #FF6A2A; box-shadow: 0 0 8px 3px rgba(255, 100, 30, 0.6); }
+    65% { background: #B8401C; box-shadow: 0 0 5px 2px rgba(200, 70, 25, 0.35); }
+    100% { background: #3A2A22; box-shadow: none; }
+}
+
+@keyframes candle-smoke {
+    0% { opacity: 0; transform: translateY(0) scaleY(0.3); }
+    15% { opacity: 0.7; }
+    100% { opacity: 0; transform: translate(6px, -34px) scaleY(1.4); }
+}
+
+/* ---------- Cartões: moldura dupla, como página de livro antigo ---------- */
+[data-theme="magic"] .post-card {
+    position: relative;
+}
+
+[data-theme="magic"] .post-card::after {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid var(--brown-line);
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+[data-theme="magic"] .post-card__media::after { display: none; }
+
+/* Capas vazias ganham cores diferentes, como na prévia */
+[data-theme="magic"] .post-card:nth-child(6n + 1) .post-card__media--empty { background: var(--cover-1); }
+[data-theme="magic"] .post-card:nth-child(6n + 2) .post-card__media--empty { background: var(--cover-2); }
+[data-theme="magic"] .post-card:nth-child(6n + 3) .post-card__media--empty { background: var(--cover-3); }
+[data-theme="magic"] .post-card:nth-child(6n + 4) .post-card__media--empty { background: var(--cover-4); }
+[data-theme="magic"] .post-card:nth-child(6n + 5) .post-card__media--empty { background: var(--cover-5); }
+[data-theme="magic"] .post-card:nth-child(6n + 6) .post-card__media--empty { background: var(--cover-6); }
+
+[data-theme="magic"] .post-card__placeholder { color: var(--ink); opacity: 0.75; }
+
+[data-theme="magic"] .post-card__title { font-size: 1.8rem; }
+
+[data-theme="magic"] .categories__title { font-weight: 400; }
+
+/* ---------- Cartas: as mensagens do sistema chegam como correio ---------- */
+.letters {
+    position: fixed;
+    top: 84px;
+    right: 24px;
+    z-index: 1080;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: min(320px, calc(100vw - 32px));
+}
+
+.letter {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--brown-line);
+    border-radius: 3px;
+    padding: 12px 8px 12px 18px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+    transform: rotate(-1deg);
+}
+
+.letter__seal {
+    flex: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 28%, var(--seal-1), var(--seal-2) 72%);
+    box-shadow: inset 0 0 0 2px rgba(227, 199, 120, 0.4);
+}
+
+.letter--danger .letter__seal {
+    background: radial-gradient(circle at 30% 28%, #6B3A34, #3A1D1A 72%);
+}
+
+.letter__text {
+    flex: 1;
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.35;
+    color: var(--ink);
+}
+
+.letter__close {
+    flex: none;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: 0;
+    color: var(--muted);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.letter__close:hover { color: var(--ink); }
+
+.letter.is-leaving {
+    opacity: 0;
+    transform: translate(60px, -20px) rotate(4deg);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .letter {
+        animation: letter-in 0.9s cubic-bezier(0.2, 0.8, 0.25, 1) backwards;
+    }
+}
+
+@keyframes letter-in {
+    from { opacity: 0; transform: translate(140px, -70px) rotate(9deg); }
+    to { opacity: 1; transform: rotate(-1deg); }
+}
+
+@media (max-width: 575.98px) {
+    .letters { top: 12px; right: 16px; }
+}
+
+/* ---------- Luz da varinha: brilho, aura e faíscas ---------- */
+.wand-glow {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: var(--glow-size);
+    height: var(--glow-size);
+    margin: calc(var(--glow-size) / -2) 0 0 calc(var(--glow-size) / -2);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: var(--glow-z);
+    background: var(--glow-bg);
+    mix-blend-mode: var(--glow-blend);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    will-change: transform;
+}
+
+.wand-glow.is-on { opacity: 1; }
+
+.spark {
+    position: fixed;
+    z-index: 1090;
+    pointer-events: none;
+    background: var(--spark);
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+    animation: spark-fade 0.7s ease-out forwards;
+}
+
+@keyframes spark-fade {
+    from { opacity: 0.9; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.4); }
+}
+
+[data-theme="magic"][data-fx="off"] .wand-glow,
+[data-theme="magic"][data-fx="off"] .spark {
+    display: none;
+}
+
+/* ---------- Cursor de varinha (só com efeitos ligados) ---------- */
+[data-theme="magic"]:not([data-fx="off"]) body {
+    cursor: url("../img/wand.svg") 8 8, auto;
+}
+
+/* Sobre algo clicável a ponta acende */
+[data-theme="magic"]:not([data-fx="off"]) a,
+[data-theme="magic"]:not([data-fx="off"]) button,
+[data-theme="magic"]:not([data-fx="off"]) [role="button"],
+[data-theme="magic"]:not([data-fx="off"]) summary,
+[data-theme="magic"]:not([data-fx="off"]) input[type="submit"] {
+    cursor: url("../img/wand-lit.svg") 8 8, pointer;
+}
+
+/* ---------- Rodapé ---------- */
+[data-theme="magic"] .site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4px 28px;
+    padding: 16px 24px;
+}
+
+[data-theme="magic"] .site-footer p { margin: 0; }
+
+.fx-toggle {
+    min-height: 44px;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--brown-line);
+    color: var(--muted);
+    font: inherit;
+    font-style: italic;
+    cursor: pointer;
+}
+
+.fx-toggle:hover { color: var(--ink); }
+
+/* ---------- Ajustes do modo Nox para componentes com cor fixa no style.css ---------- */
+[data-theme="magic"][data-mode="nox"] .alert-danger {
+    --bs-alert-bg: #3A1A22;
+    --bs-alert-color: #F2C9CE;
+    --bs-alert-border-color: #6B2E3A;
+}
+
+[data-theme="magic"][data-mode="nox"] .alert-success {
+    --bs-alert-bg: #1B2E2A;
+    --bs-alert-color: #CFE6D8;
+    --bs-alert-border-color: #2F5249;
+}
+
+[data-theme="magic"][data-mode="nox"] .btn-danger,
+[data-theme="magic"][data-mode="nox"] .btn-outline-danger {
+    --bs-btn-border-color: #8C4A55;
+    --bs-btn-hover-color: #0E1325;
+}
+
+[data-theme="magic"][data-mode="nox"] .navbar-toggler-icon { filter: invert(1); }
+
+/* ---------- Transições de cor entre os modos (só com movimento permitido) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+    [data-theme="magic"] body,
+    [data-theme="magic"] .post-card,
+    [data-theme="magic"] .category-chip,
+    [data-theme="magic"] .candle-ceiling,
+    [data-theme="magic"] .social-bar {
+        transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+    }
+}

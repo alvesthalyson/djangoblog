@@ -5,6 +5,7 @@ Django settings for config project.
 
 from pathlib import Path
 import os
+import sys
 from dotenv import load_dotenv
 from django.core.exceptions import ImproperlyConfigured
 
@@ -72,6 +73,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'blog.context_processors.social_links',
+                'blog.context_processors.site_theme',
             ],
         },
     },
@@ -176,6 +178,20 @@ SOCIAL_LINKS = [
     {"name": "TikTok", "url": os.getenv("SOCIAL_TIKTOK_URL") or "#"},
     {"name": "LinkedIn", "url": os.getenv("SOCIAL_LINKEDIN_URL") or "#"},
 ]
+
+# Tema visual do site (escolhido no .env):
+#   "magic"   - pergaminho e velas, com os modos Lumos (claro) e Nox (escuro)
+#   "classic" - bege e marrom, o visual anterior (continua disponível)
+SITE_THEME = os.getenv("SITE_THEME", "magic").strip().lower()
+if SITE_THEME not in ("magic", "classic"):
+    SITE_THEME = "magic"
+
+# Nos testes não existe manifesto do collectstatic; sem isto, qualquer template
+# que use {% static %} falharia com "Missing staticfiles manifest entry".
+if "test" in sys.argv:
+    STORAGES["staticfiles"] = {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    }
 
 
 # Default primary key field type
