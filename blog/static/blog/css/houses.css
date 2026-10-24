@@ -1,0 +1,665 @@
+/* ==========================================================================
+   DjangoBlog — cores das casas (tema "magic")
+
+   Cada casa troca apenas as variáveis de cor do magic.css, nos dois modos
+   (Lumos e Nox). Símbolos e cores são próprios: nada de brasões, logotipos
+   ou imagens oficiais.
+
+   A casa vem de duas fontes (veja houses.js e o script do <head>):
+   - a casa escolhida pelo visitante no teste do Chapéu Seletor;
+   - a casa do post aberto (atributo data-page-house), que vale enquanto
+     a página do post estiver na tela.
+   ========================================================================== */
+
+/* Gryffindor — Lumos */
+:root[data-theme="magic"][data-house="g"]:not([data-mode="nox"]) {
+    --band-a: #3A1212;
+    --band-b: #1E0909;
+    --blotch-1: rgba(212,160,42,.26);
+    --blotch-2: rgba(142,27,27,.10);
+    --brown: #8E1B1B;
+    --brown-line: #C08A1E;
+    --cover-1: #C9A25A;
+    --cover-2: #A7573F;
+    --cover-3: #D1B27A;
+    --cover-4: #9B3B34;
+    --cover-5: #B98B4E;
+    --cover-6: #8A5A3B;
+    --line: #D2B278;
+    --line-soft: #DFC593;
+    --paper: #F3E1BC;
+    --pen-1: #8E1B1B;
+    --pen-2: #F0C24B;
+    --sand: #E6D0A4;
+    --seal-1: #B02A2A;
+    --seal-2: #7A1414;
+    --social-bg: #7A1414;
+    --social-gold: #F0C24B;
+    --spark: #C08A1E;
+    --surface: #F9EDD0;
+}
+
+/* Gryffindor — Nox */
+:root[data-theme="magic"][data-house="g"][data-mode="nox"] {
+    --band-a: #150707;
+    --band-b: #0B0404;
+    --blotch-1: rgba(200,120,30,.20);
+    --blotch-2: rgba(170,30,30,.22);
+    --brown: #F0C24B;
+    --brown-line: #C79A3A;
+    --cover-1: #5E4521;
+    --cover-2: #5A2A22;
+    --cover-3: #6A5330;
+    --cover-4: #5E1F1F;
+    --cover-5: #4F3A1C;
+    --cover-6: #4A2C20;
+    --line: #5A2A2A;
+    --line-soft: #411E1E;
+    --paper: #1C0D0D;
+    --pen-1: #8E1B1B;
+    --pen-2: #F0C24B;
+    --sand: #421F1F;
+    --seal-1: #B02A2A;
+    --seal-2: #7A1414;
+    --social-bg: #3A0A0A;
+    --social-gold: #F0C24B;
+    --spark: #F0C24B;
+    --surface: #2A1414;
+}
+
+/* Slytherin — Lumos */
+:root[data-theme="magic"][data-house="s"]:not([data-mode="nox"]) {
+    --band-a: #0F2A20;
+    --band-b: #08170F;
+    --blotch-1: rgba(143,160,154,.28);
+    --blotch-2: rgba(31,90,66,.10);
+    --brown: #1F5A42;
+    --brown-line: #8FA09A;
+    --cover-1: #8FA79A;
+    --cover-2: #6F8F7E;
+    --cover-3: #A9B8AE;
+    --cover-4: #5F7F70;
+    --cover-5: #B7C3BA;
+    --cover-6: #7C9488;
+    --ink: #14231C;
+    --ink-soft: #2D443A;
+    --line: #B5C5B6;
+    --line-soft: #C7D3C6;
+    --muted: #53695F;
+    --paper: #E2E8DD;
+    --pen-1: #1F5A42;
+    --pen-2: #C9D3D0;
+    --sand: #D0DBCE;
+    --seal-1: #2B7557;
+    --seal-2: #164232;
+    --social-bg: #14392B;
+    --social-gold: #C9D3D0;
+    --social-ink: #E8EFEA;
+    --spark: #8FA09A;
+    --surface: #ECF1E6;
+}
+
+/* Slytherin — Nox */
+:root[data-theme="magic"][data-house="s"][data-mode="nox"] {
+    --band-a: #06120E;
+    --band-b: #030906;
+    --blotch-1: rgba(40,120,90,.22);
+    --blotch-2: rgba(20,70,50,.26);
+    --brown: #B8CBC5;
+    --brown-line: #9FB0AB;
+    --cover-1: #25403A;
+    --cover-2: #1E4A3C;
+    --cover-3: #2E4A44;
+    --cover-4: #1A3C33;
+    --cover-5: #33504A;
+    --cover-6: #27443B;
+    --ink: #E4EEE9;
+    --ink-soft: #C9D8D1;
+    --line: #2D4A40;
+    --line-soft: #1F352E;
+    --muted: #92A89F;
+    --paper: #0A1612;
+    --pen-1: #1F5A42;
+    --pen-2: #C9D3D0;
+    --sand: #20362E;
+    --seal-1: #2B7557;
+    --seal-2: #164232;
+    --social-bg: #06201A;
+    --social-gold: #B8CBC5;
+    --spark: #B8CBC5;
+    --surface: #12231D;
+}
+
+/* Hufflepuff — Lumos */
+:root[data-theme="magic"][data-house="h"]:not([data-mode="nox"]) {
+    --band-a: #2B2417;
+    --band-b: #1A150A;
+    --blotch-1: rgba(224,168,30,.28);
+    --blotch-2: rgba(138,90,0,.08);
+    --brown: #8A5A00;
+    --brown-line: #C8962A;
+    --cover-1: #D9B867;
+    --cover-2: #B8A06A;
+    --cover-3: #CFA254;
+    --cover-4: #A38F5E;
+    --cover-5: #E2C77D;
+    --cover-6: #9A8450;
+    --ink: #2B2417;
+    --ink-soft: #4A3F28;
+    --line: #DCC987;
+    --line-soft: #E6D79D;
+    --muted: #716445;
+    --paper: #F6EBBE;
+    --pen-1: #E0A81E;
+    --pen-2: #2B2417;
+    --sand: #ECDEAD;
+    --seal-1: #E0A81E;
+    --seal-2: #B77E0A;
+    --seal-ink: #2B2417;
+    --social-bg: #3A2F10;
+    --social-gold: #F2C94C;
+    --social-ink: #F8EFCB;
+    --spark: #C8962A;
+    --surface: #FBF3D3;
+}
+
+/* Hufflepuff — Nox */
+:root[data-theme="magic"][data-house="h"][data-mode="nox"] {
+    --band-a: #120E05;
+    --band-b: #0A0803;
+    --blotch-1: rgba(224,168,30,.18);
+    --blotch-2: rgba(120,80,0,.22);
+    --brown: #F2C94C;
+    --brown-line: #D4A62A;
+    --cover-1: #5E4B1C;
+    --cover-2: #4A3F22;
+    --cover-3: #6A5020;
+    --cover-4: #3F3820;
+    --cover-5: #6E5A26;
+    --cover-6: #44381C;
+    --ink: #F4E9C6;
+    --ink-soft: #DCCFA8;
+    --line: #4F4220;
+    --line-soft: #392F17;
+    --muted: #AE9F77;
+    --paper: #17130A;
+    --pen-1: #E0A81E;
+    --pen-2: #2B2417;
+    --sand: #3A3018;
+    --seal-1: #E0A81E;
+    --seal-2: #B77E0A;
+    --seal-ink: #2B2417;
+    --social-bg: #241C06;
+    --social-gold: #F2C94C;
+    --spark: #F2C94C;
+    --surface: #241E0F;
+}
+
+/* Ravenclaw — Lumos */
+:root[data-theme="magic"][data-house="r"]:not([data-mode="nox"]) {
+    --band-a: #0E1B3A;
+    --band-b: #070F23;
+    --blotch-1: rgba(165,115,58,.20);
+    --blotch-2: rgba(30,58,110,.10);
+    --brown: #1E3A6E;
+    --brown-line: #A5733A;
+    --cover-1: #8C9BBB;
+    --cover-2: #B49770;
+    --cover-3: #7686AB;
+    --cover-4: #C2A57C;
+    --cover-5: #94A3C4;
+    --cover-6: #A08A6A;
+    --ink: #141D33;
+    --ink-soft: #2D3A58;
+    --line: #B7C0D6;
+    --line-soft: #C9D0E0;
+    --muted: #5A6684;
+    --paper: #E4E8F0;
+    --pen-1: #1E3A6E;
+    --pen-2: #D2A163;
+    --sand: #D2D8E6;
+    --seal-1: #2C5AA8;
+    --seal-2: #1A3A74;
+    --social-bg: #14284F;
+    --social-gold: #D2A163;
+    --social-ink: #E8ECF5;
+    --spark: #A5733A;
+    --surface: #EEF1F7;
+}
+
+/* Ravenclaw — Nox */
+:root[data-theme="magic"][data-house="r"][data-mode="nox"] {
+    --band-a: #070D20;
+    --band-b: #03060F;
+    --blotch-1: rgba(60,90,200,.26);
+    --blotch-2: rgba(165,115,58,.14);
+    --brown: #D6A864;
+    --brown-line: #B98B4E;
+    --cover-1: #26365E;
+    --cover-2: #4A3D2A;
+    --cover-3: #2C3F72;
+    --cover-4: #53432C;
+    --cover-5: #33467A;
+    --cover-6: #463A2A;
+    --ink: #E6EBF7;
+    --ink-soft: #CBD4EA;
+    --line: #2E4272;
+    --line-soft: #202F54;
+    --muted: #97A4C6;
+    --paper: #0B1226;
+    --pen-1: #1E3A6E;
+    --pen-2: #D2A163;
+    --sand: #203057;
+    --seal-1: #2C5AA8;
+    --seal-2: #1A3A74;
+    --social-bg: #08153A;
+    --social-gold: #D6A864;
+    --spark: #D6A864;
+    --surface: #131D3C;
+}
+/* ---------- Escudos (desenhos próprios, um por casa) ---------- */
+.crest { display: block; width: 100%; height: 100%; }
+.crest .em { display: none; }
+.crest[data-h="g"] { --cp: #8E1B1B; --cs: #F0C24B; }
+.crest[data-h="s"] { --cp: #1F5A42; --cs: #C9D3D0; }
+.crest[data-h="h"] { --cp: #E0A81E; --cs: #2B2417; }
+.crest[data-h="r"] { --cp: #1E3A6E; --cs: #C9954F; }
+.crest[data-h="g"] .em-g,
+.crest[data-h="s"] .em-s,
+.crest[data-h="h"] .em-h,
+.crest[data-h="r"] .em-r { display: inline; }
+
+/* ---------- Casa do post nos cartões ---------- */
+.post-card__house {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.house-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+.house-dot--g { background: #B02A2A; }
+.house-dot--s { background: #1F5A42; }
+.house-dot--h { background: #E0A81E; }
+.house-dot--r { background: #2C5AA8; }
+
+/* ---------- Botão do Chapéu Seletor (menu) ---------- */
+.house-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 4px 12px 4px 8px;
+    background: none;
+    border: 1px solid var(--brown-line);
+    border-radius: 2px;
+    color: var(--ink);
+    font: inherit;
+    cursor: pointer;
+}
+
+.house-toggle:hover { background: var(--surface); }
+.house-toggle__hat { width: 26px; height: 24px; }
+.house-toggle__hat svg { display: block; width: 100%; height: 100%; }
+.house-toggle__hat path:first-child,
+.house-toggle__hat ellipse { fill: var(--ink-soft); }
+.house-toggle__crest { width: 22px; height: 26px; }
+
+/* ---------- Bandeirolas no teto, nas cores da casa ---------- */
+:root[data-house] .candle-ceiling::before,
+:root[data-house] .candle-ceiling::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 22px;
+    height: 92px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+    background: linear-gradient(180deg, var(--pen-1) 0 62%, var(--pen-2) 62% 72%, var(--pen-1) 72%);
+    transform-origin: 50% 0;
+}
+
+:root[data-house] .candle-ceiling::before { left: 1.2%; }
+:root[data-house] .candle-ceiling::after { right: 1.2%; }
+
+@media (prefers-reduced-motion: no-preference) {
+    :root[data-house]:not([data-fx="off"]) .candle-ceiling::before { animation: pennant-sway 5s ease-in-out infinite; }
+    :root[data-house]:not([data-fx="off"]) .candle-ceiling::after { animation: pennant-sway 5s ease-in-out -2s infinite; }
+}
+
+@keyframes pennant-sway {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2.5deg); }
+}
+
+/* ---------- Faixa "este post pertence à casa X" ---------- */
+.house-ribbon {
+    position: relative;
+    z-index: 1;
+    padding: 9px 24px;
+    background: var(--seal-2);
+    color: var(--seal-ink);
+    text-align: center;
+    font-style: italic;
+}
+
+.house-ribbon[hidden] { display: none; }
+.house-ribbon p { margin: 0; }
+
+.house-ribbon__back {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 14px;
+    text-decoration: none;
+    min-height: 44px;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--seal-ink);
+    color: var(--seal-ink);
+    font: inherit;
+    font-style: normal;
+    cursor: pointer;
+}
+
+/* ---------- Rodapé ---------- */
+.site-footer__note { margin: 0; font-style: italic; color: var(--muted); }
+
+/* ---------- Teste do Chapéu Seletor ---------- */
+body.quiz-open { overflow: hidden; }
+
+.quiz {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 120px 16px 40px;
+    overflow-y: auto;
+    background: rgba(8, 6, 20, 0.62);
+}
+
+.quiz[hidden] { display: none; }
+
+.quiz__card {
+    position: relative;
+    width: 100%;
+    max-width: 580px;
+    box-sizing: border-box;
+    padding: 74px 34px 30px;
+    background: var(--surface);
+    border: 1px solid var(--brown-line);
+    border-radius: 3px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+.quiz__card::after {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid var(--brown-line);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.quiz__hat {
+    position: absolute;
+    left: 50%;
+    top: -78px;
+    width: 130px;
+    margin-left: -65px;
+    pointer-events: none;
+    transform-origin: 50% 95%;
+}
+
+.quiz__hat svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.35)); }
+
+.quiz__close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    z-index: 1;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: 0;
+    color: var(--muted);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.quiz__close:hover { color: var(--ink); }
+
+.quiz__view { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 18px; }
+.quiz__view[hidden] { display: none; }
+.quiz__progress { margin: 0; text-align: center; font-style: italic; font-size: 0.95rem; color: var(--muted); }
+
+.quiz__question {
+    margin: 0;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.7rem;
+    line-height: 1.25;
+    color: var(--ink);
+}
+
+.quiz__options { display: flex; flex-direction: column; gap: 10px; }
+
+.quiz__option {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    text-align: left;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--ink);
+    font: inherit;
+    font-size: 1.1rem;
+    line-height: 1.3;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.quiz__option:hover,
+.quiz__option:focus-visible { border-color: var(--brown); background: var(--surface); }
+
+.quiz__note { margin: 0; text-align: center; }
+
+.quiz__link {
+    min-height: 44px;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--brown-line);
+    color: var(--brown);
+    font: inherit;
+    cursor: pointer;
+}
+
+.quiz__result { align-items: center; text-align: center; }
+.quiz__lead { margin: 0; font-style: italic; color: var(--muted); }
+.quiz__crest { width: 84px; height: 100px; filter: drop-shadow(0 0 16px var(--brown-line)); }
+
+.quiz__house {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2.6rem;
+    color: var(--ink);
+}
+
+.quiz__text { margin: 0; max-width: 440px; font-size: 1.2rem; line-height: 1.5; color: var(--ink-soft); }
+.quiz__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 26px; margin-top: 8px; }
+
+.quiz__seal {
+    padding: 11px 24px;
+    border: 0;
+    border-radius: 999px;
+    background: radial-gradient(circle at 30% 28%, var(--seal-1), var(--seal-2) 72%);
+    color: var(--seal-ink);
+    font: inherit;
+    font-weight: 500;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.22), 0 2px 0 rgba(0, 0, 0, 0.28);
+    cursor: pointer;
+}
+
+.quiz__seal:hover { box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5), 0 0 18px 2px var(--brown-line), 0 2px 0 rgba(0, 0, 0, 0.28); }
+
+@media (prefers-reduced-motion: no-preference) {
+    .quiz__hat { animation: hat-think 2.6s ease-in-out infinite; }
+    .quiz--done .quiz__hat { animation: hat-done 1.2s ease-out both; }
+    .quiz__view { animation: quiz-in 0.5s cubic-bezier(0.2, 0.8, 0.25, 1) both; }
+}
+
+@keyframes hat-think {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg) translateY(-3px); }
+}
+
+@keyframes hat-done {
+    0% { transform: rotate(-8deg) scale(1); }
+    40% { transform: rotate(10deg) translateY(-10px) scale(1.06); }
+    100% { transform: rotate(0) scale(1); }
+}
+
+@keyframes quiz-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+}
+
+/* ---------- Troca de tema: onda de cor ---------- */
+.house-wipe {
+    position: fixed;
+    inset: 0;
+    z-index: 1070;
+    pointer-events: none;
+    background: var(--wipe, #6E1423);
+    animation: house-wipe 1.2s ease-out both;
+}
+
+@keyframes house-wipe {
+    0% { clip-path: circle(0% at 50% 24%); opacity: 0.95; }
+    65% { clip-path: circle(140% at 50% 24%); opacity: 0.6; }
+    100% { clip-path: circle(140% at 50% 24%); opacity: 0; }
+}
+
+/* ---------- Pomo de ouro ---------- */
+.snitch {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1060;
+    padding: 16px;
+    border: 0;
+    background: none;
+    animation: snitch-fly 19s linear infinite;
+}
+
+.snitch__in {
+    display: block;
+    animation: snitch-wobble 1.1s ease-in-out infinite;
+    filter: drop-shadow(0 0 7px rgba(255, 205, 80, 0.85));
+}
+
+.snitch:hover .snitch__in { filter: drop-shadow(0 0 14px rgba(255, 235, 140, 1)); }
+.snitch__wing { animation: snitch-flap 0.14s ease-in-out infinite alternate; }
+.snitch__wing--l { transform-origin: 33px 21px; }
+.snitch__wing--r { transform-origin: 45px 21px; animation-name: snitch-flap-r; }
+
+@keyframes snitch-flap { from { transform: rotate(-26deg) scaleY(0.9); } to { transform: rotate(14deg) scaleY(1); } }
+@keyframes snitch-flap-r { from { transform: rotate(26deg) scaleY(0.9); } to { transform: rotate(-14deg) scaleY(1); } }
+
+@keyframes snitch-wobble {
+    0%, 100% { transform: translate(0, 0) rotate(-4deg); }
+    25% { transform: translate(5px, -7px) rotate(3deg); }
+    50% { transform: translate(-4px, 3px) rotate(-2deg); }
+    75% { transform: translate(6px, 5px) rotate(4deg); }
+}
+
+@keyframes snitch-fly {
+    0% { transform: translate(-12vw, 30vh); animation-timing-function: ease-in-out; }
+    8% { transform: translate(14vw, 22vh); animation-timing-function: ease-in-out; }
+    16% { transform: translate(34vw, 52vh); animation-timing-function: ease-in-out; }
+    24% { transform: translate(56vw, 34vh); animation-timing-function: ease-in-out; }
+    32% { transform: translate(77vw, 64vh); animation-timing-function: ease-in-out; }
+    40% { transform: translate(91vw, 26vh); animation-timing-function: ease-in; }
+    46% { transform: translate(108vw, 42vh); }
+    52% { transform: translate(108vw, 70vh); animation-timing-function: ease-out; }
+    58% { transform: translate(82vw, 84vh); animation-timing-function: ease-in-out; }
+    66% { transform: translate(52vw, 72vh); animation-timing-function: ease-in-out; }
+    74% { transform: translate(26vw, 86vh); animation-timing-function: ease-in-out; }
+    84% { transform: translate(5vw, 70vh); animation-timing-function: ease-in; }
+    92% { transform: translate(-12vw, 58vh); }
+    100% { transform: translate(-12vw, 30vh); }
+}
+
+/* ---------- Patrono: o salão escurece e um animal de luz atravessa a tela ---------- */
+.patdim {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    pointer-events: none;
+    background: radial-gradient(900px 500px at 50% 20%, rgba(12, 16, 44, 0.35), rgba(6, 8, 24, 0.7));
+    animation: patronus-dim 7s ease-in-out both;
+}
+
+.patronus {
+    position: fixed;
+    left: -470px;
+    top: 18vh;
+    z-index: 1055;
+    pointer-events: none;
+    animation: patronus-run 7s cubic-bezier(0.35, 0, 0.55, 1) both;
+}
+
+.patronus__leap { display: block; animation: patronus-leap 1.5s ease-in-out infinite; }
+
+.patronus__svg {
+    display: block;
+    filter: drop-shadow(0 0 12px rgba(190, 220, 255, 0.95)) drop-shadow(0 0 38px rgba(140, 185, 255, 0.65));
+}
+
+.patronus__mist circle { animation: patronus-mist 1.3s ease-in-out infinite alternate; }
+.patronus__mist circle:nth-child(2n) { animation-delay: -0.4s; }
+.patronus__mist circle:nth-child(3n) { animation-delay: -0.8s; }
+
+@keyframes patronus-run {
+    0% { transform: translateX(0); opacity: 0; }
+    7% { opacity: 0.95; }
+    88% { opacity: 0.95; }
+    100% { transform: translateX(calc(100vw + 520px)); opacity: 0; }
+}
+
+@keyframes patronus-leap {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-46px) rotate(-3deg); }
+}
+
+@keyframes patronus-mist {
+    from { opacity: 0.15; transform: translate(0, 0); }
+    to { opacity: 0.8; transform: translate(-10px, -6px); }
+}
+
+@keyframes patronus-dim {
+    0% { opacity: 0; }
+    12% { opacity: 1; }
+    82% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* ---------- Efeitos desligados ou menos movimento ---------- */
+:root[data-fx="off"] .snitch,
+:root[data-fx="off"] .patronus,
+:root[data-fx="off"] .patdim,
+:root[data-fx="off"] .house-wipe { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .snitch, .patronus, .patdim, .house-wipe { display: none; }
+}

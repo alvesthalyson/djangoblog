@@ -41,6 +41,13 @@ class PostDetailView(DetailView):
             )
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # No tema "magic", a página do post veste as cores da casa dele (se tiver uma)
+        context["page_house"] = self.object.house
+        context["page_house_name"] = self.object.get_house_display() if self.object.house else ""
+        return context
+
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm

@@ -355,3 +355,112 @@ class ClassicThemeTests(TestCase):
 
     def test_context_processor_reports_the_active_theme(self):
         self.assertEqual(site_theme(None)["SITE_THEME"], "classic")
+
+
+class HouseModelAndFormTests(TestCase):
+    def setUp(self):
+        self.user = make_user()
+
+    def test_post_has_no_house_by_default(self):
+        self.assertEqual(make_post(self.user).house, "")
+
+    def test_post_can_belong_to_a_house(self):
+        post = make_post(self.user, house="r")
+        self.assertEqual(post.get_house_display(), "Ravenclaw")
+
+    def test_form_accepts_each_house_and_none(self):
+        for house in ("", "g", "s", "h", "r"):
+            form = PostForm(data={**POST_DATA, "house": house})
+            self.assertTrue(form.is_valid(), form.errors)
+
+    def test_form_rejects_unknown_house(self):
+        form = PostForm(data={**POST_DATA, "house": "x"})
+        self.assertFalse(form.is_valid())
+        self.assertIn("house", form.errors)
+
+    def test_author_can_choose_a_house_when_publishing(self):
+        self.client.login(username="alice", password="s3nha-forte-123")
+        self.client.post(reverse("post_create"), {**POST_DATA, "house": "s"})
+        self.assertEqual(Post.objects.get(title=POST_DATA["title"]).house, "s")
+
+
+@override_settings(SITE_THEME="magic")
+class HouseMagicThemeTests(TestCase):
+    def setUp(self):
+        self.user = make_user()
+
+    def test_page_loads_house_assets(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, "blog/css/houses.css")
+        self.assertContains(response, "blog/js/houses.js")
+
+    def test_page_has_hat_quiz_snitch_and_patronus(self):
+        response = self.client.get(reverse("home"))
+        for marker in (
+            'id="house-toggle"', 'id="quiz"', 'id="quiz-wear"',
+            'id="snitch-template"', 'id="patronus-template"',
+            'id="patronus-toggle"', 'id="snitch-count"',
+        ):
+            self.assertContains(response, marker)
+
+    def test_quiz_starts_closed(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, 'id="quiz" hidden')
+
+    def test_card_shows_the_house_of_the_post(self):
+        make_post(self.user, title="Post da corvinal", house="r")
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, "post-card__house")
+        self.assertContains(response, "Ravenclaw")
+
+    def test_card_without_house_has_no_house_line(self):
+        make_post(self.user, title="Post sem casa")
+        response = self.client.get(reverse("home"))
+        self.assertNotContains(response, "post-card__house")
+
+    def test_post_page_wears_the_house_colours(self):
+        post = make_post(self.user, house="r")
+        response = self.client.get(reverse("post_detail", args=[post.slug]))
+        self.assertContains(response, 'data-page-house="r"')
+        self.assertContains(response, 'data-house="r"')
+        self.assertContains(response, "house-ribbon")
+        self.assertContains(response, "This post belongs to Ravenclaw")
+
+    def test_post_page_without_house_keeps_the_visitors_theme(self):
+        post = make_post(self.user)
+        response = self.client.get(reverse("post_detail", args=[post.slug]))
+        self.assertNotContains(response, "data-page-house")
+        self.assertNotContains(response, "house-ribbon")
+
+    def test_list_page_never_forces_a_house(self):
+        make_post(self.user, house="g")
+        response = self.client.get(reverse("home"))
+        self.assertNotContains(response, "data-page-house")
+
+    def test_post_page_ignores_house_of_a_draft_hidden_from_visitor(self):
+        post = make_post(self.user, status="draft", house="g")
+        response = self.client.get(reverse("post_detail", args=[post.slug]))
+        self.assertEqual(response.status_code, 404)
+
+
+@override_settings(SITE_THEME="classic")
+class HouseClassicThemeTests(TestCase):
+    """No tema classic a casa existe nos dados, mas nada do visual das casas aparece."""
+
+    def setUp(self):
+        self.user = make_user()
+
+    def test_page_has_none_of_the_house_features(self):
+        make_post(self.user, house="g")
+        response = self.client.get(reverse("home"))
+        for marker in (
+            "houses.css", "houses.js", "house-toggle", 'id="quiz"',
+            "snitch-template", "patronus-template", "post-card__house",
+        ):
+            self.assertNotContains(response, marker)
+
+    def test_post_page_has_no_ribbon_or_page_house(self):
+        post = make_post(self.user, house="g")
+        response = self.client.get(reverse("post_detail", args=[post.slug]))
+        self.assertNotContains(response, "house-ribbon")
+        self.assertNotContains(response, "data-page-house")

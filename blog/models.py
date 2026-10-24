@@ -21,12 +21,21 @@ class Tag(models.Model):
 class Post(models.Model):
     StatusChoices = [('draft', 'Draft'), ('published', 'Published'), ]
 
+    # Casa do post: no tema "magic" a página vira as cores dela (veja houses.css)
+    HouseChoices = [
+        ('g', 'Gryffindor'),
+        ('s', 'Slytherin'),
+        ('h', 'Hufflepuff'),
+        ('r', 'Ravenclaw'),
+    ]
+
     tags = models.ManyToManyField(Tag, blank=True, related_name="posts")
 
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     content = models.TextField()
     status = models.CharField(max_length=10, choices=StatusChoices, default='published')
+    house = models.CharField(max_length=1, choices=HouseChoices, blank=True, default='')
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts"
     )

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static l10n %}
-<html lang="en" data-theme="{{ SITE_THEME }}"{% if SITE_THEME == "magic" %} data-mode="lumos" data-bs-theme="light"{% endif %}>
+<html lang="en" data-theme="{{ SITE_THEME }}"{% if SITE_THEME == "magic" %} data-mode="lumos" data-bs-theme="light"{% if page_house %} data-page-house="{{ page_house }}" data-house="{{ page_house }}"{% endif %}{% endif %}>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +21,11 @@
                 }
                 if (window.localStorage.getItem('djangoblog-fx') === 'off') {
                     root.setAttribute('data-fx', 'off');
+                }
+                /* Casa: a do post aberto vale sobre a escolhida no teste do Chapéu Seletor */
+                var house = window.localStorage.getItem('djangoblog-house');
+                if (/^[gshr]$/.test(house) && !root.getAttribute('data-page-house')) {
+                    root.setAttribute('data-house', house);
                 }
             } catch (e) { /* armazenamento bloqueado: usa os padrões */ }
         })();
@@ -58,6 +63,11 @@
     <link
         rel="stylesheet"
         href="{% static 'blog/css/magic.css' %}"
+    >
+    <!-- Cores e efeitos das casas (Chapéu Seletor, pomo de ouro, Patrono) -->
+    <link
+        rel="stylesheet"
+        href="{% static 'blog/css/houses.css' %}"
     >
     {% endif %}
 </head>
@@ -153,6 +163,18 @@
                     {% endif %}
 
                     {% if SITE_THEME == "magic" %}
+                        <!-- Chapéu Seletor: abre o teste e mostra a casa escolhida -->
+                        <button type="button" class="house-toggle" id="house-toggle" aria-haspopup="dialog" aria-label="Open the sorting quiz">
+                            <span class="house-toggle__hat" data-house-hat>
+                                <svg viewBox="0 0 130 120" aria-hidden="true">
+                                    <path d="M20 98 C28 78 40 58 52 42 C60 30 64 18 82 8 C80 20 84 30 86 42 C94 60 104 80 108 98 C88 108 40 108 20 98Z"/>
+                                    <ellipse cx="65" cy="100" rx="58" ry="12"/>
+                                </svg>
+                            </span>
+                            <span class="house-toggle__crest" data-house-crest hidden>{% include "blog/partials/_crest.html" %}</span>
+                            <span data-house-label>Sorting Hat</span>
+                        </button>
+
                         <!-- Alternador Lumos (claro) / Nox (escuro) -->
                         <button type="button" class="mode-toggle" id="mode-toggle" aria-label="Switch to the dark theme">
                             <svg width="14" height="18" viewBox="0 0 14 18" aria-hidden="true">
@@ -165,6 +187,16 @@
             </div>
         </nav>
     </header>
+
+    {% if SITE_THEME == "magic" and page_house %}
+    <!-- Este post pertence a uma casa: a página veste as cores dela enquanto ele está aberto -->
+    <div class="house-ribbon" role="note">
+        <p>
+            This post belongs to {{ page_house_name }}. The blog wears its colours while you read.
+            <a class="house-ribbon__back" href="{% url 'home' %}">Back to the blog</a>
+        </p>
+    </div>
+    {% endif %}
 
     {% if SITE_THEME == "magic" %}
     <!-- Teto com velas flutuantes (puramente decorativo) -->
@@ -217,6 +249,8 @@
             &copy; 2026 DjangoBlog
         </p>
         {% if SITE_THEME == "magic" %}
+            <span class="site-footer__note">Golden Snitches caught: <span id="snitch-count">0</span></span>
+            <button type="button" class="fx-toggle" id="patronus-toggle">Expecto Patronum</button>
             <button type="button" class="fx-toggle" id="fx-toggle">Turn effects off</button>
         {% endif %}
     </footer>
@@ -227,7 +261,37 @@
     ></script>
 
     {% if SITE_THEME == "magic" %}
+    <!-- Teste do Chapéu Seletor (as perguntas ficam no houses.js) -->
+    <div class="quiz" id="quiz" hidden>
+        <div class="quiz__card" role="dialog" aria-modal="true" aria-labelledby="quiz-title">
+            <div class="quiz__hat" aria-hidden="true">{% include "blog/partials/_hat.html" %}</div>
+            <button type="button" class="quiz__close" id="quiz-close" aria-label="Close the quiz">&times;</button>
+
+            <div class="quiz__view" id="quiz-question-view">
+                <p class="quiz__progress" id="quiz-progress"></p>
+                <h2 class="quiz__question" id="quiz-title"></h2>
+                <div class="quiz__options" id="quiz-options"></div>
+            </div>
+
+            <div class="quiz__view quiz__result" id="quiz-result-view" hidden>
+                <p class="quiz__lead">The hat has decided&hellip;</p>
+                <div class="quiz__crest" id="quiz-crest">{% include "blog/partials/_crest.html" %}</div>
+                <p class="quiz__house" id="quiz-house" aria-live="polite"></p>
+                <p class="quiz__text" id="quiz-text"></p>
+                <div class="quiz__actions">
+                    <button type="button" class="quiz__seal" id="quiz-wear">Wear my colours</button>
+                    <button type="button" class="quiz__link" id="quiz-retry">Try again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desenhos clonados pelo houses.js -->
+    <template id="snitch-template">{% include "blog/partials/_snitch.html" %}</template>
+    <template id="patronus-template">{% include "blog/partials/_patronus.html" %}</template>
+
     <script src="{% static 'blog/js/magic.js' %}"></script>
+    <script src="{% static 'blog/js/houses.js' %}"></script>
     {% endif %}
 
 </body>

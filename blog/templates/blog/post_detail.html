@@ -9,6 +9,9 @@
             <img src="{{ post.cover_image.url }}" class="img-fluid rounded mb-3" alt="{{ post.title }}">
         {% endif %}
         
+        {% if SITE_THEME == "magic" and post.house %}
+            <p class="post-card__house"><span class="house-dot house-dot--{{ post.house }}" aria-hidden="true"></span>{{ post.get_house_display }}</p>
+        {% endif %}
         <h1>{{ post.title }}</h1>
         <p class="text-muted">
             Categoria: {{ post.category.name|default:"Sem categoria" }} |

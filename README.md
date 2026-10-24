@@ -99,6 +99,18 @@ O tema `magic` tem dois modos, trocados pelo botão do menu e lembrados no naveg
 - O botão **Turn effects off**, no rodapé, desliga velas, varinha, aura e faíscas. Quem pede menos animação ao
   sistema já recebe a página sem movimento.
 
+### Casas, pomo de ouro e Patrono (tema `magic`)
+
+- **Chapéu Seletor**: o botão do menu abre um teste de 5 perguntas. A casa (Gryffindor, Slytherin, Hufflepuff ou
+  Ravenclaw) é guardada no navegador e muda as cores do site, nos modos Lumos e Nox.
+- **Casa por post**: ao criar ou editar um post, o autor pode escolher uma casa. Quem abre o post vê a página nas
+  cores dela, com uma faixa avisando; ao sair, volta para o tema escolhido no teste.
+- **Pomo de ouro**: voa pela tela e pode ser apanhado com um clique; o contador fica no rodapé.
+- **Patrono**: um animal de luz atravessa a tela ao publicar um post ou ao clicar em "Expecto Patronum".
+- "Turn effects off" e a opção de reduzir movimento do sistema desligam o pomo, o Patrono e a onda de cor.
+
+Depois de atualizar o código, rode `python manage.py migrate` (o campo `house` do post é novo).
+
 > Harry Potter é marca e obra protegidas. O tema é "inspirado em": usa cores, fontes livres e desenhos próprios,
 > sem logotipos, brasões, imagens ou textos oficiais. Se for publicar o blog, mantenha assim.
 
@@ -109,7 +121,7 @@ python manage.py test
 ```
 
 A suíte cobre geração de slug, validações do formulário, visibilidade de rascunhos,
-cadastro/login/logout, paginação, as regras de permissão de edição e exclusão e os dois temas visuais.
+cadastro/login/logout, paginação, as regras de permissão de edição e exclusão e os dois temas visuais e as casas do tema `magic`.
 (O usuário do PostgreSQL precisa de permissão para criar o banco de testes.)
 
 ## Estrutura do projeto
@@ -126,7 +138,7 @@ djangoblog/
 │   ├── context_processors.py  # Redes sociais, tema ativo e velas, disponíveis em todos os templates
 │   ├── tests.py       # Testes automatizados
 │   ├── templates/     # Templates e partials reutilizáveis
-│   └── static/blog/   # css/ (style.css = base e tema classic, magic.css = tema magic), js/magic.js, img/ (cursores)
+│   └── static/blog/   # css/ (style.css = base e tema classic, magic.css = tema magic, houses.css = casas), js/ (magic.js, houses.js), img/ (cursores)
 ├── .env.example
 ├── manage.py
 └── requirements.txt

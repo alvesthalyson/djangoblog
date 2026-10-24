@@ -8,6 +8,9 @@
   </div>
 
   <div class="post-card__body">
+    {% if SITE_THEME == "magic" and post.house %}
+      <p class="post-card__house"><span class="house-dot house-dot--{{ post.house }}" aria-hidden="true"></span>{{ post.get_house_display }}</p>
+    {% endif %}
     <h2 class="post-card__title">{{ post.title }}</h2>
     <p class="post-card__meta">By {{ post.author.username }} · {{ post.created_at|date:"M d, Y" }}</p>
     <p class="post-card__excerpt">{{ post.content|truncatewords:20 }}</p>
