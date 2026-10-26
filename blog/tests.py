@@ -253,7 +253,7 @@ class LayoutTests(TestCase):
     @override_settings(SOCIAL_LINKS=[{"name": "Instagram", "url": "#"}])
     def test_link_without_url_does_not_open_new_tab(self):
         response = self.client.get(reverse("home"))
-        self.assertContains(response, '<a href="#">Instagram</a>', html=True)
+        self.assertContains(response, 'href="#" title="Instagram" aria-label="Instagram"')
         self.assertNotContains(response, 'target="_blank"')
 
     def test_post_without_cover_shows_placeholder(self):
@@ -464,3 +464,48 @@ class HouseClassicThemeTests(TestCase):
         response = self.client.get(reverse("post_detail", args=[post.slug]))
         self.assertNotContains(response, "house-ribbon")
         self.assertNotContains(response, "data-page-house")
+
+
+YOUTUBE_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
+
+class SocialIconTests(TestCase):
+    def test_social_links_use_icons_with_accessible_names(self):
+        response = self.client.get(reverse("home"))
+        for icon in ("bi-instagram", "bi-facebook", "bi-tiktok", "bi-linkedin"):
+            self.assertContains(response, icon)
+        self.assertContains(response, 'aria-label="TikTok"')
+
+
+class VideoTests(TestCase):
+    def setUp(self):
+        self.user = make_user()
+
+    def test_post_has_no_video_by_default(self):
+        self.assertFalse(make_post(self.user).video_url)
+
+    def test_form_accepts_a_youtube_url(self):
+        form = PostForm(data={**POST_DATA, "video_url": YOUTUBE_URL})
+        self.assertTrue(form.is_valid(), form.errors)
+
+    def test_form_rejects_an_invalid_url(self):
+        form = PostForm(data={**POST_DATA, "video_url": "isto nao e uma url"})
+        self.assertFalse(form.is_valid())
+        self.assertIn("video_url", form.errors)
+
+    def test_card_embeds_the_video_for_hover_play(self):
+        make_post(self.user, video_url=YOUTUBE_URL)
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, "post-card__video")
+        self.assertContains(response, "youtube.com/embed/dQw4w9WgXcQ")
+
+    def test_card_without_video_has_no_player(self):
+        make_post(self.user)
+        response = self.client.get(reverse("home"))
+        self.assertNotContains(response, "post-card__video")
+
+    def test_post_page_shows_the_video(self):
+        post = make_post(self.user, video_url=YOUTUBE_URL)
+        response = self.client.get(reverse("post_detail", args=[post.slug]))
+        self.assertContains(response, "dQw4w9WgXcQ")
+        self.assertContains(response, "ratio ratio-16x9")

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'embed_video',
     'blog',
 ]
 
@@ -198,3 +199,5 @@ if "test" in sys.argv:
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Permite que o YouTube receba a identificação necessária para incorporar o vídeo
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"

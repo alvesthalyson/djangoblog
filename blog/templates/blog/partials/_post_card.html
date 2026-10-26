@@ -1,9 +1,27 @@
+{% load embed_video_tags %}
 <article class="post-card">
   <div class="post-card__media{% if not post.cover_image %} post-card__media--empty{% endif %}">
+    
     {% if post.cover_image %}
       <img src="{{ post.cover_image.url }}" class="post-card__image" alt="{{ post.title }}">
     {% else %}
       <span class="post-card__placeholder">No Image</span>
+    {% endif %}
+
+    {% if post.video_url %}
+      <div class="post-card__video-container">
+          <!-- 
+            Tentamos extrair o ID do vídeo de forma segura. 
+            O filtro 'slice' pega os últimos 11 caracteres da URL, 
+            que é o padrão do YouTube.
+          -->
+          <iframe class="post-card__video" 
+                  src="https://www.youtube.com/embed/{{ post.video_url|stringformat:'s'|slice:'-11:' }}?enablejsapi=1&mute=1&controls=0&loop=1&playlist={{ post.video_url|stringformat:'s'|slice:'-11:' }}&modestbranding=1&rel=0&playsinline=1"
+                  frameborder="0" 
+                  allow="autoplay; encrypted-media" 
+                  allowfullscreen>
+          </iframe>
+      </div>
     {% endif %}
   </div>
 

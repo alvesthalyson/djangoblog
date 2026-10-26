@@ -569,3 +569,71 @@ main form .helptext ul {
 }
 
 .text-danger { color: var(--danger) !important; }
+/* ---------- Botões de Redes Sociais (Tema Classic) ---------- */
+.social-bar__links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%; /* Deixa o botão redondo */
+    border: 1px solid var(--brown-line); /* Borda com a cor do site */
+    color: var(--brown); /* Cor do ícone */
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    padding: 0; /* Remove o padding antigo do link de texto */
+}
+
+.social-bar__links a:hover {
+    background-color: var(--brown); /* Fundo preenche ao passar o mouse */
+    color: var(--paper); /* Ícone fica branco/bege */
+    border-color: var(--brown);
+    transform: translateY(-2px); /* Efeito de flutuar */
+}
+/* --- Efeito de Hover no Card (Vídeo) - Tema Classic --- */
+.post-card__media {
+    position: relative;
+    overflow: hidden;
+    height: 190px;
+}
+
+.post-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.post-card__video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Invisível por padrão */
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.post-card__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Quando o mouse está em cima, esconde a imagem e mostra o vídeo */
+.post-card__media.is-hovering .post-card__image {
+    opacity: 0;
+}
+
+.post-card__media.is-hovering .post-card__video-container {
+    opacity: 1;
+}
+/* Garante que o iframe do YouTube ocupe todo o espaço */
+.post-card__video iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+}

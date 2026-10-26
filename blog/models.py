@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.conf import settings
 from PIL import Image
+from embed_video.fields import EmbedVideoField
 
 
 class Category(models.Model):
@@ -33,6 +34,7 @@ class Post(models.Model):
 
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
+    video_url = EmbedVideoField(blank=True, null=True, verbose_name="YouTube Video URL")
     content = models.TextField()
     status = models.CharField(max_length=10, choices=StatusChoices, default='published')
     house = models.CharField(max_length=1, choices=HouseChoices, blank=True, default='')

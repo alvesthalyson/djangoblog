@@ -7,7 +7,7 @@
 
     <meta name="description" content="DjangoBlog - a multi-user blogging platform built with Django.">
 
-    <title>{% block title %}DjangoBlog{% endblock %}</title>
+    <title>{% block title %}{% if SITE_THEME == "magic" %}Magic Blog{% else %}My Blog{% endif %}{% endblock %}</title>
 
     {% if SITE_THEME == "magic" %}
     <!-- Lembra o modo (Lumos/Nox) e os efeitos antes da primeira pintura, para a página não "piscar" -->
@@ -53,6 +53,9 @@
         rel="stylesheet"
     >
 
+    <!-- Bootstrap Icons (ícones das redes sociais) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <link
         rel="stylesheet"
         href="{% static 'blog/css/style.css' %}"
@@ -83,10 +86,22 @@
                 {% for social in SOCIAL_LINKS %}
                     <li>
                         {% if social.url == "#" %}
-                            <a href="#">{{ social.name }}</a>
+                            <a href="#" title="{{ social.name }}" aria-label="{{ social.name }}">
                         {% else %}
-                            <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer">{{ social.name }}</a>
+                            <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer" title="{{ social.name }}" aria-label="{{ social.name }}">
                         {% endif %}
+                            {% if social.name == "Instagram" %}
+                                <i class="bi bi-instagram" aria-hidden="true"></i>
+                            {% elif social.name == "Facebook" %}
+                                <i class="bi bi-facebook" aria-hidden="true"></i>
+                            {% elif social.name == "TikTok" %}
+                                <i class="bi bi-tiktok" aria-hidden="true"></i>
+                            {% elif social.name == "LinkedIn" %}
+                                <i class="bi bi-linkedin" aria-hidden="true"></i>
+                            {% else %}
+                                <i class="bi bi-link-45deg" aria-hidden="true"></i>
+                            {% endif %}
+                        </a>
                     </li>
                 {% endfor %}
             </ul>
@@ -97,7 +112,7 @@
     <header class="site-nav">
         <nav class="navbar navbar-expand-lg wrap" aria-label="Main">
             <a class="navbar-brand" href="{% url 'home' %}">
-                DjangoBlog
+                {% if SITE_THEME == "magic" %}Magic Blog{% else %}My Blog{% endif %}
             </a>
 
             <button
@@ -246,7 +261,7 @@
     <!-- Rodapé -->
     <footer class="site-footer">
         <p class="mb-0">
-            &copy; 2026 DjangoBlog
+            &copy; 2026 {% if SITE_THEME == "magic" %}Magic Blog{% else %}My Blog{% endif %}
         </p>
         {% if SITE_THEME == "magic" %}
             <span class="site-footer__note">Golden Snitches caught: <span id="snitch-count">0</span></span>
@@ -293,6 +308,30 @@
     <script src="{% static 'blog/js/magic.js' %}"></script>
     <script src="{% static 'blog/js/houses.js' %}"></script>
     {% endif %}
+
+    <script>
+        /* Vídeos dos cartões: tocam sem som quando o mouse passa sobre a capa (API do YouTube) */
+        var ytTag = document.createElement('script');
+        ytTag.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(ytTag);
+
+        function onYouTubeIframeAPIReady() {
+            document.querySelectorAll('.post-card__video-container iframe').forEach(function (iframe) {
+                var player = new YT.Player(iframe);
+                var container = iframe.closest('.post-card__media');
+                if (!container) { return; }
+                container.addEventListener('mouseenter', function () {
+                    container.classList.add('is-hovering');
+                    player.playVideo();
+                });
+                container.addEventListener('mouseleave', function () {
+                    container.classList.remove('is-hovering');
+                    player.pauseVideo();
+                    player.seekTo(0);
+                });
+            });
+        }
+    </script>
 
 </body>
 </html>

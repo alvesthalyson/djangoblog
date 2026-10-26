@@ -4,7 +4,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0006_post_author'),
+        ('blog', '0007_post_video_url'),
     ]
 
     operations = [

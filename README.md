@@ -18,6 +18,7 @@ Usuários criam conta, escrevem posts com imagem de capa, salvam rascunhos e ger
 - **Categorias e tags** gerenciadas pelo painel administrativo
 - **Páginas de erro** 403, 404 e 500 personalizadas
 - **Interface responsiva** com Bootstrap 5 e dois temas visuais à escolha (veja [Temas](#temas))
+- **Vídeo do YouTube** opcional em cada post: na lista, toca sem som quando o mouse passa sobre a capa; na página do post, aparece o player (pacote `django-embed-video`)
 - **Faixa de redes sociais** no topo (Instagram, Facebook, TikTok e LinkedIn), com os links configurados pelo `.env`
 
 ## Tecnologias
@@ -26,7 +27,7 @@ Usuários criam conta, escrevem posts com imagem de capa, salvam rascunhos e ger
 | --- | --- |
 | Backend | Python, Django 5.2 |
 | Banco de dados | PostgreSQL (driver `psycopg` 3) |
-| Frontend | Templates Django, Bootstrap 5.3 |
+| Frontend | Templates Django, Bootstrap 5.3, Bootstrap Icons |
 | Arquivos estáticos | WhiteNoise |
 | Imagens | Pillow |
 | Desenvolvimento | django-debug-toolbar (somente com `DEBUG=True`) |

@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load embed_video_tags %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
 <div class="row">
@@ -12,6 +13,13 @@
         {% if SITE_THEME == "magic" and post.house %}
             <p class="post-card__house"><span class="house-dot house-dot--{{ post.house }}" aria-hidden="true"></span>{{ post.get_house_display }}</p>
         {% endif %}
+        <!-- Exibição do vídeo -->
+        {% if post.video_url %}
+            <div class="ratio ratio-16x9 mb-4">
+                {% video post.video_url "large" %}
+            </div>
+        {% endif %}
+
         <h1>{{ post.title }}</h1>
         <p class="text-muted">
             Categoria: {{ post.category.name|default:"Sem categoria" }} |
