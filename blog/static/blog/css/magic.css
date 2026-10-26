@@ -603,3 +603,79 @@
         transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
     }
 }
+/* ---------- Botões de Redes Sociais (Tema Magic) ---------- */
+[data-theme="magic"] .social-bar__links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--social-gold);
+    color: var(--social-gold);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    padding: 0;
+    margin-bottom: 0; /* Remove a margem inferior antiga */
+}
+
+[data-theme="magic"] .social-bar__links a:hover {
+    background-color: var(--social-gold);
+    color: var(--social-bg); /* Contraste com o fundo escuro */
+    border-color: var(--social-gold);
+    transform: translateY(-2px);
+}
+
+/* Ajuste no modo Nox para o ícone não sumir */
+[data-theme="magic"][data-mode="nox"] .social-bar__links a {
+    color: var(--social-gold);
+}
+[data-theme="magic"][data-mode="nox"] .social-bar__links a:hover {
+    color: var(--social-bg);
+}
+/* --- Efeito de Hover no Card (Vídeo) - Tema Magic --- */
+[data-theme="magic"] .post-card__media {
+    position: relative;
+    overflow: hidden;
+    height: 190px;
+}
+
+[data-theme="magic"] .post-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+[data-theme="magic"] .post-card__video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+[data-theme="magic"] .post-card__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+[data-theme="magic"] .post-card__media.is-hovering .post-card__image {
+    opacity: 0;
+}
+
+[data-theme="magic"] .post-card__media.is-hovering .post-card__video-container {
+    opacity: 1;
+}
+/* Garante que o iframe do YouTube ocupe todo o espaço */
+[data-theme="magic"] .post-card__video iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+}

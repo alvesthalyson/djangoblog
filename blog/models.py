@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.conf import settings
 from PIL import Image
+from embed_video.fields import EmbedVideoField 
 
 
 class Category(models.Model):
@@ -18,6 +19,9 @@ class Tag(models.Model):
         return self.name
 
 
+# APAGUE A CLASSE POST QUE ESTAVA AQUI (a que só tinha video_url)
+
+
 class Post(models.Model):
     StatusChoices = [('draft', 'Draft'), ('published', 'Published'), ]
 
@@ -25,6 +29,13 @@ class Post(models.Model):
 
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
+    
+    # ADICIONE O CAMPO VIDEO_URL AQUI
+    video_url = EmbedVideoField(blank=True, null=True, verbose_name="YouTube Video URL")
+    
+    # (Você já tinha um campo chamado 'video' na sua classe original, 
+    # então recomendo manter apenas o 'video_url' que acabamos de criar e apagar o antigo 'video')
+    
     content = models.TextField()
     status = models.CharField(max_length=10, choices=StatusChoices, default='published')
     category = models.ForeignKey(

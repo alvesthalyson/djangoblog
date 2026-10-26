@@ -15,13 +15,16 @@ class RegisterForm(UserCreationForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["title", "content", "category", "tags", "status", "cover_image"]
+        fields = ["title", "content", "category", "tags", "status", "cover_image", "video_url"]
 
         widgets = {
             "content": forms.Textarea(attrs={"rows": 8, "class": "form-control"}),
             "title": forms.TextInput(attrs={"class": "form-control"}),
             "category": forms.Select(attrs={"class": "form-select"}),
             "status": forms.Select(attrs={"class": "form-select"}),
+            "tags": forms.SelectMultiple(attrs={"class": "form-select"}),
+            "cover_image": forms.ClearableFileInput(attrs={"class": "form-control"}),
+            "video_url": forms.URLInput(attrs={"class": "form-control", "placeholder": "Enter YouTube video URL"}),
         }
 
     def clean_title(self):
