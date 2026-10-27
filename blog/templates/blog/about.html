@@ -1,26 +1,59 @@
 {% extends "blog/base.html" %}
 {% block title %}About{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-  <div class="col-lg-8">
-    <h1 class="mb-3">About DjangoBlog</h1>
-    <p class="lead">
-      DjangoBlog is a multi-user blogging platform built with Django, PostgreSQL and Bootstrap 5.
-    </p>
+<div class="about">
+  <header class="about__hero">
+    <span class="about__seal" aria-hidden="true">T</span>
+    <div>
+      <h1>Hi, I'm Thalyson</h1>
+      <p>IT student, living in Japan for almost two years, and the person behind this blog.</p>
+    </div>
+  </header>
 
-    <h2 class="h4 mt-4">What you can do</h2>
-    <ul>
-      <li>Create an account and sign in or out securely.</li>
-      <li>Write, edit and delete your own posts, with an optional cover image.</li>
-      <li>Save posts as drafts that only you can see, then publish them when ready.</li>
-      <li>Organize content with categories and tags.</li>
-      <li>Reset your password by e-mail.</li>
-    </ul>
+  <ul class="about__facts">
+    <li><i class="bi bi-laptop" aria-hidden="true"></i> IT student</li>
+    <li><i class="bi bi-geo-alt" aria-hidden="true"></i> Japan · almost 2 years</li>
+    <li><i class="bi bi-braces" aria-hidden="true"></i> Learning Django</li>
+  </ul>
 
-    <h2 class="h4 mt-4">Built with</h2>
-    <p class="mb-0">
-      Django 5 · PostgreSQL · Bootstrap 5 · Pillow · WhiteNoise
-    </p>
+  <h2>About me</h2>
+  <p>
+    I'm studying Information Technology and have been living in Japan for almost two years.
+    Learning a new language, a new country and a new profession at the same time is a lot,
+    and building projects like this one is how I keep it fun.
+  </p>
+
+  <h2>About the blog</h2>
+  <p>
+    This blog is a school project, inspired by the Harry Potter universe and filled with
+    the things I like. You can write your own posts, sort them into Hogwarts houses,
+    take the Sorting Hat quiz, and comment on what others publish.
+  </p>
+
+  <div class="about__grid">
+    <div class="about__card">
+      <i class="bi bi-music-note-beamed" aria-hidden="true"></i>
+      <h3>Music</h3>
+      <p>Playlists and videos that keep me company while I code and study.</p>
+    </div>
+    <div class="about__card">
+      <i class="bi bi-film" aria-hidden="true"></i>
+      <h3>Series</h3>
+      <p>Shows I binge, recommend and love to talk about.</p>
+    </div>
+    <div class="about__card">
+      <i class="bi bi-trophy" aria-hidden="true"></i>
+      <h3>Football</h3>
+      <p>Matches, teams and the passion that goes with them.</p>
+    </div>
+  </div>
+
+  <h2>Built with</h2>
+  <p class="mb-0">Django 5 · PostgreSQL · Bootstrap 5 · Pillow · WhiteNoise</p>
+
+  <div class="about__cta">
+    <span>Want to say hello or share an idea?</span>
+    <a href="{% url 'contact' %}" class="btn btn-primary">Get in touch</a>
   </div>
 </div>
 {% endblock %}

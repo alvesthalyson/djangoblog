@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Comment, ContactMessage, Post
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -54,3 +54,37 @@ class PostForm(forms.ModelForm):
             if not any(image.name.lower().endswith(ext) for ext in valid_extensions):
                 raise forms.ValidationError("Unsupported file type. Use JPG, PNG, or WEBP.")
         return image
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["text"]
+        widgets = {
+            "text": forms.Textarea(attrs={"rows": 4, "class": "form-control", "placeholder": "What did you think?"}),
+        }
+        labels = {"text": "Your comment"}
+        error_messages = {"text": {"required": "Write something before posting."}}
+
+
+class ContactForm(forms.ModelForm):
+    # Campo-isca: pessoas não veem (fica escondido); robôs costumam preencher tudo.
+    website = forms.CharField(
+        required=False,
+        label="Leave this field empty",
+        widget=forms.TextInput(attrs={"tabindex": "-1", "autocomplete": "off"}),
+    )
+
+    class Meta:
+        model = ContactMessage
+        fields = ["name", "email", "message"]
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control", "placeholder": "Your name", "autocomplete": "name"}),
+            "email": forms.EmailInput(attrs={"class": "form-control", "placeholder": "you@example.com", "autocomplete": "email"}),
+            "message": forms.Textarea(attrs={"rows": 5, "class": "form-control", "placeholder": "Anything you'd like to tell me?"}),
+        }
+        labels = {"message": "Message (optional)"}
+        error_messages = {
+            "name": {"required": "Please tell me your name."},
+            "email": {"required": "Please add your email so I can reply.", "invalid": "That email does not look right."},
+        }

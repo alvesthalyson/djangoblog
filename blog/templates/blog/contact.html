@@ -1,13 +1,29 @@
 {% extends "blog/base.html" %}
 {% block title %}Contact{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-  <div class="col-lg-8">
-    <h1 class="mb-3">Contact</h1>
-    <p>Questions, suggestions or bug reports? Open an issue or check the source code:</p>
-    <ul>
-      <li>GitHub: <a href="https://github.com/alvesthalyson/djangoblog" target="_blank" rel="noopener">github.com/alvesthalyson/djangoblog</a></li>
-    </ul>
-  </div>
+<div class="contact">
+  <h1 class="mb-2">Contact</h1>
+  <p>Questions, suggestions or just a hello? Leave your name and email; the message is optional.</p>
+
+  <form method="post" class="contact__form" novalidate>
+    {% csrf_token %}
+    {% for field in form.visible_fields %}
+      {% if field.name == "website" %}
+        <div class="contact__trap" aria-hidden="true">{{ field.label_tag }} {{ field }}</div>
+      {% else %}
+        <p>
+          {{ field.label_tag }}
+          {{ field }}
+          {{ field.errors }}
+        </p>
+      {% endif %}
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Send message</button>
+  </form>
+
+  <p class="contact__links">
+    Prefer code? The source is on
+    <a href="https://github.com/alvesthalyson/djangoblog" target="_blank" rel="noopener">GitHub</a>.
+  </p>
 </div>
 {% endblock %}

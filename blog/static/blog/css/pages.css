@@ -1,0 +1,53 @@
+/* Comentários, About e Contact — usa as variáveis de cor de qualquer tema. */
+:root {
+  --pg-accent: var(--seal-1, var(--brown, #6b4f3a));
+  --pg-accent-ink: var(--seal-ink, #fff);
+}
+
+/* ---------- Comentários ---------- */
+.comments { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line, #ddd); }
+.comments__title { font-family: var(--font-display, inherit); font-size: 1.4rem; margin-bottom: 1rem; }
+.comments__count { font-size: .85rem; color: var(--muted, #777); margin-left: .35rem; }
+.comments__form { margin-bottom: 1.5rem; }
+.comments__form textarea { width: 100%; max-width: none; }
+.comments__form-foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: .5rem; }
+.comments__hint { font-size: .85rem; color: var(--muted, #777); }
+.comments__login { background: var(--sand, #f4efe8); border: 1px solid var(--line-soft, #e6e0d8); border-radius: 10px; padding: .9rem 1rem; }
+.comments__list { list-style: none; padding: 0; margin: 1.25rem 0 0; }
+.comments__empty { color: var(--muted, #777); font-style: italic; }
+.comment { display: flex; gap: .85rem; padding: .9rem 0; border-bottom: 1px solid var(--line-soft, #eee); }
+.comment:last-child { border-bottom: 0; }
+.comment__avatar { flex: 0 0 38px; height: 38px; border-radius: 50%; background: var(--pg-accent); color: var(--pg-accent-ink); display: grid; place-items: center; font-weight: 700; }
+.comment__body { min-width: 0; flex: 1; }
+.comment__meta { margin: 0 0 .2rem; font-size: .88rem; color: var(--muted, #777); }
+.comment__meta strong { color: var(--ink, #222); }
+.comment__badge { font-size: .7rem; text-transform: uppercase; letter-spacing: .05em; border: 1px solid var(--pg-accent); color: var(--pg-accent); border-radius: 999px; padding: 0 .45rem; margin-left: .3rem; }
+.comment__text { margin: 0; overflow-wrap: anywhere; color: var(--ink, #222); }
+.comment__delete { margin-top: .25rem; }
+.comment__delete-btn { background: none; border: 0; padding: 0; font-size: .82rem; color: var(--danger, #a33); cursor: pointer; }
+.comment__delete-btn:hover { text-decoration: underline; }
+
+/* ---------- About ---------- */
+.about { max-width: 860px; margin: 0 auto; }
+.about__hero { display: flex; gap: 1.5rem; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; }
+.about__seal { flex: 0 0 96px; height: 96px; border-radius: 50%; background: var(--pg-accent); color: var(--pg-accent-ink); display: grid; place-items: center; font-family: var(--font-display, inherit); font-size: 2.6rem; box-shadow: 0 0 0 4px var(--surface, #fff), 0 0 0 5px var(--pg-accent); }
+.about__hero h1 { margin: 0 0 .25rem; font-family: var(--font-display, inherit); }
+.about__hero p { margin: 0; color: var(--ink-soft, #555); }
+.about__facts { list-style: none; padding: 0; margin: 0 0 2rem; display: flex; gap: .6rem; flex-wrap: wrap; }
+.about__facts li { background: var(--sand, #f4efe8); border: 1px solid var(--line-soft, #e6e0d8); border-radius: 999px; padding: .3rem .85rem; font-size: .9rem; }
+.about h2 { font-family: var(--font-display, inherit); font-size: 1.35rem; margin: 2rem 0 .75rem; }
+.about__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.about__card { background: var(--surface, #fff); border: 1px solid var(--line, #ddd); border-radius: 12px; padding: 1.1rem; }
+.about__card i { font-size: 1.5rem; color: var(--pg-accent); }
+.about__card h3 { font-size: 1.05rem; margin: .5rem 0 .35rem; }
+.about__card p { margin: 0; color: var(--ink-soft, #555); font-size: .95rem; }
+.about__cta { margin-top: 2rem; padding: 1.25rem; border-radius: 12px; background: var(--sand, #f4efe8); border: 1px solid var(--line-soft, #e6e0d8); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+
+/* ---------- Contact ---------- */
+.contact { max-width: 560px; margin: 0 auto; }
+.contact h1 { font-family: var(--font-display, inherit); }
+.contact__form input, .contact__form textarea { width: 100%; max-width: none; }
+.contact__form p { margin-bottom: 1rem; }
+.contact__form label { display: block; margin-bottom: .25rem; }
+.contact__trap { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.contact__links { margin-top: 1.5rem; color: var(--ink-soft, #555); font-size: .95rem; }

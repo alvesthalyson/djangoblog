@@ -1,7 +1,10 @@
-from django.shortcuts import render
-from .models import Post, Category, Tag
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.views import redirect_to_login
+from django.core.exceptions import PermissionDenied
+from django.views.decorators.http import require_POST
+from .models import Post, Category, Tag, Comment
 
-from .forms import PostForm, RegisterForm
+from .forms import PostForm, RegisterForm, CommentForm, ContactForm
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
@@ -10,6 +13,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.db import models
+from django.db.models import Count
 
 # --- Views Baseadas em Classes ---
 
@@ -19,7 +23,11 @@ class PostListView(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        return Post.objects.filter(status="published").order_by("-created_at")
+        return (
+            Post.objects.filter(status="published")
+            .annotate(comment_count=Count("comments"))
+            .order_by("-created_at")
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -46,7 +54,25 @@ class PostDetailView(DetailView):
         # No tema "magic", a página do post veste as cores da casa dele (se tiver uma)
         context["page_house"] = self.object.house
         context["page_house_name"] = self.object.get_house_display() if self.object.house else ""
+        context["comments"] = self.object.comments.select_related("author")
+        context.setdefault("comment_form", CommentForm())
         return context
+
+    def post(self, request, *args, **kwargs):
+        """Recebe um novo comentário (só usuários logados)."""
+        self.object = self.get_object()
+        if not request.user.is_authenticated:
+            return redirect_to_login(request.get_full_path())
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = self.object
+            comment.author = request.user
+            comment.save()
+            messages.success(request, "Comment posted!")
+            return redirect(f"{self.object.get_absolute_url()}#comments")
+        context = self.get_context_data(object=self.object, comment_form=form)
+        return self.render_to_response(context)
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -90,7 +116,11 @@ class MyPostsView(LoginRequiredMixin, ListView):
     login_url = "login"
 
     def get_queryset(self):
-        return Post.objects.filter(author=self.request.user).order_by("-created_at")
+        return (
+            Post.objects.filter(author=self.request.user)
+            .annotate(comment_count=Count("comments"))
+            .order_by("-created_at")
+        )
 
 class RegisterView(CreateView):
     form_class = RegisterForm
@@ -104,11 +134,37 @@ class RegisterView(CreateView):
 
 # --- Views Baseadas em Funções ---
 
+@require_POST
+def comment_delete(request, pk):
+    """Apaga um comentário: só o autor dele ou o dono do post."""
+    if not request.user.is_authenticated:
+        return redirect_to_login(request.get_full_path())
+    comment = get_object_or_404(Comment.objects.select_related("post"), pk=pk)
+    if request.user not in (comment.author, comment.post.author):
+        raise PermissionDenied
+    post = comment.post
+    comment.delete()
+    messages.success(request, "Comment deleted.")
+    return redirect(f"{post.get_absolute_url()}#comments")
+
 def about(request):
     return render(request, "blog/about.html", {})
 
 def contact(request):
-    return render(request, "blog/contact.html", {})
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Campo-isca preenchido = robô: finge sucesso e não guarda nada.
+            if not form.cleaned_data.get("website"):
+                form.save()
+            messages.success(request, "Thanks! Your message was sent.")
+            return redirect("contact")
+    else:
+        initial = {}
+        if request.user.is_authenticated:
+            initial = {"name": request.user.get_username(), "email": request.user.email}
+        form = ContactForm(initial=initial)
+    return render(request, "blog/contact.html", {"form": form})
 
 # --- Handlers de erro personalizados ---
 def custom_403(request, exception=None):

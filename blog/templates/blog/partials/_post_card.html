@@ -30,7 +30,7 @@
       <p class="post-card__house"><span class="house-dot house-dot--{{ post.house }}" aria-hidden="true"></span>{{ post.get_house_display }}</p>
     {% endif %}
     <h2 class="post-card__title">{{ post.title }}</h2>
-    <p class="post-card__meta">By {{ post.author.username }} · {{ post.created_at|date:"M d, Y" }}</p>
+    <p class="post-card__meta">By {{ post.author.username }} · {{ post.created_at|date:"M d, Y" }}{% if post.comment_count %} · <i class="bi bi-chat-left-text" aria-hidden="true"></i> {{ post.comment_count }} comment{{ post.comment_count|pluralize }}{% endif %}</p>
     <p class="post-card__excerpt">{{ post.content|truncatewords:20 }}</p>
 
     <div class="post-card__actions">

@@ -52,6 +52,53 @@
             {% endif %}
             <!-- FIM DO BLOCO CONDICIONAL -->
         </div>
+
+        <!-- Comentários -->
+        <section class="comments" id="comments" aria-labelledby="comments-title">
+            <h2 class="comments__title" id="comments-title">Comments <span class="comments__count">{{ comments|length }}</span></h2>
+
+            {% if user.is_authenticated %}
+            <form method="post" action="{{ post.get_absolute_url }}#comments" class="comments__form">
+                {% csrf_token %}
+                {{ comment_form.text.label_tag }}
+                {{ comment_form.text }}
+                {{ comment_form.text.errors }}
+                <div class="comments__form-foot">
+                    <span class="comments__hint">Commenting as <strong>{{ user.username }}</strong> · max 500 characters</span>
+                    <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
+                </div>
+            </form>
+            {% else %}
+            <p class="comments__login">
+                <a href="{% url 'login' %}?next={{ request.path }}">Log in</a> or
+                <a href="{% url 'register' %}">create an account</a> to join the conversation.
+            </p>
+            {% endif %}
+
+            <ul class="comments__list">
+                {% for comment in comments %}
+                <li class="comment" id="comment-{{ comment.pk }}">
+                    <span class="comment__avatar" aria-hidden="true">{{ comment.author.username|slice:":1"|upper }}</span>
+                    <div class="comment__body">
+                        <p class="comment__meta">
+                            <strong>{{ comment.author.username }}</strong>
+                            {% if comment.author == post.author %}<span class="comment__badge">author</span>{% endif %}
+                            · {{ comment.created_at|date:"M d, Y" }}
+                        </p>
+                        <p class="comment__text">{{ comment.text|linebreaksbr }}</p>
+                        {% if user == comment.author or user == post.author %}
+                        <form method="post" action="{% url 'comment_delete' comment.pk %}" class="comment__delete">
+                            {% csrf_token %}
+                            <button type="submit" class="text-link comment__delete-btn">Delete</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </li>
+                {% empty %}
+                <li class="comments__empty">No comments yet. Be the first!</li>
+                {% endfor %}
+            </ul>
+        </section>
     </div>
 </div>
 {% endblock %}

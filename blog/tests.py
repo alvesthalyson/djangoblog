@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from .context_processors import CANDLES, site_theme
 from .forms import PostForm
-from .models import Category, Post, Tag
+from .models import Category, Comment, ContactMessage, Post, Tag
 
 
 def make_user(username="alice", password="s3nha-forte-123"):
@@ -509,3 +509,117 @@ class VideoTests(TestCase):
         response = self.client.get(reverse("post_detail", args=[post.slug]))
         self.assertContains(response, "dQw4w9WgXcQ")
         self.assertContains(response, "ratio ratio-16x9")
+
+
+class CommentTests(TestCase):
+    def setUp(self):
+        self.author = make_user("alice")
+        self.reader = make_user("bob")
+        self.other = make_user("carol")
+        self.post = make_post(self.author)
+        self.url = reverse("post_detail", args=[self.post.slug])
+
+    def test_visitor_sees_login_prompt_not_form(self):
+        response = self.client.get(self.url)
+        self.assertContains(response, "to join the conversation")
+        self.assertNotContains(response, "Post comment")
+
+    def test_visitor_post_redirects_to_login_and_saves_nothing(self):
+        response = self.client.post(self.url, {"text": "oi"})
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("login", response.url)
+        self.assertEqual(Comment.objects.count(), 0)
+
+    def test_logged_user_can_comment(self):
+        self.client.force_login(self.reader)
+        response = self.client.post(self.url, {"text": "Great post!"})
+        self.assertRedirects(response, f"{self.url}#comments", fetch_redirect_response=False)
+        comment = Comment.objects.get()
+        self.assertEqual((comment.author, comment.post), (self.reader, self.post))
+        self.assertContains(self.client.get(self.url), "Great post!")
+
+    def test_empty_and_too_long_comments_are_rejected(self):
+        self.client.force_login(self.reader)
+        for text in ("", "   ", "x" * 501):
+            response = self.client.post(self.url, {"text": text})
+            self.assertEqual(response.status_code, 200)
+        self.assertEqual(Comment.objects.count(), 0)
+
+    def test_cannot_comment_on_someone_elses_draft(self):
+        draft = make_post(self.author, title="Rascunho secreto", status="draft")
+        self.client.force_login(self.reader)
+        response = self.client.post(reverse("post_detail", args=[draft.slug]), {"text": "x"})
+        self.assertEqual(response.status_code, 404)
+
+    def test_delete_rules(self):
+        comment = Comment.objects.create(post=self.post, author=self.reader, text="oi")
+        delete_url = reverse("comment_delete", args=[comment.pk])
+        # GET não é permitido
+        self.client.force_login(self.reader)
+        self.assertEqual(self.client.get(delete_url).status_code, 405)
+        # terceiros não podem apagar
+        self.client.force_login(self.other)
+        self.assertEqual(self.client.post(delete_url).status_code, 403)
+        self.assertEqual(Comment.objects.count(), 1)
+        # o autor do comentário pode
+        self.client.force_login(self.reader)
+        self.client.post(delete_url)
+        self.assertEqual(Comment.objects.count(), 0)
+
+    def test_post_author_can_delete_comments_on_own_post(self):
+        comment = Comment.objects.create(post=self.post, author=self.reader, text="oi")
+        self.client.force_login(self.author)
+        self.client.post(reverse("comment_delete", args=[comment.pk]))
+        self.assertEqual(Comment.objects.count(), 0)
+
+    def test_comment_count_on_home(self):
+        Comment.objects.create(post=self.post, author=self.reader, text="a")
+        Comment.objects.create(post=self.post, author=self.other, text="b")
+        self.assertContains(self.client.get(reverse("home")), "2 comments")
+
+    def test_comments_removed_with_post(self):
+        Comment.objects.create(post=self.post, author=self.reader, text="a")
+        self.post.delete()
+        self.assertEqual(Comment.objects.count(), 0)
+
+
+class ContactTests(TestCase):
+    def setUp(self):
+        self.url = reverse("contact")
+
+    def test_valid_message_is_saved(self):
+        response = self.client.post(self.url, {"name": "Ana", "email": "ana@example.com", "message": "Hi!"})
+        self.assertRedirects(response, self.url)
+        msg = ContactMessage.objects.get()
+        self.assertEqual((msg.name, msg.email, msg.message, msg.is_read), ("Ana", "ana@example.com", "Hi!", False))
+
+    def test_message_is_optional(self):
+        self.client.post(self.url, {"name": "Ana", "email": "ana@example.com"})
+        self.assertEqual(ContactMessage.objects.count(), 1)
+
+    def test_name_and_email_are_required(self):
+        response = self.client.post(self.url, {"name": "", "email": "nao-e-email"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(ContactMessage.objects.count(), 0)
+
+    def test_honeypot_pretends_success_without_saving(self):
+        response = self.client.post(
+            self.url, {"name": "Bot", "email": "bot@example.com", "website": "http://spam"}
+        )
+        self.assertRedirects(response, self.url)
+        self.assertEqual(ContactMessage.objects.count(), 0)
+
+    def test_form_is_prefilled_for_logged_user(self):
+        user = make_user("dora")
+        user.email = "dora@example.com"
+        user.save()
+        self.client.force_login(user)
+        self.assertContains(self.client.get(self.url), "dora@example.com")
+
+
+class AboutPageTests(TestCase):
+    def test_about_mentions_author_and_blog(self):
+        response = self.client.get(reverse("about"))
+        self.assertContains(response, "Thalyson")
+        self.assertContains(response, "Harry Potter")
+        self.assertContains(response, reverse("contact"))

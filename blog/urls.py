@@ -8,7 +8,8 @@ from .views import (
     RegisterView, 
     MyPostsView,
     about, 
-    contact
+    contact,
+    comment_delete,
 )
 
 urlpatterns = [
@@ -27,6 +28,8 @@ urlpatterns = [
     path("posts/<slug:slug>/delete/", PostDeleteView.as_view(), name="post_delete"),
     path("posts/<slug:slug>/", PostDetailView.as_view(), name="post_detail"),
     
+    path("comments/<int:pk>/delete/", comment_delete, name="comment_delete"),
+
     # Rotas institucionais (mantidas como funções)
     path("about/", about, name="about"),
     path("contact/", contact, name="contact"),

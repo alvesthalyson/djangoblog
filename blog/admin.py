@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Category, Tag
+from .models import Category, Comment, ContactMessage, Post, Tag
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -15,3 +15,16 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ("name",)
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ("author", "post", "created_at")
+    search_fields = ("text", "author__username", "post__title")
+
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ("name", "email", "created_at", "is_read")
+    list_filter = ("is_read",)
+    search_fields = ("name", "email", "message")
+    readonly_fields = ("created_at",)

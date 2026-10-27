@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.conf import settings
+from django.urls import reverse
 from PIL import Image
 from embed_video.fields import EmbedVideoField
 
@@ -54,6 +55,9 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def get_absolute_url(self):
+        return reverse("post_detail", kwargs={"slug": self.slug})
+
     def save(self, *args, **kwargs):
         # Generate a unique slug (only when the post has none yet)
         if not self.slug:
@@ -77,3 +81,36 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    """Comentário de um usuário logado em um post."""
+
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments"
+    )
+    text = models.TextField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["created_at"]
+
+    def __str__(self):
+        return f"{self.author} em {self.post}"
+
+
+class ContactMessage(models.Model):
+    """Mensagem enviada pelo formulário da página Contact (lida no painel admin)."""
+
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    message = models.TextField(max_length=1000, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.name} <{self.email}>"

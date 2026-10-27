@@ -19,6 +19,9 @@ Usuários criam conta, escrevem posts com imagem de capa, salvam rascunhos e ger
 - **Páginas de erro** 403, 404 e 500 personalizadas
 - **Interface responsiva** com Bootstrap 5 e dois temas visuais à escolha (veja [Temas](#temas))
 - **Vídeo do YouTube** opcional em cada post: na lista, toca sem som quando o mouse passa sobre a capa; na página do post, aparece o player (pacote `django-embed-video`)
+- **Comentários** em cada post: só usuários logados comentam (até 500 caracteres); o autor do comentário e o dono do post podem apagá-lo
+- **Página Contact** com formulário (nome, e-mail e mensagem opcional) e campo-isca anti-robô; as mensagens são lidas no `/admin` (nenhum e-mail é enviado)
+- **Página About** com apresentação do autor e do projeto
 - **Faixa de redes sociais** no topo (Instagram, Facebook, TikTok e LinkedIn), com os links configurados pelo `.env`
 
 ## Tecnologias
