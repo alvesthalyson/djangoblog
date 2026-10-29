@@ -22,6 +22,20 @@
                 if (window.localStorage.getItem('djangoblog-fx') === 'off') {
                     root.setAttribute('data-fx', 'off');
                 }
+                /* Transições: a página nova já nasce coberta de névoa se veio de um clique em link */
+                var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                var fogOn = root.getAttribute('data-fx') !== 'off' && !calm;
+                if (fogOn && window.sessionStorage.getItem('djangoblog-fog') === '1') {
+                    root.classList.add('fog-in');
+                }
+                window.sessionStorage.removeItem('djangoblog-fog');
+                if (fogOn && 'IntersectionObserver' in window) {
+                    root.classList.add('tr-js');
+                }
+                /* Se o transitions.js não carregar, nada fica escondido nem coberto */
+                window.setTimeout(function () {
+                    if (!window.__trLoaded) { root.classList.remove('fog-in', 'tr-js'); }
+                }, 3000);
                 /* Casa: a do post aberto vale sobre a escolhida no teste do Chapéu Seletor */
                 var house = window.localStorage.getItem('djangoblog-house');
                 if (/^[gshr]$/.test(house) && !root.getAttribute('data-page-house')) {
@@ -75,10 +89,20 @@
         rel="stylesheet"
         href="{% static 'blog/css/houses.css' %}"
     >
+    <!-- Transições: nevoeiro, revelação ao rolar, título escrito, Lumos/Nox -->
+    <link
+        rel="stylesheet"
+        href="{% static 'blog/css/transitions.css' %}"
+    >
     {% endif %}
 </head>
 
 <body>
+
+    {% if SITE_THEME == "magic" %}
+    <!-- Névoa das transições entre páginas -->
+    <div class="fog-veil" id="fog-veil" aria-hidden="true"><b></b><b></b><b></b><b></b></div>
+    {% endif %}
 
     <!-- Faixa de redes sociais -->
     <div class="social-bar">
@@ -269,6 +293,7 @@
         {% if SITE_THEME == "magic" %}
             <span class="site-footer__note">Golden Snitches caught: <span id="snitch-count">0</span></span>
             <button type="button" class="fx-toggle" id="patronus-toggle">Expecto Patronum</button>
+            <button type="button" class="fx-toggle music-toggle" id="music-toggle" aria-pressed="false" data-src="{% static 'blog/audio/harry-potter-theme.mp3' %}">Music: off</button>
             <button type="button" class="fx-toggle" id="fx-toggle">Turn effects off</button>
         {% endif %}
     </footer>
@@ -310,6 +335,7 @@
 
     <script src="{% static 'blog/js/magic.js' %}"></script>
     <script src="{% static 'blog/js/houses.js' %}"></script>
+    <script src="{% static 'blog/js/transitions.js' %}"></script>
     {% endif %}
 
     <script>

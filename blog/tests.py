@@ -623,3 +623,39 @@ class AboutPageTests(TestCase):
         self.assertContains(response, "Thalyson")
         self.assertContains(response, "Harry Potter")
         self.assertContains(response, reverse("contact"))
+
+
+class TransitionsTests(TestCase):
+    def setUp(self):
+        self.author = make_user("alice")
+        self.post = make_post(self.author)
+
+    @override_settings(SITE_THEME="magic")
+    def test_magic_theme_loads_transitions_and_music(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, "blog/css/transitions.css")
+        self.assertContains(response, "blog/js/transitions.js")
+        self.assertContains(response, 'id="fog-veil"')
+        self.assertContains(response, 'id="music-toggle"')
+        self.assertContains(response, "harry-potter-theme.mp3")
+
+    @override_settings(SITE_THEME="magic")
+    def test_music_is_off_by_default(self):
+        self.assertContains(self.client.get(reverse("home")), 'aria-pressed="false"')
+
+    @override_settings(SITE_THEME="classic")
+    def test_classic_theme_has_no_transitions(self):
+        response = self.client.get(reverse("home"))
+        self.assertNotContains(response, "transitions.js")
+        self.assertNotContains(response, "fog-veil")
+        self.assertNotContains(response, "music-toggle")
+
+    @override_settings(SITE_THEME="magic")
+    def test_post_title_is_marked_for_typewriter(self):
+        response = self.client.get(reverse("post_detail", args=[self.post.slug]))
+        self.assertContains(response, "data-typewrite")
+
+    def test_audio_file_is_in_static_folder(self):
+        from pathlib import Path
+        audio = Path(__file__).parent / "static" / "blog" / "audio" / "harry-potter-theme.mp3"
+        self.assertTrue(audio.exists())

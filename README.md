@@ -118,6 +118,19 @@ Depois de atualizar o código, rode `python manage.py migrate` (o campo `house` 
 > Harry Potter é marca e obra protegidas. O tema é "inspirado em": usa cores, fontes livres e desenhos próprios,
 > sem logotipos, brasões, imagens ou textos oficiais. Se for publicar o blog, mantenha assim.
 
+### Transições e trilha (tema `magic`)
+
+- **Nevoeiro** ao trocar de página: uma névoa cobre a tela e se dissolve na página nova.
+- Cards e blocos **surgem ao rolar**, o título do post **se escreve** letra por letra, o **Lumos/Nox** abre em
+  círculo de luz a partir do botão e as velas do teto têm **parallax** suave.
+- **Trilha**: o botão *Music* no rodapé liga e desliga a música (`blog/static/blog/audio/harry-potter-theme.mp3`).
+  Começa **desligada**; a escolha e o ponto da música são lembrados entre páginas (o navegador pode pedir um
+  clique para retomar o som depois de trocar de página).
+- Tudo some com **Turn effects off** ou quando o sistema pede menos animação.
+
+> A música é uma gravação protegida por direitos autorais. Para uso escolar local tudo bem; antes de publicar o
+> blog na internet, troque o arquivo por uma música livre (mesmo nome de arquivo) ou remova-o.
+
 ## Testes
 
 ```bash
