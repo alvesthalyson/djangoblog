@@ -20,6 +20,22 @@
 
     var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
+    /* Textos traduzidos pelo servidor (script#blog-i18n em base.html); sem ele, valem os padrões em inglês. */
+    var I18N = (function () {
+        try {
+            var el = document.getElementById('blog-i18n');
+            return el ? JSON.parse(el.textContent) : {};
+        } catch (e) {
+            return {};
+        }
+    })();
+    function t(key, fallback) {
+        return (I18N.ui && I18N.ui[key]) || fallback;
+    }
+    function fmt(text, vars) {
+        return text.replace(/%\((\w+)\)s/g, function (m, name) { return vars[name]; });
+    }
+
     var HOUSES = {
         g: {
             name: 'Gryffindor', color: '#B02A2A',
@@ -64,6 +80,19 @@
         { q: 'Which element feels most like you?', o: [
             ['Fire', 'g'], ['Air', 'r'], ['Earth', 'h'], ['Water', 's']] }
     ];
+
+    /* Nomes, descrições e perguntas vêm traduzidos do servidor */
+    if (I18N.houses) {
+        Object.keys(HOUSES).forEach(function (k) {
+            if (I18N.houses[k]) {
+                HOUSES[k].name = I18N.houses[k].name || HOUSES[k].name;
+                HOUSES[k].text = I18N.houses[k].text || HOUSES[k].text;
+            }
+        });
+    }
+    if (Array.isArray(I18N.quiz) && I18N.quiz.length) {
+        QUIZ = I18N.quiz;
+    }
 
     function load(key) {
         try {
@@ -117,7 +146,7 @@
         var close = document.createElement('button');
         close.type = 'button';
         close.className = 'letter__close';
-        close.setAttribute('aria-label', 'Dismiss message');
+        close.setAttribute('aria-label', t('dismiss', 'Dismiss message'));
         close.innerHTML = '&times;';
 
         letter.appendChild(seal);
@@ -158,12 +187,12 @@
             hat.hidden = true;
             crestBox.hidden = false;
             label.textContent = HOUSES[myHouse].name;
-            toggle.setAttribute('aria-label', 'Sorting Hat: you are in ' + HOUSES[myHouse].name + '. Open the quiz again');
+            toggle.setAttribute('aria-label', fmt(t('openQuizAgain', 'Sorting Hat: you are in %(house)s. Open the quiz again'), { house: HOUSES[myHouse].name }));
         } else {
             hat.hidden = false;
             crestBox.hidden = true;
-            label.textContent = 'Sorting Hat';
-            toggle.setAttribute('aria-label', 'Open the sorting quiz');
+            label.textContent = t('sortingHat', 'Sorting Hat');
+            toggle.setAttribute('aria-label', t('openQuiz', 'Open the sorting quiz'));
         }
     }
 
@@ -233,7 +262,7 @@
 
     function showQuestion() {
         var step = QUIZ[answers.length];
-        progress.textContent = 'Question ' + (answers.length + 1) + ' of ' + QUIZ.length;
+        progress.textContent = fmt(t('question', 'Question %(n)s of %(total)s'), { n: answers.length + 1, total: QUIZ.length });
         title.textContent = step.q;
         options.textContent = '';
         step.o.forEach(function (option, index) {
@@ -422,7 +451,7 @@
         var button = document.createElement('button');
         button.type = 'button';
         button.className = 'snitch';
-        button.setAttribute('aria-label', 'Catch the Golden Snitch');
+        button.setAttribute('aria-label', t('catchSnitch', 'Catch the Golden Snitch'));
         var inner = document.createElement('span');
         inner.className = 'snitch__in';
         inner.appendChild(template.content.cloneNode(true));
@@ -435,7 +464,7 @@
             caught += 1;
             save('djangoblog-snitches', String(caught));
             paintCounter();
-            showLetter('You caught the Golden Snitch! +150 points');
+            showLetter(t('caughtSnitch', 'You caught the Golden Snitch! +150 points'));
             window.clearTimeout(snitchTimer);
             snitchTimer = window.setTimeout(releaseSnitch, 7000);
         });

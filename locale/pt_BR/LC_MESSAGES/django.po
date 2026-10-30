@@ -1,0 +1,534 @@
+# Traduções do DjangoBlog (pt_BR).
+# Edite este arquivo e rode "python manage.py compilemessages" (ou refaça o .mo).
+msgid ""
+msgstr ""
+"Project-Id-Version: DjangoBlog\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "(In development, check your terminal for the email.)"
+msgstr "(Em desenvolvimento, veja o e-mail no terminal.)"
+
+msgid "<a href=\"%(login_url)s\">Log in</a> or <a href=\"%(register_url)s\">create an account</a> to join the conversation."
+msgstr "<a href=\"%(login_url)s\">Entre</a> ou <a href=\"%(register_url)s\">crie uma conta</a> para participar da conversa."
+
+msgid "A door appears in the old library wall. What do you do?"
+msgstr "Uma porta aparece na parede da velha biblioteca. O que você faz?"
+
+msgid "A friend is blamed for something they did not do. You…"
+msgstr "Um amigo é acusado de algo que não fez. Você…"
+
+msgid "A hilltop bonfire under open sky."
+msgstr "Uma fogueira no alto da colina, sob o céu aberto."
+
+msgid "A lakeside cave lit by green lanterns."
+msgstr "Uma caverna à beira do lago iluminada por lanternas verdes."
+
+msgid "A silent tower full of books."
+msgstr "Uma torre silenciosa cheia de livros."
+
+msgid "A warm kitchen full of friends."
+msgstr "Uma cozinha aconchegante cheia de amigos."
+
+msgid "About"
+msgstr "Sobre"
+
+msgid "About me"
+msgstr "Sobre mim"
+
+msgid "About the blog"
+msgstr "Sobre o blog"
+
+msgid "Access Denied"
+msgstr "Acesso negado"
+
+msgid "Air"
+msgstr "Ar"
+
+msgid "Anything you'd like to tell me?"
+msgstr "Quer me contar alguma coisa?"
+
+msgid "Back to the blog"
+msgstr "Voltar ao blog"
+
+msgid "Back to the list"
+msgstr "Voltar para a lista"
+
+msgid "Being the friend everyone could count on."
+msgstr "Por ser o amigo com quem todos podiam contar."
+
+msgid "Bold, loyal and quick to stand up for others. You would open the door first and think about the hinges later."
+msgstr "Corajoso, leal e rápido em defender os outros. Você abriria a porta primeiro e pensaria nas dobradiças depois."
+
+msgid "Building something that outlasts you."
+msgstr "Por construir algo que dura mais que eu."
+
+msgid "Built with"
+msgstr "Feito com"
+
+msgid "By %(author)s"
+msgstr "Por %(author)s"
+
+msgid "By %(author)s on %(date)s"
+msgstr "Por %(author)s em %(date)s"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Catch the Golden Snitch"
+msgstr "Capturar o Pomo de Ouro"
+
+msgid "Categories"
+msgstr "Categorias"
+
+msgid "Category"
+msgstr "Categoria"
+
+msgid "Close the quiz"
+msgstr "Fechar o teste"
+
+msgid "Comment deleted."
+msgstr "Comentário excluído."
+
+msgid "Comment posted!"
+msgstr "Comentário publicado!"
+
+msgid "Commenting as <strong>%(name)s</strong> · max 500 characters"
+msgstr "Comentando como <strong>%(name)s</strong> · máximo de 500 caracteres"
+
+msgid "Comments"
+msgstr "Comentários"
+
+msgid "Contact"
+msgstr "Contato"
+
+msgid "Content"
+msgstr "Conteúdo"
+
+msgid "Cover image"
+msgstr "Imagem de capa"
+
+msgid "Create an account"
+msgstr "Criar uma conta"
+
+msgid "Curious, inventive and happiest with a good puzzle. You notice the pattern in the carvings before anyone else."
+msgstr "Curioso, inventivo e mais feliz diante de um bom enigma. Você percebe o padrão nas gravuras antes de todo mundo."
+
+msgid "Delete"
+msgstr "Excluir"
+
+msgid "Delete \"%(title)s\"?"
+msgstr "Excluir \"%(title)s\"?"
+
+msgid "Delete Post"
+msgstr "Excluir post"
+
+msgid "Dismiss message"
+msgstr "Dispensar mensagem"
+
+msgid "DjangoBlog - a multi-user blogging platform built with Django."
+msgstr "DjangoBlog - uma plataforma de blog para vários usuários feita com Django."
+
+msgid "Doing the brave thing when it was hard."
+msgstr "Por fazer a coisa corajosa quando era difícil."
+
+msgid "Don't repeat the title verbatim at the start of the content."
+msgstr "Não repita o título exatamente no início do conteúdo."
+
+msgid "Draft"
+msgstr "Rascunho"
+
+msgid "Earth"
+msgstr "Terra"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit Post"
+msgstr "Editar post"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Email address"
+msgstr "Endereço de e-mail"
+
+msgid "Email sent"
+msgstr "E-mail enviado"
+
+msgid "Enter YouTube video URL"
+msgstr "Cole o link do vídeo do YouTube"
+
+msgid "Expecto Patronum"
+msgstr "Expecto Patronum"
+
+msgid "Fire"
+msgstr "Fogo"
+
+msgid "Football"
+msgstr "Futebol"
+
+msgid "Get in touch"
+msgstr "Fale comigo"
+
+msgid "Go Home"
+msgstr "Ir para o início"
+
+msgid "Golden Snitches caught:"
+msgstr "Pomos de Ouro capturados:"
+
+msgid "Gryffindor"
+msgstr "Grifinória"
+
+msgid "Hi, %(name)s"
+msgstr "Olá, %(name)s"
+
+msgid "Hi, I'm Thalyson"
+msgstr "Oi, eu sou o Thalyson"
+
+msgid "Home"
+msgstr "Início"
+
+msgid "House"
+msgstr "Casa"
+
+msgid "Hufflepuff"
+msgstr "Lufa-Lufa"
+
+msgid "I'm studying Information Technology and have been living in Japan for almost two years. Learning a new language, a new country and a new profession at the same time is a lot, and building projects like this one is how I keep it fun."
+msgstr "Estudo Tecnologia da Informação e moro no Japão há quase dois anos. Aprender uma nova língua, um novo país e uma nova profissão ao mesmo tempo é muita coisa, e criar projetos como este é o que torna tudo mais divertido."
+
+msgid "IT student"
+msgstr "Estudante de TI"
+
+msgid "IT student, living in Japan for almost two years, and the person behind this blog."
+msgstr "Estudante de TI, morando no Japão há quase dois anos, e a pessoa por trás deste blog."
+
+msgid "Image file too large (max 5MB)."
+msgstr "Imagem grande demais (máximo de 5 MB)."
+
+msgid "Japan · almost 2 years"
+msgstr "Japão · quase 2 anos"
+
+msgid "Knock and ask if anyone inside needs help."
+msgstr "Bato e pergunto se alguém lá dentro precisa de ajuda."
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Learning Django"
+msgstr "Aprendendo Django"
+
+msgid "Leave this field empty"
+msgstr "Deixe este campo vazio"
+
+msgid "Log in"
+msgstr "Entrar"
+
+msgid "Login"
+msgstr "Entrar"
+
+msgid "Logout"
+msgstr "Sair"
+
+msgid "Lumos"
+msgstr "Lumos"
+
+msgid "Main"
+msgstr "Principal"
+
+msgid "Make sure the right person hears the truth."
+msgstr "Garanto que a pessoa certa ouça a verdade."
+
+msgid "Matches, teams and the passion that goes with them."
+msgstr "Partidas, times e a paixão que vem com eles."
+
+msgid "Message (optional)"
+msgstr "Mensagem (opcional)"
+
+msgid "Music"
+msgstr "Música"
+
+msgid "Music: off"
+msgstr "Música: desligada"
+
+msgid "Music: on"
+msgstr "Música: ligada"
+
+msgid "My Posts"
+msgstr "Meus posts"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "New Post"
+msgstr "Novo post"
+
+msgid "Next"
+msgstr "Próxima"
+
+msgid "No Image"
+msgstr "Sem imagem"
+
+msgid "No category"
+msgstr "Sem categoria"
+
+msgid "No comments yet. Be the first!"
+msgstr "Ainda não há comentários. Seja o primeiro!"
+
+msgid "No posts yet —"
+msgstr "Ainda não há posts —"
+
+msgid "No tags"
+msgstr "Nenhuma tag"
+
+msgid "Nox"
+msgstr "Nox"
+
+msgid "One idea nobody else had thought of."
+msgstr "Por uma ideia que ninguém tinha tido."
+
+msgid "Open it at once, adventure waits for no one."
+msgstr "Abro na hora, a aventura não espera ninguém."
+
+msgid "Open the sorting quiz"
+msgstr "Abrir o teste do Chapéu Seletor"
+
+msgid "Optional. With the magic theme, the page wears this house's colours."
+msgstr "Opcional. No tema mágico, a página veste as cores desta casa."
+
+msgid "Page %(number)s of %(total)s"
+msgstr "Página %(number)s de %(total)s"
+
+msgid "Page Not Found"
+msgstr "Página não encontrada"
+
+msgid "Pagination"
+msgstr "Paginação"
+
+msgid "Password reset complete"
+msgstr "Senha redefinida"
+
+msgid "Patient, fair and generous. You make a place feel like home, and people would follow you for that alone."
+msgstr "Paciente, justo e generoso. Você faz qualquer lugar parecer um lar, e as pessoas te seguiriam só por isso."
+
+msgid "Pick a place to spend the evening."
+msgstr "Escolha um lugar para passar a noite."
+
+msgid "Playlists and videos that keep me company while I code and study."
+msgstr "Playlists e vídeos que me fazem companhia enquanto programo e estudo."
+
+msgid "Please add your email so I can reply."
+msgstr "Informe seu e-mail para eu poder responder."
+
+msgid "Please tell me your name."
+msgstr "Por favor, diga seu nome."
+
+msgid "Post comment"
+msgstr "Publicar comentário"
+
+msgid "Post published successfully!"
+msgstr "Post publicado com sucesso!"
+
+msgid "Prefer code? The source is on <a href=\"https://github.com/alvesthalyson/djangoblog\" target=\"_blank\" rel=\"noopener\">GitHub</a>."
+msgstr "Prefere código? O código-fonte está no <a href=\"https://github.com/alvesthalyson/djangoblog\" target=\"_blank\" rel=\"noopener\">GitHub</a>."
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Published"
+msgstr "Publicado"
+
+msgid "Published on"
+msgstr "Publicado em"
+
+msgid "Question %(n)s of %(total)s"
+msgstr "Pergunta %(n)s de %(total)s"
+
+msgid "Questions, suggestions or just a hello? Leave your name and email; the message is optional."
+msgstr "Dúvidas, sugestões ou só um oi? Deixe seu nome e e-mail; a mensagem é opcional."
+
+msgid "Quietly gather the proof."
+msgstr "Reúno as provas em silêncio."
+
+msgid "Ravenclaw"
+msgstr "Corvinal"
+
+msgid "Read more"
+msgstr "Ler mais"
+
+msgid "Register"
+msgstr "Cadastrar"
+
+msgid "Reset your password"
+msgstr "Redefinir sua senha"
+
+msgid "Resourceful, driven and a little mysterious. You see what a situation could become and work out how to get there."
+msgstr "Engenhoso, determinado e um pouco misterioso. Você enxerga o que uma situação pode se tornar e descobre como chegar lá."
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Save new password"
+msgstr "Salvar nova senha"
+
+msgid "Send message"
+msgstr "Enviar mensagem"
+
+msgid "Send reset link"
+msgstr "Enviar link de redefinição"
+
+msgid "Series"
+msgstr "Séries"
+
+msgid "Set new password"
+msgstr "Definir nova senha"
+
+msgid "Shows I binge, recommend and love to talk about."
+msgstr "Séries que maratono, recomendo e adoro comentar."
+
+msgid "Slytherin"
+msgstr "Sonserina"
+
+msgid "Something Went Wrong"
+msgstr "Algo deu errado"
+
+msgid "Sorting Hat"
+msgstr "Chapéu Seletor"
+
+msgid "Sorting Hat: you are in %(house)s. Open the quiz again"
+msgstr "Chapéu Seletor: você está na %(house)s. Abrir o teste de novo"
+
+msgid "Stand up and say so, loudly."
+msgstr "Me levanto e digo isso em voz alta."
+
+msgid "Status"
+msgstr "Situação"
+
+msgid "Stay at their side, whatever happens."
+msgstr "Fico ao lado dele, aconteça o que acontecer."
+
+msgid "Study the carvings around it first."
+msgstr "Antes estudo as gravuras ao redor."
+
+msgid "Switch to the dark theme"
+msgstr "Mudar para o tema escuro"
+
+msgid "Switch to the light theme"
+msgstr "Mudar para o tema claro"
+
+msgid "Tags"
+msgstr "Tags"
+
+msgid "Thanks! Your message was sent."
+msgstr "Obrigado! Sua mensagem foi enviada."
+
+msgid "That email does not look right."
+msgstr "Esse e-mail não parece correto."
+
+msgid "The hat has decided…"
+msgstr "O chapéu decidiu…"
+
+msgid "The page you're looking for doesn't exist."
+msgstr "A página que você procura não existe."
+
+msgid "This blog is a school project, inspired by the Harry Potter universe and filled with the things I like. You can write your own posts, sort them into Hogwarts houses, take the Sorting Hat quiz, and comment on what others publish."
+msgstr "Este blog é um trabalho de escola, inspirado no universo de Harry Potter e cheio de coisas de que eu gosto. Você pode escrever seus próprios posts, organizá-los pelas casas de Hogwarts, fazer o teste do Chapéu Seletor e comentar o que os outros publicam."
+
+msgid "This cannot be undone."
+msgstr "Esta ação não pode ser desfeita."
+
+msgid "This post belongs to %(house)s. The blog wears its colours while you read."
+msgstr "Este post pertence a %(house)s. O blog veste as cores dela enquanto você lê."
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Title must be at least 5 characters long."
+msgstr "O título precisa ter pelo menos 5 caracteres."
+
+msgid "Toggle navigation"
+msgstr "Alternar navegação"
+
+msgid "Try again"
+msgstr "Tentar de novo"
+
+msgid "Turn effects off"
+msgstr "Desligar efeitos"
+
+msgid "Turn effects on"
+msgstr "Ligar efeitos"
+
+msgid "Unsupported file type. Use JPG, PNG, or WEBP."
+msgstr "Tipo de arquivo não aceito. Use JPG, PNG ou WEBP."
+
+msgid "View"
+msgstr "Ver"
+
+msgid "Wait and find out who gains from it being opened."
+msgstr "Espero e descubro quem ganha se ela for aberta."
+
+msgid "Want to say hello or share an idea?"
+msgstr "Quer dar um oi ou compartilhar uma ideia?"
+
+msgid "Water"
+msgstr "Água"
+
+msgid "We're working on it. Please try again shortly."
+msgstr "Já estamos resolvendo. Tente de novo em instantes."
+
+msgid "We've emailed you instructions for setting your password."
+msgstr "Enviamos por e-mail as instruções para definir sua senha."
+
+msgid "Wear my colours"
+msgstr "Vestir minhas cores"
+
+msgid "What did you think?"
+msgstr "O que você achou?"
+
+msgid "What would you most like to be remembered for?"
+msgstr "Pelo que você mais gostaria de ser lembrado?"
+
+msgid "Which element feels most like you?"
+msgstr "Qual elemento mais combina com você?"
+
+msgid "Write something before posting."
+msgstr "Escreva algo antes de publicar."
+
+msgid "Yes, delete"
+msgstr "Sim, excluir"
+
+msgid "You caught the Golden Snitch! +150 points"
+msgstr "Você capturou o Pomo de Ouro! +150 pontos"
+
+msgid "You don't have permission to do that."
+msgstr "Você não tem permissão para fazer isso."
+
+msgid "You haven't written any posts yet."
+msgstr "Você ainda não escreveu nenhum post."
+
+msgid "YouTube video URL"
+msgstr "Link do vídeo do YouTube"
+
+msgid "Your comment"
+msgstr "Seu comentário"
+
+msgid "Your name"
+msgstr "Seu nome"
+
+msgid "Your password has been set. You can now log in."
+msgstr "Sua senha foi definida. Agora você já pode entrar."
+
+msgid "author"
+msgstr "autor"
+
+msgid "write the first one!"
+msgstr "escreva o primeiro!"
+
+msgid "%(counter)s comment"
+msgid_plural "%(counter)s comments"
+msgstr[0] "%(counter)s comentário"
+msgstr[1] "%(counter)s comentários"

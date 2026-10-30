@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
-{% block title %}Home{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Home" %}{% endblock %}
 {% block content %}
 
 <!-- ===== POSTS ===== -->
@@ -10,7 +11,7 @@
     {% endfor %}
   </div>
 {% else %}
-  <p class="empty-state">No posts yet — <a href="{% url 'post_create' %}">write the first one!</a></p>
+  <p class="empty-state">{% trans "No posts yet —" %} <a href="{% url 'post_create' %}">{% trans "write the first one!" %}</a></p>
 {% endif %}
 
 <!-- ===== PAGINAÇÃO (usando partial) ===== -->
@@ -18,7 +19,7 @@
 
 <!-- ===== CATEGORIAS ===== -->
 <section class="categories">
-  <h2 class="categories__title">Categories</h2>
+  <h2 class="categories__title">{% trans "Categories" %}</h2>
   <div class="categories__list">
     {% for category in categories %}
       <div class="category-chip">

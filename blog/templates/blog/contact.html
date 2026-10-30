@@ -1,9 +1,10 @@
 {% extends "blog/base.html" %}
-{% block title %}Contact{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Contact" %}{% endblock %}
 {% block content %}
 <div class="contact">
-  <h1 class="mb-2">Contact</h1>
-  <p>Questions, suggestions or just a hello? Leave your name and email; the message is optional.</p>
+  <h1 class="mb-2">{% trans "Contact" %}</h1>
+  <p>{% trans "Questions, suggestions or just a hello? Leave your name and email; the message is optional." %}</p>
 
   <form method="post" class="contact__form" novalidate>
     {% csrf_token %}
@@ -18,12 +19,11 @@
         </p>
       {% endif %}
     {% endfor %}
-    <button type="submit" class="btn btn-primary">Send message</button>
+    <button type="submit" class="btn btn-primary">{% trans "Send message" %}</button>
   </form>
 
   <p class="contact__links">
-    Prefer code? The source is on
-    <a href="https://github.com/alvesthalyson/djangoblog" target="_blank" rel="noopener">GitHub</a>.
+    {% blocktrans trimmed %}Prefer code? The source is on <a href="https://github.com/alvesthalyson/djangoblog" target="_blank" rel="noopener">GitHub</a>.{% endblocktrans %}
   </p>
 </div>
 {% endblock %}

@@ -1,7 +1,8 @@
 {% extends "blog/base.html" %}
-{% block title %}Access Denied{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Access Denied" %}{% endblock %}
 {% block content %}
-<h1>403 — Access Denied</h1>
-<p>You don't have permission to do that.</p>
-<a href="{% url 'home' %}" class="btn btn-primary">Go Home</a>
+<h1>403 — {% trans "Access Denied" %}</h1>
+<p>{% trans "You don't have permission to do that." %}</p>
+<a href="{% url 'home' %}" class="btn btn-primary">{% trans "Go Home" %}</a>
 {% endblock %}

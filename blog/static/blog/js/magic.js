@@ -21,6 +21,22 @@
     }
 
     var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+    /* Textos traduzidos pelo servidor (script#blog-i18n em base.html); sem ele, valem os padrões em inglês. */
+    var I18N = (function () {
+        try {
+            var el = document.getElementById('blog-i18n');
+            return el ? JSON.parse(el.textContent) : {};
+        } catch (e) {
+            return {};
+        }
+    })();
+    function t(key, fallback) {
+        return (I18N.ui && I18N.ui[key]) || fallback;
+    }
+    function fmt(text, vars) {
+        return text.replace(/%\((\w+)\)s/g, function (m, name) { return vars[name]; });
+    }
     var finePointer = !!(window.matchMedia && window.matchMedia('(pointer: fine)').matches);
 
     function save(key, value) {
@@ -41,9 +57,9 @@
         var nox = root.getAttribute('data-mode') === 'nox';
         var label = modeButton.querySelector('[data-mode-label]');
         if (label) {
-            label.textContent = nox ? 'Lumos' : 'Nox';
+            label.textContent = nox ? t('lumos', 'Lumos') : t('nox', 'Nox');
         }
-        modeButton.setAttribute('aria-label', nox ? 'Switch to the light theme' : 'Switch to the dark theme');
+        modeButton.setAttribute('aria-label', nox ? t('toLight', 'Switch to the light theme') : t('toDark', 'Switch to the dark theme'));
     }
 
     function setMode(mode) {
@@ -73,7 +89,7 @@
 
     function paintFxButton() {
         if (fxButton) {
-            fxButton.textContent = effectsOn() ? 'Turn effects off' : 'Turn effects on';
+            fxButton.textContent = effectsOn() ? t('effectsOff', 'Turn effects off') : t('effectsOn', 'Turn effects on');
         }
     }
 

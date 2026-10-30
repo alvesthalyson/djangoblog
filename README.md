@@ -22,6 +22,7 @@ Usuários criam conta, escrevem posts com imagem de capa, salvam rascunhos e ger
 - **Comentários** em cada post: só usuários logados comentam (até 500 caracteres); o autor do comentário e o dono do post podem apagá-lo
 - **Página Contact** com formulário (nome, e-mail e mensagem opcional) e campo-isca anti-robô; as mensagens são lidas no `/admin` (nenhum e-mail é enviado)
 - **Página About** com apresentação do autor e do projeto
+- **Três idiomas**: inglês, português (Brasil) e japonês, com seletor `EN | PT | 日本語` no topo. A primeira visita usa o idioma do navegador (se for um dos três; senão, inglês) e a escolha fica guardada em um cookie
 - **Faixa de redes sociais** no topo (Instagram, Facebook, TikTok e LinkedIn), com os links configurados pelo `.env`
 
 ## Tecnologias
@@ -130,6 +131,19 @@ Depois de atualizar o código, rode `python manage.py migrate` (o campo `house` 
 
 > A música é uma gravação protegida por direitos autorais. Para uso escolar local tudo bem; antes de publicar o
 > blog na internet, troque o arquivo por uma música livre (mesmo nome de arquivo) ou remova-o.
+
+### Idiomas
+
+A interface (menus, botões, formulários, mensagens, páginas About/Contact, teste do Chapéu Seletor) está em
+inglês, português e japonês. Os **posts** continuam na língua em que forem escritos.
+
+- Os textos ficam em `locale/pt_BR/LC_MESSAGES/django.po` e `locale/ja/LC_MESSAGES/django.po`.
+- O arquivo `django.mo` (o que o Django lê) já vem pronto. Depois de editar um `.po`, gere-o de novo com
+  `python manage.py compilemessages` (precisa do GNU gettext instalado).
+- Para uma nova frase na interface, use `{% trans "..." %}` nos templates ou `gettext("...")` no Python,
+  e acrescente a tradução nos dois `.po`.
+- Datas seguem o formato de cada idioma, e o japonês usa a fonte Noto Serif JP.
+- O teste do Chapéu Seletor e os textos dos scripts vêm do servidor (`blog/context_processors.py`).
 
 ## Testes
 

@@ -1,9 +1,10 @@
 {% extends "blog/base.html" %}
+{% load i18n %}
 
-{% block title %}{% if object %}Edit Post{% else %}New Post{% endif %}{% endblock %}
+{% block title %}{% if object %}{% trans "Edit Post" %}{% else %}{% trans "New Post" %}{% endif %}{% endblock %}
 
 {% block content %}
-<h1>{% if object %}Edit Post{% else %}New Post{% endif %}</h1>
+<h1>{% if object %}{% trans "Edit Post" %}{% else %}{% trans "New Post" %}{% endif %}</h1>
 
 {% if form.non_field_errors %}
     <div class="alert alert-danger">{{ form.non_field_errors }}</div>
@@ -41,7 +42,7 @@
         </div>
     {% endfor %}
     
-    <button type="submit" class="btn btn-success">Save</button>
-    <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-success">{% trans "Save" %}</button>
+    <a href="{% url 'home' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
 </form>
 {% endblock %}

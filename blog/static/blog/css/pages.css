@@ -51,3 +51,24 @@
 .contact__form label { display: block; margin-bottom: .25rem; }
 .contact__trap { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .contact__links { margin-top: 1.5rem; color: var(--ink-soft, #555); font-size: .95rem; }
+
+/* ---------- Seletor de idioma (EN / PT / 日本語) ---------- */
+.lang-switch { display: inline-flex; margin: 0; border: 1px solid currentColor; border-radius: 999px; overflow: hidden; color: var(--social-gold, var(--ink, #222)); }
+.lang-switch__btn { background: none; border: 0; color: inherit; font: inherit; font-size: .85rem; letter-spacing: .06em; padding: .15rem .7rem; cursor: pointer; opacity: .75; }
+.lang-switch__btn:hover { opacity: 1; }
+.lang-switch__btn.is-active { background: var(--social-gold, var(--brown, #6b4f3a)); color: #fff; opacity: 1; cursor: default; }
+[data-theme="magic"] .lang-switch__btn.is-active { color: #1d1210; font-weight: 700; }
+.lang-switch__btn:focus-visible { outline: 2px solid currentColor; outline-offset: -3px; }
+
+/* ---------- Japonês: as fontes do tema não têm kanji/kana ---------- */
+html[lang="ja"] {
+  --font-display: 'Noto Serif JP', 'Yu Mincho', 'Hiragino Mincho ProN', 'MS PMincho', serif;
+  --font-body: 'Noto Serif JP', 'Yu Mincho', 'Hiragino Mincho ProN', 'MS PMincho', serif;
+}
+html[lang="ja"] body { line-height: 1.85; line-break: strict; }
+html[lang="ja"] .brand, html[lang="ja"] .navbar-brand, html[lang="ja"] .social-bar__name,
+html[lang="ja"] em, html[lang="ja"] i:not(.bi) { font-style: normal; }
+html[lang="ja"] h1, html[lang="ja"] h2, html[lang="ja"] h3 { letter-spacing: .02em; line-height: 1.4; }
+
+/* Menu: os rótulos (principalmente em japonês) não podem quebrar no meio */
+.site-nav .nav-link, .site-nav .btn, .site-nav .link-button, .site-nav .nav-greeting, .house-toggle, .mode-toggle { white-space: nowrap; }

@@ -1,11 +1,11 @@
-{% load embed_video_tags %}
+{% load embed_video_tags i18n %}
 <article class="post-card">
   <div class="post-card__media{% if not post.cover_image %} post-card__media--empty{% endif %}">
     
     {% if post.cover_image %}
       <img src="{{ post.cover_image.url }}" class="post-card__image" alt="{{ post.title }}">
     {% else %}
-      <span class="post-card__placeholder">No Image</span>
+      <span class="post-card__placeholder">{% trans "No Image" %}</span>
     {% endif %}
 
     {% if post.video_url %}
@@ -27,17 +27,17 @@
 
   <div class="post-card__body">
     {% if SITE_THEME == "magic" and post.house %}
-      <p class="post-card__house"><span class="house-dot house-dot--{{ post.house }}" aria-hidden="true"></span>{{ post.get_house_display }}</p>
+      <p class="post-card__house"><span class="house-dot house-dot--{{ post.house }}" aria-hidden="true"></span>{% trans post.get_house_display %}</p>
     {% endif %}
     <h2 class="post-card__title">{{ post.title }}</h2>
-    <p class="post-card__meta">By {{ post.author.username }} · {{ post.created_at|date:"M d, Y" }}{% if post.comment_count %} · <i class="bi bi-chat-left-text" aria-hidden="true"></i> {{ post.comment_count }} comment{{ post.comment_count|pluralize }}{% endif %}</p>
+    <p class="post-card__meta">{% blocktrans with author=post.author.username %}By {{ author }}{% endblocktrans %} · {{ post.created_at|date:"DATE_FORMAT" }}{% if post.comment_count %} · <i class="bi bi-chat-left-text" aria-hidden="true"></i> {% blocktrans count counter=post.comment_count %}{{ counter }} comment{% plural %}{{ counter }} comments{% endblocktrans %}{% endif %}</p>
     <p class="post-card__excerpt">{{ post.content|truncatewords:20 }}</p>
 
     <div class="post-card__actions">
-      <a href="{% url 'post_detail' post.slug %}" class="text-link">Read more</a>
+      <a href="{% url 'post_detail' post.slug %}" class="text-link">{% trans "Read more" %}</a>
       {% if post.author == request.user %}
-        <a href="{% url 'post_edit' post.slug %}" class="text-link text-link--quiet">Edit</a>
-        <a href="{% url 'post_delete' post.slug %}" class="text-link text-link--danger">Delete</a>
+        <a href="{% url 'post_edit' post.slug %}" class="text-link text-link--quiet">{% trans "Edit" %}</a>
+        <a href="{% url 'post_delete' post.slug %}" class="text-link text-link--danger">{% trans "Delete" %}</a>
       {% endif %}
     </div>
   </div>

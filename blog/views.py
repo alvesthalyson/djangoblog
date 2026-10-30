@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import PermissionDenied
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 from .models import Post, Category, Tag, Comment
 
@@ -69,7 +70,7 @@ class PostDetailView(DetailView):
             comment.post = self.object
             comment.author = request.user
             comment.save()
-            messages.success(request, "Comment posted!")
+            messages.success(request, _("Comment posted!"))
             return redirect(f"{self.object.get_absolute_url()}#comments")
         context = self.get_context_data(object=self.object, comment_form=form)
         return self.render_to_response(context)
@@ -82,7 +83,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        messages.success(self.request, "Post published successfully!")
+        messages.success(self.request, _("Post published successfully!"))
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -144,7 +145,7 @@ def comment_delete(request, pk):
         raise PermissionDenied
     post = comment.post
     comment.delete()
-    messages.success(request, "Comment deleted.")
+    messages.success(request, _("Comment deleted."))
     return redirect(f"{post.get_absolute_url()}#comments")
 
 def about(request):
@@ -157,7 +158,7 @@ def contact(request):
             # Campo-isca preenchido = robô: finge sucesso e não guarda nada.
             if not form.cleaned_data.get("website"):
                 form.save()
-            messages.success(request, "Thanks! Your message was sent.")
+            messages.success(request, _("Thanks! Your message was sent."))
             return redirect("contact")
     else:
         initial = {}

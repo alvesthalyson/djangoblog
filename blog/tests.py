@@ -659,3 +659,66 @@ class TransitionsTests(TestCase):
         from pathlib import Path
         audio = Path(__file__).parent / "static" / "blog" / "audio" / "harry-potter-theme.mp3"
         self.assertTrue(audio.exists())
+
+
+class LanguageTests(TestCase):
+    def setUp(self):
+        self.author = make_user("alice")
+        self.post = make_post(self.author)
+
+    def test_default_is_english(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, '<html lang="en"')
+        self.assertContains(response, "Categories")
+
+    def test_browser_language_is_detected(self):
+        pt = self.client.get(reverse("home"), HTTP_ACCEPT_LANGUAGE="pt-BR,pt;q=0.9")
+        self.assertContains(pt, '<html lang="pt-br"')
+        self.assertContains(pt, "Categorias")
+        ja = self.client.get(reverse("home"), HTTP_ACCEPT_LANGUAGE="ja,en;q=0.5")
+        self.assertContains(ja, '<html lang="ja"')
+        self.assertContains(ja, "カテゴリー")
+
+    def test_unknown_browser_language_falls_back_to_english(self):
+        response = self.client.get(reverse("home"), HTTP_ACCEPT_LANGUAGE="fr")
+        self.assertContains(response, "Categories")
+
+    def test_switcher_sets_language_and_remembers_it(self):
+        response = self.client.post(reverse("set_language"), {"language": "ja", "next": reverse("about")})
+        self.assertRedirects(response, reverse("about"), fetch_redirect_response=False)
+        page = self.client.get(reverse("about"))
+        self.assertContains(page, '<html lang="ja"')
+        self.assertContains(page, "はじめまして、Thalysonです")
+        self.client.post(reverse("set_language"), {"language": "pt-br", "next": "/"})
+        self.assertContains(self.client.get(reverse("about")), "Oi, eu sou o Thalyson")
+
+    def test_switcher_is_on_every_page_with_three_languages(self):
+        response = self.client.get(reverse("home"))
+        for code in ("en", "pt-br", "ja"):
+            self.assertContains(response, f'name="language" value="{code}"')
+
+    def test_form_validation_messages_are_translated(self):
+        self.client.post(reverse("set_language"), {"language": "pt-br", "next": "/"})
+        response = self.client.post(reverse("contact"), {"name": "", "email": ""})
+        self.assertContains(response, "Por favor, diga seu nome.")
+
+    def test_comment_count_uses_plural_forms(self):
+        Comment.objects.create(post=self.post, author=self.author, text="a")
+        Comment.objects.create(post=self.post, author=self.author, text="b")
+        response = self.client.get(reverse("home"), HTTP_ACCEPT_LANGUAGE="pt-BR")
+        self.assertContains(response, "2 comentários")
+
+    @override_settings(SITE_THEME="magic")
+    def test_js_strings_are_embedded_in_the_current_language(self):
+        response = self.client.get(reverse("home"), HTTP_ACCEPT_LANGUAGE="ja")
+        self.assertContains(response, 'id="blog-i18n"')
+        self.assertContains(response, "グリフィンドール")
+
+    def test_every_msgid_in_the_templates_has_a_translation(self):
+        import gettext
+        from pathlib import Path
+        base = Path(__file__).resolve().parent.parent / "locale"
+        for lang in ("pt_BR", "ja"):
+            catalog = gettext.translation("django", str(base), languages=[lang])
+            self.assertNotEqual(catalog.gettext("Categories"), "Categories")
+            self.assertNotEqual(catalog.gettext("Sorting Hat"), "Sorting Hat")

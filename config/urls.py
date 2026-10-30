@@ -70,6 +70,9 @@ urlpatterns = [
         name="password_reset_complete",
     ),
 
+    # Troca de idioma (POST do seletor no topo do site)
+    path("i18n/", include("django.conf.urls.i18n")),
+
     # Rotas do blog
     path("", include("blog.urls")),
 ]

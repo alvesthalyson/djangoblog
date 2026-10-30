@@ -23,6 +23,15 @@
     function store(key, value) { try { window.localStorage.setItem(key, value); } catch (e) { /* sem armazenamento */ } }
     function read(key) { try { return window.localStorage.getItem(key); } catch (e) { return null; } }
     function flag(value) { try { window.sessionStorage.setItem('djangoblog-fog', value); } catch (e) { /* sem armazenamento */ } }
+    var I18N = (function () {
+        try {
+            var el = document.getElementById('blog-i18n');
+            return el ? JSON.parse(el.textContent) : {};
+        } catch (e) {
+            return {};
+        }
+    })();
+    function t(key, fallback) { return (I18N.ui && I18N.ui[key]) || fallback; }
     function canAnimate() { return typeof Element.prototype.animate === 'function'; }
 
     /* ---------- Nevoeiro ---------- */
@@ -200,7 +209,7 @@
         function paint() {
             var on = !!(audio && !audio.paused) || wantsPlay;
             btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-            btn.textContent = on ? 'Music: on' : 'Music: off';
+            btn.textContent = on ? t('musicOn', 'Music: on') : t('musicOff', 'Music: off');
         }
         function ensure() {
             if (audio) { return audio; }

@@ -1,0 +1,533 @@
+# Traduções do DjangoBlog (ja).
+# Edite este arquivo e rode "python manage.py compilemessages" (ou refaça o .mo).
+msgid ""
+msgstr ""
+"Project-Id-Version: DjangoBlog\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "(In development, check your terminal for the email.)"
+msgstr "(開発中は、メールはターミナルに表示されます。)"
+
+msgid "<a href=\"%(login_url)s\">Log in</a> or <a href=\"%(register_url)s\">create an account</a> to join the conversation."
+msgstr "<a href=\"%(login_url)s\">ログイン</a>するか、<a href=\"%(register_url)s\">アカウントを作成</a>して会話に参加しましょう。"
+
+msgid "A door appears in the old library wall. What do you do?"
+msgstr "古い図書室の壁にドアが現れました。あなたはどうしますか?"
+
+msgid "A friend is blamed for something they did not do. You…"
+msgstr "友達がやってもいないことで責められています。あなたは…"
+
+msgid "A hilltop bonfire under open sky."
+msgstr "広い空の下、丘の上のたき火。"
+
+msgid "A lakeside cave lit by green lanterns."
+msgstr "緑のランタンに照らされた湖畔の洞窟。"
+
+msgid "A silent tower full of books."
+msgstr "本がぎっしり詰まった静かな塔。"
+
+msgid "A warm kitchen full of friends."
+msgstr "友達でにぎわう温かいキッチン。"
+
+msgid "About"
+msgstr "紹介"
+
+msgid "About me"
+msgstr "私について"
+
+msgid "About the blog"
+msgstr "このブログについて"
+
+msgid "Access Denied"
+msgstr "アクセスが拒否されました"
+
+msgid "Air"
+msgstr "風"
+
+msgid "Anything you'd like to tell me?"
+msgstr "伝えたいことがあればどうぞ"
+
+msgid "Back to the blog"
+msgstr "ブログに戻る"
+
+msgid "Back to the list"
+msgstr "一覧に戻る"
+
+msgid "Being the friend everyone could count on."
+msgstr "誰もが頼れる友達であったこと。"
+
+msgid "Bold, loyal and quick to stand up for others. You would open the door first and think about the hinges later."
+msgstr "勇敢で忠実、誰かのためにすぐ立ち上がれる人。まずドアを開けて、蝶番のことは後で考えるタイプです。"
+
+msgid "Building something that outlasts you."
+msgstr "自分より長く残るものを築いたこと。"
+
+msgid "Built with"
+msgstr "使用技術"
+
+msgid "By %(author)s"
+msgstr "投稿者: %(author)s"
+
+msgid "By %(author)s on %(date)s"
+msgstr "%(date)s に %(author)s が投稿"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Catch the Golden Snitch"
+msgstr "ゴールデン・スニッチを捕まえる"
+
+msgid "Categories"
+msgstr "カテゴリー"
+
+msgid "Category"
+msgstr "カテゴリー"
+
+msgid "Close the quiz"
+msgstr "テストを閉じる"
+
+msgid "Comment deleted."
+msgstr "コメントを削除しました。"
+
+msgid "Comment posted!"
+msgstr "コメントを投稿しました!"
+
+msgid "Commenting as <strong>%(name)s</strong> · max 500 characters"
+msgstr "<strong>%(name)s</strong> としてコメント · 500文字まで"
+
+msgid "Comments"
+msgstr "コメント"
+
+msgid "Contact"
+msgstr "お問い合わせ"
+
+msgid "Content"
+msgstr "本文"
+
+msgid "Cover image"
+msgstr "カバー画像"
+
+msgid "Create an account"
+msgstr "アカウントを作成"
+
+msgid "Curious, inventive and happiest with a good puzzle. You notice the pattern in the carvings before anyone else."
+msgstr "好奇心が強く、発明好きで、良いパズルが大好き。彫刻の模様に誰よりも早く気づきます。"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Delete \"%(title)s\"?"
+msgstr "「%(title)s」を削除しますか?"
+
+msgid "Delete Post"
+msgstr "投稿を削除"
+
+msgid "Dismiss message"
+msgstr "メッセージを閉じる"
+
+msgid "DjangoBlog - a multi-user blogging platform built with Django."
+msgstr "DjangoBlog - Djangoで作られた複数ユーザー向けブログプラットフォーム。"
+
+msgid "Doing the brave thing when it was hard."
+msgstr "困難なときに勇気ある行動をとったこと。"
+
+msgid "Don't repeat the title verbatim at the start of the content."
+msgstr "本文の冒頭でタイトルをそのまま繰り返さないでください。"
+
+msgid "Draft"
+msgstr "下書き"
+
+msgid "Earth"
+msgstr "地"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Edit Post"
+msgstr "投稿を編集"
+
+msgid "Email"
+msgstr "メールアドレス"
+
+msgid "Email address"
+msgstr "メールアドレス"
+
+msgid "Email sent"
+msgstr "メールを送信しました"
+
+msgid "Enter YouTube video URL"
+msgstr "YouTube動画のURLを入力"
+
+msgid "Expecto Patronum"
+msgstr "エクスペクト・パトローナム"
+
+msgid "Fire"
+msgstr "火"
+
+msgid "Football"
+msgstr "サッカー"
+
+msgid "Get in touch"
+msgstr "連絡する"
+
+msgid "Go Home"
+msgstr "ホームへ"
+
+msgid "Golden Snitches caught:"
+msgstr "捕まえたスニッチ:"
+
+msgid "Gryffindor"
+msgstr "グリフィンドール"
+
+msgid "Hi, %(name)s"
+msgstr "こんにちは、%(name)sさん"
+
+msgid "Hi, I'm Thalyson"
+msgstr "はじめまして、Thalysonです"
+
+msgid "Home"
+msgstr "ホーム"
+
+msgid "House"
+msgstr "寮"
+
+msgid "Hufflepuff"
+msgstr "ハッフルパフ"
+
+msgid "I'm studying Information Technology and have been living in Japan for almost two years. Learning a new language, a new country and a new profession at the same time is a lot, and building projects like this one is how I keep it fun."
+msgstr "私は情報技術を学んでいて、日本に住んで約2年になります。新しい言葉、新しい国、新しい仕事を同時に学ぶのは大変ですが、このようなプロジェクトを作ることが楽しみを保つ秘訣です。"
+
+msgid "IT student"
+msgstr "IT学生"
+
+msgid "IT student, living in Japan for almost two years, and the person behind this blog."
+msgstr "日本に住んで約2年になるIT学生で、このブログの作者です。"
+
+msgid "Image file too large (max 5MB)."
+msgstr "画像ファイルが大きすぎます(最大5MB)。"
+
+msgid "Japan · almost 2 years"
+msgstr "日本 · 約2年"
+
+msgid "Knock and ask if anyone inside needs help."
+msgstr "ノックして、中に助けが必要な人がいないか尋ねる。"
+
+msgid "Language"
+msgstr "言語"
+
+msgid "Learning Django"
+msgstr "Djangoを勉強中"
+
+msgid "Leave this field empty"
+msgstr "この欄は空のままにしてください"
+
+msgid "Log in"
+msgstr "ログイン"
+
+msgid "Login"
+msgstr "ログイン"
+
+msgid "Logout"
+msgstr "ログアウト"
+
+msgid "Lumos"
+msgstr "Lumos"
+
+msgid "Main"
+msgstr "メイン"
+
+msgid "Make sure the right person hears the truth."
+msgstr "しかるべき人に真実が届くようにする。"
+
+msgid "Matches, teams and the passion that goes with them."
+msgstr "試合、チーム、そしてそれにまつわる情熱。"
+
+msgid "Message (optional)"
+msgstr "メッセージ(任意)"
+
+msgid "Music"
+msgstr "音楽"
+
+msgid "Music: off"
+msgstr "音楽: オフ"
+
+msgid "Music: on"
+msgstr "音楽: オン"
+
+msgid "My Posts"
+msgstr "自分の投稿"
+
+msgid "Name"
+msgstr "お名前"
+
+msgid "New Post"
+msgstr "新規投稿"
+
+msgid "Next"
+msgstr "次へ"
+
+msgid "No Image"
+msgstr "画像なし"
+
+msgid "No category"
+msgstr "カテゴリーなし"
+
+msgid "No comments yet. Be the first!"
+msgstr "まだコメントはありません。最初のコメントをどうぞ!"
+
+msgid "No posts yet —"
+msgstr "まだ投稿がありません —"
+
+msgid "No tags"
+msgstr "タグなし"
+
+msgid "Nox"
+msgstr "Nox"
+
+msgid "One idea nobody else had thought of."
+msgstr "誰も思いつかなかったアイデア。"
+
+msgid "Open it at once, adventure waits for no one."
+msgstr "すぐに開ける。冒険は誰も待ってくれない。"
+
+msgid "Open the sorting quiz"
+msgstr "組分けテストを開く"
+
+msgid "Optional. With the magic theme, the page wears this house's colours."
+msgstr "任意。マジックテーマでは、ページがこの寮の色になります。"
+
+msgid "Page %(number)s of %(total)s"
+msgstr "%(number)s / %(total)s ページ"
+
+msgid "Page Not Found"
+msgstr "ページが見つかりません"
+
+msgid "Pagination"
+msgstr "ページ送り"
+
+msgid "Password reset complete"
+msgstr "パスワードの再設定が完了しました"
+
+msgid "Patient, fair and generous. You make a place feel like home, and people would follow you for that alone."
+msgstr "忍耐強く、公平で、寛大。どんな場所も我が家のように感じさせ、それだけで人がついてきます。"
+
+msgid "Pick a place to spend the evening."
+msgstr "夜を過ごす場所を選んでください。"
+
+msgid "Playlists and videos that keep me company while I code and study."
+msgstr "プログラミングや勉強のお供にしているプレイリストや動画。"
+
+msgid "Please add your email so I can reply."
+msgstr "返信できるよう、メールアドレスを入力してください。"
+
+msgid "Please tell me your name."
+msgstr "お名前を入力してください。"
+
+msgid "Post comment"
+msgstr "コメントを投稿"
+
+msgid "Post published successfully!"
+msgstr "投稿を公開しました!"
+
+msgid "Prefer code? The source is on <a href=\"https://github.com/alvesthalyson/djangoblog\" target=\"_blank\" rel=\"noopener\">GitHub</a>."
+msgstr "コードがお好みですか? ソースコードは <a href=\"https://github.com/alvesthalyson/djangoblog\" target=\"_blank\" rel=\"noopener\">GitHub</a> にあります。"
+
+msgid "Previous"
+msgstr "前へ"
+
+msgid "Published"
+msgstr "公開"
+
+msgid "Published on"
+msgstr "公開日"
+
+msgid "Question %(n)s of %(total)s"
+msgstr "質問 %(n)s / %(total)s"
+
+msgid "Questions, suggestions or just a hello? Leave your name and email; the message is optional."
+msgstr "ご質問、ご提案、ひと言のご挨拶でも歓迎です。お名前とメールアドレスをご入力ください。メッセージは任意です。"
+
+msgid "Quietly gather the proof."
+msgstr "静かに証拠を集める。"
+
+msgid "Ravenclaw"
+msgstr "レイブンクロー"
+
+msgid "Read more"
+msgstr "続きを読む"
+
+msgid "Register"
+msgstr "新規登録"
+
+msgid "Reset your password"
+msgstr "パスワードの再設定"
+
+msgid "Resourceful, driven and a little mysterious. You see what a situation could become and work out how to get there."
+msgstr "機転が利き、意欲的で、少しミステリアス。状況がどう変わりうるかを見抜き、そこへ至る道を考えます。"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Save new password"
+msgstr "新しいパスワードを保存"
+
+msgid "Send message"
+msgstr "送信する"
+
+msgid "Send reset link"
+msgstr "再設定リンクを送る"
+
+msgid "Series"
+msgstr "ドラマ・シリーズ"
+
+msgid "Set new password"
+msgstr "新しいパスワードの設定"
+
+msgid "Shows I binge, recommend and love to talk about."
+msgstr "一気見して、おすすめして、語りたくなる作品たち。"
+
+msgid "Slytherin"
+msgstr "スリザリン"
+
+msgid "Something Went Wrong"
+msgstr "問題が発生しました"
+
+msgid "Sorting Hat"
+msgstr "組分け帽子"
+
+msgid "Sorting Hat: you are in %(house)s. Open the quiz again"
+msgstr "組分け帽子: あなたは%(house)sです。テストをもう一度開く"
+
+msgid "Stand up and say so, loudly."
+msgstr "立ち上がって、大きな声でそう言う。"
+
+msgid "Status"
+msgstr "ステータス"
+
+msgid "Stay at their side, whatever happens."
+msgstr "何があっても、そばにいる。"
+
+msgid "Study the carvings around it first."
+msgstr "まず周りの彫刻を調べる。"
+
+msgid "Switch to the dark theme"
+msgstr "ダークテーマに切り替える"
+
+msgid "Switch to the light theme"
+msgstr "ライトテーマに切り替える"
+
+msgid "Tags"
+msgstr "タグ"
+
+msgid "Thanks! Your message was sent."
+msgstr "ありがとうございます!メッセージを送信しました。"
+
+msgid "That email does not look right."
+msgstr "メールアドレスの形式が正しくありません。"
+
+msgid "The hat has decided…"
+msgstr "帽子が決めました…"
+
+msgid "The page you're looking for doesn't exist."
+msgstr "お探しのページは存在しません。"
+
+msgid "This blog is a school project, inspired by the Harry Potter universe and filled with the things I like. You can write your own posts, sort them into Hogwarts houses, take the Sorting Hat quiz, and comment on what others publish."
+msgstr "このブログは学校の課題で、ハリー・ポッターの世界から着想を得て、私の好きなものを詰め込んでいます。自分の投稿を書いたり、ホグワーツの寮に分けたり、組分け帽子のテストを受けたり、他の人の投稿にコメントしたりできます。"
+
+msgid "This cannot be undone."
+msgstr "この操作は元に戻せません。"
+
+msgid "This post belongs to %(house)s. The blog wears its colours while you read."
+msgstr "この投稿は%(house)s寮のものです。読んでいる間、ブログは寮の色をまといます。"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Title must be at least 5 characters long."
+msgstr "タイトルは5文字以上で入力してください。"
+
+msgid "Toggle navigation"
+msgstr "ナビゲーションを切り替える"
+
+msgid "Try again"
+msgstr "もう一度やる"
+
+msgid "Turn effects off"
+msgstr "エフェクトをオフ"
+
+msgid "Turn effects on"
+msgstr "エフェクトをオン"
+
+msgid "Unsupported file type. Use JPG, PNG, or WEBP."
+msgstr "対応していないファイル形式です。JPG、PNG、WEBPを使用してください。"
+
+msgid "View"
+msgstr "表示"
+
+msgid "Wait and find out who gains from it being opened."
+msgstr "待って、開くことで誰が得をするのかを探る。"
+
+msgid "Want to say hello or share an idea?"
+msgstr "ひと言ご挨拶でも、アイデアの共有でもどうぞ。"
+
+msgid "Water"
+msgstr "水"
+
+msgid "We're working on it. Please try again shortly."
+msgstr "対応中です。しばらくしてからもう一度お試しください。"
+
+msgid "We've emailed you instructions for setting your password."
+msgstr "パスワード設定の手順をメールでお送りしました。"
+
+msgid "Wear my colours"
+msgstr "私の寮の色にする"
+
+msgid "What did you think?"
+msgstr "感想を書いてみましょう"
+
+msgid "What would you most like to be remembered for?"
+msgstr "何で人々に覚えていてほしいですか?"
+
+msgid "Which element feels most like you?"
+msgstr "あなたに一番近い元素はどれですか?"
+
+msgid "Write something before posting."
+msgstr "投稿する前に何か書いてください。"
+
+msgid "Yes, delete"
+msgstr "はい、削除します"
+
+msgid "You caught the Golden Snitch! +150 points"
+msgstr "ゴールデン・スニッチを捕まえました!+150ポイント"
+
+msgid "You don't have permission to do that."
+msgstr "この操作を行う権限がありません。"
+
+msgid "You haven't written any posts yet."
+msgstr "まだ投稿がありません。"
+
+msgid "YouTube video URL"
+msgstr "YouTube動画のURL"
+
+msgid "Your comment"
+msgstr "コメント"
+
+msgid "Your name"
+msgstr "お名前"
+
+msgid "Your password has been set. You can now log in."
+msgstr "パスワードを設定しました。ログインできます。"
+
+msgid "author"
+msgstr "投稿者"
+
+msgid "write the first one!"
+msgstr "最初の投稿を書きましょう!"
+
+msgid "%(counter)s comment"
+msgid_plural "%(counter)s comments"
+msgstr[0] "%(counter)s件のコメント"
